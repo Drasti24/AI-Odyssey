@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
 import KNNPlayMode from "./KNNPlayMode";
 import KNNTeachMode from "./KNNTeachMode";
 import KNNBreakMode from "./KNNBreakMode";
@@ -10,14 +9,18 @@ import KNNBreakMode from "./KNNBreakMode";
 export default function KNN() {
   const [activeTab, setActiveTab] = useState("play");
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -50,9 +53,8 @@ export default function KNN() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`rounded-lg px-6 py-2 font-bold transition-all ${
-                  activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
-                }`}
+                className={`rounded-lg px-6 py-2 font-bold transition-all ${activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
+                  }`}
               >
                 {t.label}
               </button>
@@ -69,8 +71,6 @@ export default function KNN() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }
@@ -134,7 +134,7 @@ function KNNRealWorld() {
         <p className="text-white/50 leading-relaxed">
           Netflix and Amazon use KNN to find users with similar tastes. If your movie-watching history is "near" another user's history, the algorithm recommends the movies they liked to you. You are the "Mystery Point," and other users are your "Neighbors"!
         </p>
-        
+
         <div className="mt-8 flex gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 font-black">N</div>
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-400/10 text-orange-400 border border-orange-400/20 font-black">A</div>

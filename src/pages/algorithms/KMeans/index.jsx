@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "../../../components/Navbar";
@@ -9,14 +9,18 @@ import KMeansBreakMode from "./KMeansBreakMode";
 export default function KMeans() {
   const [activeTab, setActiveTab] = useState("play");
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -52,9 +56,8 @@ export default function KMeans() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`rounded-lg px-6 py-2 font-bold transition-all ${
-                  activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
-                }`}
+                className={`rounded-lg px-6 py-2 font-bold transition-all ${activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
+                  }`}
               >
                 {t.label}
               </button>
@@ -122,7 +125,7 @@ function KMeansRealWorld() {
     <div className="flex flex-col gap-8 md:flex-row">
       <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-4 opacity-10">
-           <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
         </div>
         <h3 className="mb-4 text-2xl font-bold text-orange-400">Spotify & MasterCard</h3>
         <p className="mb-6 text-lg text-white/70 leading-relaxed italic">

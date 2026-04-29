@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "../../../components/Navbar";
@@ -9,14 +9,18 @@ import RandomForestBreakMode from "./RandomForestBreakMode";
 export default function RandomForest() {
   const [activeTab, setActiveTab] = useState("play");
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -35,7 +39,7 @@ export default function RandomForest() {
                 <span className="font-bold text-cyan-300">Easy definition:</span> A Random Forest is a team of many Decision Trees. Instead of trusting just one tree, we ask hundreds of them to vote on the answer. The majority wins—it's the "Wisdom of the Crowd"!
               </p>
               <p className="text-md text-white/50 border-l-2 border-green-400/30 pl-4">
-                <span className="font-bold text-white/70">Real-life example:</span> Asking 10 different friends for movie advice. One friend might have a weird bias, but if 8 out of 10 say "Watch this," it's probably a great movie. 
+                <span className="font-bold text-white/70">Real-life example:</span> Asking 10 different friends for movie advice. One friend might have a weird bias, but if 8 out of 10 say "Watch this," it's probably a great movie.
               </p>
             </div>
           </div>
@@ -52,9 +56,8 @@ export default function RandomForest() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`rounded-lg px-6 py-2 font-bold transition-all ${
-                  activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
-                }`}
+                className={`rounded-lg px-6 py-2 font-bold transition-all ${activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
+                  }`}
               >
                 {t.label}
               </button>
@@ -122,7 +125,7 @@ function ForestRealWorld() {
     <div className="flex flex-col gap-8 md:flex-row">
       <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-4 opacity-10 text-white">
-           <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         </div>
         <h3 className="mb-4 text-2xl font-bold text-green-400">Amazon & eBay</h3>
         <p className="mb-6 text-lg text-white/70 leading-relaxed italic">
