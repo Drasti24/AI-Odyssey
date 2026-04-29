@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { BrainCircuit } from "lucide-react";
+import { useCurtain } from "./CurtainTransition";
 
 export default function Navbar() {
+    const { trigger } = useCurtain();
+
     return (
         <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#07070c]/80 backdrop-blur-xl">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
@@ -17,6 +20,13 @@ export default function Navbar() {
                     <a href="#algorithms" className="hover:text-cyan-300">Algorithms</a>
                     <Link to="/playground" className="hover:text-cyan-300">Playground</Link>
                     <a href="#about" className="hover:text-cyan-300">About</a>
+                    <button
+                        onClick={() => trigger("/story")}
+                        className="hover:text-orange-400 transition-colors font-semibold"
+                        style={{ color: "#EA580C" }}
+                    >
+                        🎭 Story
+                    </button>
                 </div>
             </div>
         </nav>

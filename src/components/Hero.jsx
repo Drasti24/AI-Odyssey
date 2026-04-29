@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { motion } from "framer-motion";
 import MountainScene from "./MountainScene";
+import { useCurtain } from "./CurtainTransition";
 
 const fadeUp = (delay = 0) => ({
     initial: { y: 40, opacity: 0 },
@@ -9,6 +10,7 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Hero() {
+    const { trigger } = useCurtain();
     return (
         <section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden px-8">
             {/* ── Three.js background ── */}
@@ -63,6 +65,21 @@ export default function Hero() {
                         >
                             Explore Algorithms
                         </a>
+                        {/* ── Story CTA — triggers theater curtain transition ── */}
+                        <button
+                            onClick={() => trigger("/story")}
+                            className="group relative overflow-hidden rounded-xl px-7 py-4 font-bold text-white transition-all"
+                            style={{
+                                background: "linear-gradient(135deg, #C2410C, #EA580C, #D97706)",
+                                boxShadow: "0 0 0 0 rgba(234,88,12,0)",
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 28px rgba(234,88,12,0.55)"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0 0 rgba(234,88,12,0)"; }}
+                        >
+                            {/* Shimmer sweep */}
+                            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />
+                            🎭 The Story of AI
+                        </button>
                     </motion.div>
                 </div>
             </div>
