@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Play, ChevronRight, Trophy, RotateCcw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar";
+import { saveChapterProgress } from "../../utils/progressUtils";
 
 // ─── House data: Size (sq ft) vs Price ($) ───
 const HOUSE_DATA = [
@@ -79,7 +80,9 @@ export default function ChapterTwoRealEstate() {
 
   const handleLockIn = () => {
     const r2 = rSquared(HOUSE_DATA, userPredict);
-    setScore(Math.round(r2 * 100));
+    const finalScore = Math.round(r2 * 100);
+    setScore(finalScore);
+    saveChapterProgress(2, finalScore);
     setTimeout(() => setPhase("result"), 400);
   };
 

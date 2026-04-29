@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Play, ChevronRight, Trophy, RotateCcw, CloudRain, Sun, Thermometer, Droplets } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar";
+import { saveChapterProgress } from "../../utils/progressUtils";
 
 // ─── Weather Data Points ───
 // Features: [Temperature (°C), Humidity (%)]
@@ -51,6 +52,7 @@ export default function ChapterFourWeather() {
       setUserGuess(null);
       setShowResult(false);
     } else {
+      saveChapterProgress(4, score);
       setPhase("result");
     }
   };

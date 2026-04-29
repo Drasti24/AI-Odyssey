@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronRight, Play, RotateCcw, Trophy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "../../components/Navbar";
 import NetflixTasteMatcher from "./NetflixTasteMatcher";
+import { saveChapterProgress } from "../../utils/progressUtils";
 
 export default function ChapterOneNetflix() {
   const [phase, setPhase] = useState("preview");
@@ -14,6 +15,7 @@ export default function ChapterOneNetflix() {
     setResult(gameResult);
     setScore(gameResult.points);
     setPhase("result");
+    saveChapterProgress(1, gameResult.points);
   };
 
   const handleRestart = () => {

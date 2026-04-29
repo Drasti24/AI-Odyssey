@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Play, ChevronRight, Trophy, RotateCcw, Scan, ShieldCheck, ShieldAlert, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar";
+import { saveChapterProgress } from "../../utils/progressUtils";
 
 const FACES = [
   { 
@@ -458,6 +459,7 @@ export default function ChapterFiveFaceID() {
                                     setCurrentQuestion(prev => prev + 1);
                                   } else {
                                     setScore(100);
+                                    saveChapterProgress(5, 100);
                                     setPhase("result");
                                     setQuizPhase(false);
                                   }

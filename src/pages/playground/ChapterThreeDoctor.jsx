@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Play, ChevronRight, Trophy, RotateCcw, Heart, Stethoscope } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar";
+import { saveChapterProgress } from "../../utils/progressUtils";
 
 // ─── Decision Tree structure ───
 const TREE = {
@@ -68,6 +69,8 @@ export default function ChapterThreeDoctor() {
   // Move to next patient
   const nextPatient = () => {
     if (patientIdx + 1 >= totalPatients) {
+      const finalScore = correct * 20;
+      saveChapterProgress(3, finalScore);
       setPhase("result");
     } else {
       setPatientIdx((i) => i + 1);
