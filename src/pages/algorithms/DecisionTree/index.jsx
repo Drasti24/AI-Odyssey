@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, GitMerge, HelpCircle, CheckCircle } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Navbar from "../../../components/Navbar";
-import { motion, AnimatePresence } from "framer-motion";
+import DecisionTreePlayMode from "./DecisionTreePlayMode";
+import DecisionTreeTeachMode from "./DecisionTreeTeachMode";
+import DecisionTreeBreakMode from "./DecisionTreeBreakMode";
 
 export default function DecisionTree() {
-  const [step, setStep] = useState(0);
-
-  const treeSteps = [
-    { label: "Is it Raining?", choice: null },
-    { label: "Do you have an Umbrella?", choice: "Yes" },
-    { label: "Go Outside", choice: "Result" }
-  ];
+  const [activeTab, setActiveTab] = useState("play");
 
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
@@ -39,66 +35,39 @@ export default function DecisionTree() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-8 md:flex-row">
-            <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-6">
-              <h3 className="mb-4 text-2xl font-bold text-white">Interactive Tree</h3>
-              <p className="mb-6 text-white/60">
-                Decision trees split data based on features to reach a conclusion. Click through the tree nodes to see the logic in action.
-              </p>
-              
-              <div className="space-y-4">
-                {treeSteps.map((s, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={i <= step ? { opacity: 1, x: 0 } : { opacity: 0.2 }}
-                    className={`flex items-center gap-4 rounded-xl border p-4 transition-all ${i === step ? "border-cyan-400 bg-cyan-400/10" : "border-white/5 bg-black/20"}`}
-                  >
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${i === step ? "bg-cyan-400 text-black" : "bg-white/10 text-white/40"}`}>
-                      {i === 2 ? <CheckCircle size={20} /> : <HelpCircle size={20} />}
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-white/40 uppercase tracking-tighter">Step {i + 1}</p>
-                      <p className="font-bold">{s.label}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+          {/* Tabs */}
+          <div className="mb-8 flex space-x-2 rounded-xl bg-white/5 p-2 w-fit border border-white/5">
+            <button
+              onClick={() => setActiveTab("play")}
+              className={`rounded-lg px-6 py-2 font-bold transition-all ${
+                activeTab === "play" ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Play
+            </button>
+            <button
+              onClick={() => setActiveTab("teach")}
+              className={`rounded-lg px-6 py-2 font-bold transition-all ${
+                activeTab === "teach" ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Teach
+            </button>
+            <button
+              onClick={() => setActiveTab("break")}
+              className={`rounded-lg px-6 py-2 font-bold transition-all ${
+                activeTab === "break" ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Break
+            </button>
+          </div>
 
-              {step < 2 ? (
-                <button 
-                  onClick={() => setStep(step + 1)}
-                  className="mt-8 w-full rounded-xl bg-cyan-400 py-3 font-bold text-black hover:bg-cyan-300"
-                >
-                  Continue Decision
-                </button>
-              ) : (
-                <button 
-                  onClick={() => setStep(0)}
-                  className="mt-8 w-full rounded-xl border border-white/10 py-3 font-bold text-white hover:bg-white/5"
-                >
-                  Reset Tree
-                </button>
-              )}
-            </div>
-
-            <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-6 h-[400px] flex items-center justify-center relative">
-               <svg viewBox="0 0 100 80" className="w-full h-full">
-                  {/* Tree Connections */}
-                  <line x1="50" y1="10" x2="30" y2="35" stroke="white" strokeWidth="0.5" strokeOpacity={step >= 1 ? 1 : 0.2} />
-                  <line x1="50" y1="10" x2="70" y2="35" stroke="white" strokeWidth="0.5" strokeOpacity={0.2} />
-                  <line x1="30" y1="35" x2="20" y2="60" stroke="white" strokeWidth="0.5" strokeOpacity={step >= 2 ? 1 : 0.2} />
-                  <line x1="30" y1="35" x2="40" y2="60" stroke="white" strokeWidth="0.5" strokeOpacity={0.2} />
-
-                  {/* Nodes */}
-                  <circle cx="50" cy="10" r="4" fill={step >= 0 ? "#22d3ee" : "#07070c"} stroke="white" strokeWidth="1" />
-                  <circle cx="30" cy="35" r="4" fill={step >= 1 ? "#22d3ee" : "#07070c"} stroke="white" strokeWidth="1" />
-                  <circle cx="70" cy="35" r="4" fill="#07070c" stroke="white" strokeWidth="0.5" opacity="0.3" />
-                  
-                  <rect x="15" y="60" width="10" height="10" rx="2" fill={step >= 2 ? "#a78bfa" : "#07070c"} stroke="white" strokeWidth="1" />
-                  <rect x="35" y="60" width="10" height="10" rx="2" fill="#07070c" stroke="white" strokeWidth="0.5" opacity="0.3" />
-               </svg>
-            </div>
+          {/* Active Mode */}
+          <div className="min-h-[500px]">
+            {activeTab === "play" && <DecisionTreePlayMode />}
+            {activeTab === "teach" && <DecisionTreeTeachMode />}
+            {activeTab === "break" && <DecisionTreeBreakMode />}
           </div>
         </div>
       </section>

@@ -26,14 +26,14 @@ const algorithms = [
         id: "logistic-regression",
         name: "Logistic Regression",
         icon: "S",
-        status: "Coming Soon",
+        status: "MVP",
         description: "Predicts probability and classifies results using a sigmoid curve.",
     },
     {
         id: "random-forest",
         name: "Random Forest",
         icon: "♧",
-        status: "Coming Soon",
+        status: "MVP",
         description: "Combines many decision trees and lets them vote on the final answer.",
     },
     {
