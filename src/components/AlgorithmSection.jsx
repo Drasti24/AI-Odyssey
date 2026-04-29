@@ -97,10 +97,11 @@ export default function AlgorithmSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl font-black"
+                        className="text-3xl font-black uppercase tracking-tighter"
+                        style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
                     >
                         Explore{" "}
-                        <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-300 via-white to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">
                             Algorithms
                         </span>
                     </motion.h2>

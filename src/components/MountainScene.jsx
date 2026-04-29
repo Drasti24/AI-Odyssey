@@ -41,8 +41,8 @@ export default function MountainScene() {
       uniforms: {
         time: { value: 0 },
         pointLightPosition: { value: new THREE.Vector3(0, 0, 5) },
-        // Soft cyan-purple tint to match the site palette
-        color: { value: new THREE.Color("#7dd3fc") },
+        // Vibrant purple tint for the mountains
+        color: { value: new THREE.Color("#a855f7") },
       },
       vertexShader: `
         uniform float time;
@@ -107,6 +107,7 @@ export default function MountainScene() {
               d += snoise(vec3(position.x * noiseFreq * 2.0, position.y * noiseFreq * 2.0 - time * 0.2, 0.0)) * (noiseAmp * 0.5);
 
           vec3 newPos = position + normal * d;
+          vPosition = newPos; // Pass updated position for gradient calculation
           gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1.0);
         }
       `,
@@ -123,7 +124,12 @@ export default function MountainScene() {
           float diffuse = max(dot(n, lightDir), 0.0);
           float fresnel = pow(1.0 - dot(n, vec3(0.0, 0.0, 1.0)), 2.0);
 
-          vec3 finalColor = color * diffuse + color * fresnel * 0.5;
+          // Purple Gradient based on height (vPosition.y)
+          vec3 topColor = color; 
+          vec3 bottomColor = vec3(0.15, 0.0, 0.35); // Deep purple base
+          vec3 gradientColor = mix(bottomColor, topColor, clamp(vPosition.y * 0.4 + 0.5, 0.0, 1.0));
+
+          vec3 finalColor = gradientColor * diffuse + gradientColor * fresnel * 0.5;
           gl_FragColor = vec4(finalColor, 0.85);
         }
       `,
