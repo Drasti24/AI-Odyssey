@@ -19,26 +19,26 @@ const chapters = [
     title: "The Real Estate Episode",
     subtitle: "Predicting House Prices",
     algorithm: "Linear Regression",
-    status: "locked",
-    path: null,
-    color: "cyan",
+    status: "available",
+    path: "/playground/chapter-2",
+    color: "emerald",
   },
   {
     id: 3,
     title: "The Doctor Episode",
     subtitle: "Diagnosing Patients Step-by-Step",
     algorithm: "Decision Tree",
-    status: "locked",
-    path: null,
-    color: "green",
+    status: "available",
+    path: "/playground/chapter-3",
+    color: "indigo",
   },
   {
     id: 4,
     title: "The Weather Episode",
     subtitle: "Will It Rain Today?",
     algorithm: "Logistic Regression",
-    status: "locked",
-    path: null,
+    status: "available",
+    path: "/playground/chapter-4",
     color: "purple",
   },
   {
@@ -95,38 +95,36 @@ export default function Playground() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                {ch.status === "available" ? (
+                {ch.status === "available" ? (() => {
+                  const colors = {
+                    red: { border: "border-red-500/20", bg: "bg-gradient-to-br from-red-500/10 to-transparent", hoverBorder: "hover:border-red-500/40", shadow: "hover:shadow-[0_0_30px_rgba(239,68,68,0.15)]", via: "via-red-500", text: "text-red-400", hoverText: "group-hover:text-red-300", btnBg: "bg-red-600", btnShadow: "shadow-[0_0_15px_rgba(220,38,38,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(220,38,38,0.6)]" },
+                    emerald: { border: "border-emerald-500/20", bg: "bg-gradient-to-br from-emerald-500/10 to-transparent", hoverBorder: "hover:border-emerald-500/40", shadow: "hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]", via: "via-emerald-500", text: "text-emerald-400", hoverText: "group-hover:text-emerald-300", btnBg: "bg-emerald-600", btnShadow: "shadow-[0_0_15px_rgba(16,185,129,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(16,185,129,0.6)]" },
+                    indigo: { border: "border-indigo-500/20", bg: "bg-gradient-to-br from-indigo-500/10 to-transparent", hoverBorder: "hover:border-indigo-500/40", shadow: "hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]", via: "via-indigo-500", text: "text-indigo-400", hoverText: "group-hover:text-indigo-300", btnBg: "bg-indigo-600", btnShadow: "shadow-[0_0_15px_rgba(99,102,241,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]" },
+                    purple: { border: "border-purple-500/20", bg: "bg-gradient-to-br from-purple-500/10 to-transparent", hoverBorder: "hover:border-purple-500/40", shadow: "hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]", via: "via-purple-500", text: "text-purple-400", hoverText: "group-hover:text-purple-300", btnBg: "bg-purple-600", btnShadow: "shadow-[0_0_15px_rgba(168,85,247,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)]" },
+                  };
+                  const c = colors[ch.color] || colors.red;
+                  return (
                   <Link to={ch.path} className="block group">
-                    <div className="relative overflow-hidden rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-500/10 to-transparent p-6 transition-all duration-300 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(239,68,68,0.15)] hover:scale-[1.02]">
-                      {/* Top accent */}
-                      <div className="h-0.5 absolute top-0 left-0 right-0 bg-gradient-to-r from-transparent via-red-500 to-transparent" />
-
+                    <div className={`relative overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:scale-[1.02] ${c.border} ${c.bg} ${c.hoverBorder} ${c.shadow}`}>
+                      <div className={`h-0.5 absolute top-0 left-0 right-0 bg-gradient-to-r from-transparent to-transparent ${c.via}`} />
                       <div className="mb-4 flex items-center justify-between">
-                        <span className="text-xs font-bold uppercase tracking-widest text-red-400">
-                          Chapter {ch.id}
-                        </span>
+                        <span className={`text-xs font-bold uppercase tracking-widest ${c.text}`}>Chapter {ch.id}</span>
                         <div className="flex items-center gap-1.5 rounded-full bg-green-500/10 px-2.5 py-1 text-xs font-bold text-green-400">
-                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-400" />
-                          Available
+                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-400" /> Available
                         </div>
                       </div>
-
-                      <h3 className="mb-1 text-xl font-black text-white group-hover:text-red-300 transition-colors">
-                        {ch.title}
-                      </h3>
+                      <h3 className={`mb-1 text-xl font-black text-white transition-colors ${c.hoverText}`}>{ch.title}</h3>
                       <p className="mb-4 text-sm text-white/40">{ch.subtitle}</p>
-
                       <div className="flex items-center justify-between">
-                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-bold text-white/50">
-                          {ch.algorithm}
-                        </span>
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_0_15px_rgba(220,38,38,0.4)] group-hover:shadow-[0_0_20px_rgba(220,38,38,0.6)] transition-shadow">
+                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-bold text-white/50">{ch.algorithm}</span>
+                        <div className={`flex h-8 w-8 items-center justify-center rounded-full text-white transition-shadow ${c.btnBg} ${c.btnShadow} ${c.btnHover}`}>
                           <Play className="h-3.5 w-3.5 fill-white" />
                         </div>
                       </div>
                     </div>
                   </Link>
-                ) : (
+                  );
+                })() : (
                   /* Locked chapter card */
                   <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-6 opacity-60">
                     <div className="mb-4 flex items-center justify-between">

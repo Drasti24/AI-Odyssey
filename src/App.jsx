@@ -14,6 +14,9 @@ import LogisticRegression from "./pages/algorithms/LogisticRegression";
 import RandomForest from "./pages/algorithms/RandomForest";
 import Playground from "./pages/Playground";
 import ChapterOneNetflix from "./pages/playground/ChapterOneNetflix";
+import ChapterTwoRealEstate from "./pages/playground/ChapterTwoRealEstate";
+import ChapterThreeDoctor from "./pages/playground/ChapterThreeDoctor";
+import ChapterFourWeather from "./pages/playground/ChapterFourWeather";
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false);
@@ -27,6 +30,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/playground" element={<Playground />} />
           <Route path="/playground/chapter-1" element={<ChapterOneNetflix />} />
+          <Route path="/playground/chapter-2" element={<ChapterTwoRealEstate />} />
+          <Route path="/playground/chapter-3" element={<ChapterThreeDoctor />} />
+          <Route path="/playground/chapter-4" element={<ChapterFourWeather />} />
           <Route path="/algorithms/knn" element={<KNN />} />
           <Route path="/algorithms/linear-regression" element={<LinearRegression />} />
           <Route path="/algorithms/neural-network" element={<NeuralNetwork />} />
