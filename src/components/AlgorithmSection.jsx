@@ -40,8 +40,15 @@ const algorithms = [
         id: "neural-network",
         name: "Neural Network",
         icon: "⚡",
-        status: "Coming Soon",
+        status: "MVP",
         description: "Learns patterns using layers, weights, biases, and activation functions.",
+    },
+    {
+        id: "kmeans",
+        name: "K-Means Clustering",
+        icon: "⚝",
+        status: "MVP",
+        description: "Groups data points into clusters based on their similarity.",
     },
 ];
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import KNNPlayMode from "./KNNPlayMode";
@@ -14,6 +16,13 @@ export default function KNN() {
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
+          <Link 
+            to="/" 
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
           <div className="mb-12">
             <h1 className="mb-4 text-5xl font-black">
               K-Nearest{" "}
