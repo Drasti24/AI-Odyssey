@@ -9,23 +9,31 @@ import { saveChapterProgress } from "../../utils/progressUtils";
 export default function ChapterOneNetflix() {
   const [phase, setPhase] = useState("preview");
   const [score, setScore] = useState(0);
+  const [gameScore, setGameScore] = useState(0);
   const [result, setResult] = useState(null);
 
   const handleComplete = (gameResult) => {
     setResult(gameResult);
-    setScore(gameResult.points);
+    setGameScore(gameResult.points);
+    setPhase("challenge");
+  };
+
+  const handleChallengeAnswer = (isCorrect) => {
+    const finalScore = isCorrect ? 100 : gameScore;
+    setScore(finalScore);
+    saveChapterProgress(1, finalScore);
     setPhase("result");
-    saveChapterProgress(1, gameResult.points);
   };
 
   const handleRestart = () => {
     setPhase("preview");
     setScore(0);
+    setGameScore(0);
     setResult(null);
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white">
+    <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-6 pt-28 pb-20">
@@ -44,7 +52,7 @@ export default function ChapterOneNetflix() {
                 <motion.div
                   className="h-full rounded-full bg-red-600"
                   initial={{ width: "0%" }}
-                  animate={{ width: phase === "preview" ? "12%" : phase === "story" ? "65%" : "100%" }}
+                  animate={{ width: phase === "preview" ? "12%" : phase === "story" ? "45%" : phase === "challenge" ? "75%" : "100%" }}
                   transition={{ duration: 0.6 }}
                 />
               </div>
@@ -53,7 +61,7 @@ export default function ChapterOneNetflix() {
 
             <div className="flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-500/5 px-4 py-1.5 text-sm font-bold text-yellow-400">
               <Trophy className="h-4 w-4" />
-              {score} pts
+              {score > 0 ? score : gameScore} pts
             </div>
           </div>
 
@@ -79,10 +87,10 @@ export default function ChapterOneNetflix() {
                       AI Odyssey Originals
                     </h1>
 
-                    <h2 className="mb-6 text-4xl font-black leading-tight md:text-5xl">
-                      Episode 1:{" "}
+                    <h2 className="mb-6 text-4xl font-black leading-tight md:text-5xl" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                      EPISODE 1:{" "}
                       <span className="bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
-                        Movie Recommendation Game
+                        MOVIE MATCH
                       </span>
                     </h2>
 
@@ -126,6 +134,45 @@ export default function ChapterOneNetflix() {
               </motion.div>
             )}
 
+            {phase === "challenge" && (
+              <motion.div
+                key="challenge"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="mx-auto max-w-3xl text-center"
+              >
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-12 backdrop-blur-xl">
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-6 block" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    Knowledge Check
+                  </span>
+                  <h3 className="text-2xl font-black text-white mb-10 leading-relaxed">
+                    In K-Nearest Neighbors, what does the "K" actually represent?
+                  </h3>
+                  <div className="grid gap-4">
+                    {[
+                      { text: "The total number of movies in the database.", correct: false },
+                      { text: "The number of most similar neighbors (people) used to decide.", correct: true },
+                      { text: "The speed of the algorithm in Kilobytes.", correct: false }
+                    ].map((opt, i) => (
+                      <button
+                        key={i}
+                        onClick={() => handleChallengeAnswer(opt.correct)}
+                        className="w-full rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-lg font-bold transition-all hover:scale-[1.02] hover:bg-white/10 hover:border-red-500/50 group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/40 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                            {String.fromCharCode(65 + i)}
+                          </span>
+                          {opt.text}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             {phase === "result" && (
               <motion.div
                 key="result"
@@ -144,25 +191,32 @@ export default function ChapterOneNetflix() {
                     <Trophy className="h-10 w-10" />
                   </motion.div>
 
-                  <h3 className="mb-2 text-3xl font-black text-white">Recommendation Unlocked</h3>
-                  <p className="mb-2 text-lg text-white/45">Score: {score} points</p>
+                  <h3 className="mb-2 text-3xl font-black text-white" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    MISSION COMPLETE
+                  </h3>
+                  <p className="mb-2 text-lg text-white/45">Total Experience: <span className="text-white font-black">{score} XP</span></p>
+                  {score >= 100 ? (
+                    <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-8">★ Chapter 1 Mastery Unlocked ★</p>
+                  ) : (
+                    <p className="text-red-400 text-xs font-bold uppercase tracking-widest mb-8">Challenge Failed - Try again for 100 XP</p>
+                  )}
 
                   <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-red-500/20 bg-red-500/5 p-6 text-left">
                     <h4 className="mb-3 text-sm font-bold uppercase tracking-widest text-red-300">
-                      Netflix would recommend
+                      Recommendation Unlocked
                     </h4>
                     <p className="text-3xl font-black text-white">{result?.recommendation}</p>
                     <p className="mt-3 text-sm font-bold text-cyan-300">
                       Match strength: {result?.matchStrength}% using K = {result?.k}
                     </p>
                     <p className="mt-2 text-sm text-white/50">
-                      Nearest viewers used: {result?.neighborNames}
+                      Nearest neighbors used: {result?.neighborNames}
                     </p>
                   </div>
 
                   <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-6 text-left">
                     <h4 className="mb-3 text-sm font-bold uppercase tracking-widest text-cyan-400">
-                      Why this is KNN
+                      The KNN Lesson
                     </h4>
                     <p className="text-lg leading-relaxed text-white/70">
                       KNN does not memorize one perfect rule. It looks for examples
@@ -174,11 +228,10 @@ export default function ChapterOneNetflix() {
 
                   <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                     <Link
-                      to="/algorithms/knn"
-                      className="inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-6 py-3 font-bold text-black transition-all hover:scale-105 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] active:scale-95"
+                      to="/playground"
+                      className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-bold text-black transition-all hover:scale-105 hover:bg-red-500 hover:text-white hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-95"
                     >
-                      Try KNN in Action
-                      <ChevronRight className="h-4 w-4" />
+                      Return to Arena
                     </Link>
 
                     <button
@@ -186,16 +239,7 @@ export default function ChapterOneNetflix() {
                       className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3 font-bold text-white/60 transition-all hover:scale-105 hover:border-white/20 hover:text-white active:scale-95"
                     >
                       <RotateCcw className="h-4 w-4" />
-                      Play Again
-                    </button>
-
-                    <button
-                      disabled
-                      className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-6 py-3 font-bold text-white/20"
-                      title="Coming soon"
-                    >
-                      Next Episode
-                      <ChevronRight className="h-4 w-4" />
+                      Try Again
                     </button>
                   </div>
                 </div>
