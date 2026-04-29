@@ -6,6 +6,7 @@ import SplashScreen from "./components/SplashScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import { CurtainTransitionProvider } from "./components/CurtainTransition";
 import AIStoryPage from "./pages/AIStoryPage";
+import AlgorithmsPage from "./pages/AlgorithmsPage";
 
 // Algorithm Pages
 import KNN from "./pages/algorithms/KNN";
@@ -35,6 +36,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/story" element={<AIStoryPage />} />
+            <Route path="/algorithms" element={<AlgorithmsPage />} />
             <Route path="/playground" element={<Playground />} />
             <Route path="/playground/chapter-1" element={<ChapterOneNetflix />} />
             <Route path="/playground/chapter-2" element={<ChapterTwoRealEstate />} />

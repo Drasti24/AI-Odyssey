@@ -53,37 +53,85 @@ export default function Hero() {
                         Let's Make It Visible
                     </motion.p>
 
-                    {/* CTA Path - Restructured for Clarity */}
+                    {/* CTA Path - Liquid Glass Design */}
                     <motion.div 
-                        className="mt-16 grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-3" 
+                        className="mt-16 grid w-full max-w-6xl grid-cols-1 gap-8 md:grid-cols-3" 
                         {...fadeUp(0.4)}
                     >
-                        {/* Primary CTA: Timeline */}
-                        <a
-                            href="#timeline"
-                            className="group relative flex flex-col items-center justify-center rounded-[2rem] border border-white/20 bg-white/[0.08] p-8 backdrop-blur-2xl transition-all duration-500 hover:scale-[1.02] hover:border-cyan-400/50 hover:bg-white/[0.12] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3),0_0_30px_rgba(34,211,238,0.1)] col-span-1"
-                        >
-                            <span className="mb-3 text-lg font-black text-cyan-300 transition-colors group-hover:text-cyan-200">Let’s See How AI Was Born</span>
-                            <span className="text-[10px] font-medium text-white/40 leading-relaxed uppercase tracking-widest">The Timeline</span>
-                        </a>
+                        {[
+                            {
+                                id: "timeline",
+                                to: "/story",
+                                title: "AI BIRTH",
+                                desc: "Follow the 70-year journey of breakthroughs.",
+                                color: "from-cyan-400/20 to-purple-500/20",
+                                blob: "bg-cyan-400/30",
+                                titleClass: "text-cyan-300 transition-colors group-hover:text-cyan-200"
+                            },
+                            {
+                                id: "algorithms",
+                                to: "/algorithms",
+                                title: "ALGORITHMS",
+                                desc: "Master KNN, Trees & Neural Networks.",
+                                color: "from-purple-500/20 to-pink-500/20",
+                                blob: "bg-purple-500/30",
+                                titleClass: "text-white/90 transition-colors group-hover:text-cyan-300"
+                            },
+                            {
+                                id: "playground",
+                                to: "/playground",
+                                title: "PLAYGROUND",
+                                desc: "Test your skills in the interactive arena.",
+                                color: "from-red-500/20 to-orange-500/20",
+                                blob: "bg-red-500/30",
+                                // Red-White-Blue gradient matching the playground page
+                                titleClass: "bg-gradient-to-r from-red-400 via-white to-cyan-400 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-cyan-300"
+                            }
+                        ].map((item, i) => (
+                            <Link 
+                                key={item.id} 
+                                to={item.to} 
+                                className="group relative flex flex-col items-center justify-center rounded-[2.5rem] border border-white/20 bg-white/[0.03] backdrop-blur-3xl transition-all duration-500 hover:scale-[1.03] hover:border-white/40 hover:bg-white/[0.08] hover:shadow-[0_20px_80px_rgba(0,0,0,0.4)] overflow-hidden"
+                            >
+                                {/* Animated Liquid Blobs */}
+                                <div className="absolute inset-0 overflow-hidden rounded-[2.5rem]">
+                                    <motion.div
+                                        animate={{
+                                            x: [0, 30, 0],
+                                            y: [0, -20, 0],
+                                            scale: [1, 1.2, 1],
+                                        }}
+                                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                                        className={`absolute -left-4 -top-4 h-32 w-32 rounded-full blur-3xl ${item.blob}`}
+                                    />
+                                    <motion.div
+                                        animate={{
+                                            x: [0, -30, 0],
+                                            y: [0, 20, 0],
+                                            scale: [1, 1.3, 1],
+                                        }}
+                                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                        className="absolute -right-4 -bottom-4 h-32 w-32 rounded-full bg-indigo-500/20 blur-3xl"
+                                    />
+                                </div>
 
-                        {/* Step 2: Algorithms */}
-                        <a
-                            href="#algorithms"
-                            className="group relative flex flex-col items-center justify-center rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-2xl transition-all duration-500 hover:scale-[1.02] hover:border-white/30 hover:bg-white/[0.08] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
-                        >
-                            <span className="mb-3 text-lg font-bold text-white/90 transition-colors group-hover:text-cyan-300">Explore Algorithms</span>
-                            <span className="text-[10px] font-medium text-white/30 leading-relaxed uppercase tracking-widest">Master Logic</span>
-                        </a>
+                                {/* Glass Surface */}
+                                <div className="relative z-10 flex flex-col items-center justify-center p-10">
+                                    <span 
+                                        className={`mb-4 text-xl font-black drop-shadow-md md:text-2xl ${item.titleClass}`}
+                                        style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
+                                    >
+                                        {item.title}
+                                    </span>
+                                    <span className="max-w-[200px] text-center text-[10px] font-bold uppercase tracking-widest text-white/50 leading-relaxed">
+                                        {item.desc}
+                                    </span>
+                                </div>
 
-                        {/* Step 3: Playground */}
-                        <Link
-                            to="/playground"
-                            className="group relative flex flex-col items-center justify-center rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-2xl transition-all duration-500 hover:scale-[1.02] hover:border-white/30 hover:bg-white/[0.08] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
-                        >
-                            <span className="mb-3 text-lg font-bold text-white/90 transition-colors group-hover:text-cyan-300">Learn with Game</span>
-                            <span className="text-[10px] font-medium text-white/30 leading-relaxed uppercase tracking-widest">Interactive Play</span>
-                        </Link>
+                                {/* Glossy Overlay */}
+                                <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent opacity-50" />
+                            </Link>
+                        ))}
                     </motion.div>
                 </div>
             </div>

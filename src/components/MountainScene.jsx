@@ -6,9 +6,16 @@ import * as THREE from "three";
  * Solid, undulating mountain landscape rendered with a custom GLSL shader.
  * Mouse movement shifts the point light for a dynamic feel.
  */
-export default function MountainScene() {
+export default function MountainScene({ color: customColor = "#a855f7" }) {
   const mountRef = useRef(null);
   const lightRef = useRef(null);
+  const materialRef = useRef(null);
+
+  useEffect(() => {
+    if (materialRef.current) {
+      materialRef.current.uniforms.color.value.set(customColor);
+    }
+  }, [customColor]);
 
   useEffect(() => {
     const currentMount = mountRef.current;
@@ -41,8 +48,8 @@ export default function MountainScene() {
       uniforms: {
         time: { value: 0 },
         pointLightPosition: { value: new THREE.Vector3(0, 0, 5) },
-        // Vibrant purple tint for the mountains
-        color: { value: new THREE.Color("#a855f7") },
+        // Dynamic tint for the mountains
+        color: { value: new THREE.Color(customColor) },
       },
       vertexShader: `
         uniform float time;
@@ -136,6 +143,7 @@ export default function MountainScene() {
       transparent: true,
     });
 
+    materialRef.current = material;
     const mesh = new THREE.Mesh(geometry, material);
     mesh.rotation.x = -Math.PI / 2;
     scene.add(mesh);
