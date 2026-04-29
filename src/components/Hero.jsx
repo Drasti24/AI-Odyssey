@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import MountainScene from "./MountainScene";
 import { useCurtain } from "./CurtainTransition";
 
@@ -19,8 +20,8 @@ export default function Hero() {
             </Suspense>
 
             {/* ── Colour tints on top of the 3D scene ── */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_40%_40%,rgba(14,165,233,0.30),transparent_55%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(6,182,212,0.15),transparent_50%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_40%_40%,rgba(168,85,247,0.30),transparent_55%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(139,92,246,0.15),transparent_50%)]" />
             {/* Dark vignette at bottom so text is readable */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#07070c] via-[#07070c]/40 to-transparent" />
 
@@ -29,7 +30,8 @@ export default function Hero() {
                 <div className="flex flex-col items-center">
                     {/* Main heading */}
                     <motion.h1
-                        className="text-6xl font-black leading-[1.05] md:text-7xl text-white"
+                        className="text-4xl font-black leading-tight md:text-6xl text-white uppercase"
+                        style={{ fontFamily: "'Press Start 2P', system-ui" }}
                         {...fadeUp(0.1)}
                     >
                         AI is not magic
@@ -45,24 +47,41 @@ export default function Hero() {
 
                     {/* Accent line */}
                     <motion.p
-                        className="mt-4 text-xl font-bold text-cyan-400"
+                        className="mt-4 text-xl font-bold text-cyan-400 uppercase tracking-[0.2em]"
                         {...fadeUp(0.3)}
                     >
                         Let's Make It Visible
                     </motion.p>
 
-                    {/* CTA Buttons */}
-                    <motion.div className="mt-10 flex flex-wrap justify-center gap-4" {...fadeUp(0.4)}>
+                    {/* CTA Path - Restructured for Clarity */}
+                    <motion.div 
+                        className="mt-16 grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-3" 
+                        {...fadeUp(0.4)}
+                    >
+                        {/* Primary CTA: Timeline */}
                         <a
-                            href="#algorithms"
-                            className="rounded-xl bg-cyan-400 px-7 py-4 font-bold text-black transition-all hover:bg-cyan-300 hover:shadow-[0_0_24px_rgba(34,211,238,0.5)]"
+                            href="#timeline"
+                            className="group relative flex flex-col items-center justify-center rounded-2xl border border-cyan-400/30 bg-cyan-400/10 p-8 transition-all hover:bg-cyan-400/20 hover:shadow-[0_0_40px_rgba(34,211,238,0.2)] col-span-1"
                         >
-                            Start Learning
+                            <span className="mb-2 text-xl font-black text-cyan-300">Let’s See How AI Was Born</span>
+                            <span className="text-xs font-medium text-white/40 leading-relaxed">Follow the 70-year journey of AI breakthroughs</span>
                         </a>
+
+                        {/* Step 2: Algorithms */}
                         <a
                             href="#algorithms"
-                            className="rounded-xl border border-white/15 bg-white/5 px-7 py-4 font-bold text-white transition-all hover:bg-white/10"
+                            className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
                         >
+                            <span className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-cyan-300">Explore Algorithms</span>
+                            <span className="text-xs font-medium text-white/30 leading-relaxed">Master KNN, Linear Regression & more</span>
+                        </a>
+
+                        {/* Step 3: Playground */}
+                        <Link
+                            to="/playground"
+                            className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
+                        >
+<<<<<<< HEAD
                             Explore Algorithms
                         </a>
                         {/* ── Story CTA — triggers theater curtain transition ── */}
@@ -80,6 +99,11 @@ export default function Hero() {
                             <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />
                             🎭 The Story of AI
                         </button>
+=======
+                            <span className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-cyan-300">Learn with Game</span>
+                            <span className="text-xs font-medium text-white/30 leading-relaxed">Test your skills in the interactive playground</span>
+                        </Link>
+>>>>>>> 9a0f79d01c730a67fa0237794a1101704e6968b8
                     </motion.div>
                 </div>
             </div>

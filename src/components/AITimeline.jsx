@@ -133,7 +133,7 @@ export default function AITimeline() {
     }, []);
 
     return (
-        <section className="relative overflow-hidden px-8 py-24">
+        <section id="timeline" className="relative overflow-hidden px-8 py-24">
             {/* Ambient glow */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(124,58,237,0.10),transparent)]" />
 
@@ -150,9 +150,12 @@ export default function AITimeline() {
                         <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-pulse" />
                         AI History
                     </div>
-                    <h2 className="text-4xl font-black text-white md:text-5xl">
+                    <h2 
+                        className="text-2xl font-black text-white md:text-4xl uppercase tracking-tighter"
+                        style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
+                    >
                         From idea to{" "}
-                        <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-300 via-white to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">
                             everyday tool
                         </span>
                     </h2>
