@@ -91,7 +91,7 @@ export default function SplashScreen({ onFinish }) {
                             position: "absolute",
                             inset: 0,
                             background:
-                                "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(124,58,237,0.18) 0%, transparent 70%)",
+                                "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(14,165,233,0.18) 0%, transparent 70%)",
                         }}
                     />
                     <div
@@ -117,8 +117,8 @@ export default function SplashScreen({ onFinish }) {
                     {/* Orbital rings */}
                     <div style={{ position: "absolute", inset: 0 }}>
                         <ParticleRing radius={120} count={16} duration={8} color="rgba(34,211,238,0.8)" size={4} />
-                        <ParticleRing radius={180} count={24} duration={14} color="rgba(167,139,250,0.7)" size={3} />
-                        <ParticleRing radius={240} count={32} duration={20} color="rgba(244,114,182,0.5)" size={2} />
+                        <ParticleRing radius={180} count={24} duration={14} color="rgba(56,189,248,0.7)" size={3} />
+                        <ParticleRing radius={240} count={32} duration={20} color="rgba(125,211,252,0.5)" size={2} />
                     </div>
 
                     {/* Center logo pulse */}
@@ -140,14 +140,13 @@ export default function SplashScreen({ onFinish }) {
                             animate={{ scale: [1, 1.08, 1] }}
                             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                         />
-                        {/* Brain SVG icon */}
-                        <div
-                            style={{
-                                width: 80,
-                                height: 80,
-                                borderRadius: "50%",
-                                background: "linear-gradient(135deg, rgba(34,211,238,0.2), rgba(167,139,250,0.2))",
-                                border: "1.5px solid rgba(34,211,238,0.4)",
+                            <div
+                                style={{
+                                    width: 80,
+                                    height: 80,
+                                    borderRadius: "50%",
+                                    background: "linear-gradient(135deg, rgba(34,211,238,0.2), rgba(56,189,248,0.2))",
+                                    border: "1.5px solid rgba(34,211,238,0.4)",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -167,7 +166,7 @@ export default function SplashScreen({ onFinish }) {
                                 <defs>
                                     <linearGradient id="splashGrad" x1="0" y1="0" x2="1" y2="1">
                                         <stop offset="0%" stopColor="#22d3ee" />
-                                        <stop offset="100%" stopColor="#a78bfa" />
+                                        <stop offset="100%" stopColor="#38bdf8" />
                                     </linearGradient>
                                 </defs>
                                 <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
@@ -208,7 +207,7 @@ export default function SplashScreen({ onFinish }) {
                             AI{" "}
                             <span
                                 style={{
-                                    background: "linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6)",
+                                    background: "linear-gradient(90deg, #22d3ee, #38bdf8, #7dd3fc)",
                                     WebkitBackgroundClip: "text",
                                     WebkitTextFillColor: "transparent",
                                 }}
@@ -272,7 +271,7 @@ export default function SplashScreen({ onFinish }) {
                             style={{
                                 height: "100%",
                                 borderRadius: 99,
-                                background: "linear-gradient(90deg, #22d3ee, #a78bfa)",
+                                background: "linear-gradient(90deg, #22d3ee, #38bdf8)",
                             }}
                             initial={{ width: "0%" }}
                             animate={{ width: "100%" }}

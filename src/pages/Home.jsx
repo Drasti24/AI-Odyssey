@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import AITimeline from "../components/AITimeline";
 import AlgorithmSection from "../components/AlgorithmSection";
+import Footer from "../components/Footer";
 
 export default function Home() {
     return (
@@ -32,6 +33,7 @@ export default function Home() {
             </section>
 
             <AlgorithmSection />
+            <Footer />
         </main>
     );
 }
