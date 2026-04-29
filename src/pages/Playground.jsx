@@ -287,17 +287,18 @@ export default function Playground() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <div 
-                onMouseEnter={() => setHoveredColor("#f59e0b")}
-                onMouseLeave={() => setHoveredColor(mountainColors.default)}
-                className={`relative overflow-hidden rounded-3xl border-2 p-8 transition-all duration-500 backdrop-blur-sm ${(totalScore >= 400 || isAdmin) ? "border-amber-500/50 bg-amber-500/5 shadow-[0_0_50px_rgba(245,158,11,0.1)]" : "border-white/5 bg-white/[0.02] opacity-40"}`}
-              >
+                <Link 
+                  to={(totalScore >= 400 || isAdmin) ? "/playground/boss" : "#"}
+                  onMouseEnter={() => setHoveredColor("#f59e0b")}
+                  onMouseLeave={() => setHoveredColor(mountainColors.default)}
+                  className={`relative group overflow-hidden rounded-3xl border-2 p-8 transition-all duration-500 backdrop-blur-sm ${(totalScore >= 400 || isAdmin) ? "border-amber-500/50 bg-amber-500/5 shadow-[0_0_50px_rgba(245,158,11,0.1)] cursor-pointer hover:scale-[1.02]" : "border-white/5 bg-white/[0.02] opacity-40 cursor-not-allowed"}`}
+                >
                   <div className="absolute -right-8 -top-8 rotate-12 opacity-10">
                     <Zap size={120} className={(totalScore >= 400 || isAdmin) ? "text-amber-500" : "text-white"} />
                   </div>
                   
                   <div className="mb-6 flex items-center justify-between">
-                    <div className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${(totalScore >= 400 || isAdmin) ? "bg-amber-500 text-black" : "bg-white/10 text-white/40"}`}>
+                    <div className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${(totalScore >= 400 || isAdmin) ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.5)]" : "bg-white/10 text-white/40"}`}>
                       Final Episode
                     </div>
                     {!(totalScore >= 400 || isAdmin) && (
@@ -307,13 +308,19 @@ export default function Playground() {
                     )}
                   </div>
 
-                  <h3 className={`mb-2 text-3xl font-black ${(totalScore >= 400 || isAdmin) ? "text-amber-400" : "text-white/20"}`}>The Boss: General Intelligence</h3>
-                  <p className="mb-6 text-sm text-white/40">The ultimate test of all algorithms. Can you beat the machine?</p>
+                  <h3 className={`mb-2 text-3xl font-black ${(totalScore >= 400 || isAdmin) ? "text-amber-400" : "text-white/20"}`} style={{ fontFamily: "'Press Start 2P', system-ui" }}>The Boss: General Intelligence</h3>
+                  <p className="mb-6 text-sm text-white/40 font-medium">The ultimate test of all algorithms. Can you beat the machine?</p>
                   
-                  <div className="inline-flex items-center gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 px-4 py-2 text-xs font-black text-amber-500">
-                    COMING SOON
-                  </div>
-                </div>
+                  {(totalScore >= 400 || isAdmin) ? (
+                    <div className="inline-flex items-center gap-2 rounded-xl border border-amber-500 bg-amber-500 px-6 py-3 text-xs font-black text-black group-hover:shadow-[0_0_20px_rgba(245,158,11,0.6)] transition-all">
+                      ENTER THE CORE
+                    </div>
+                  ) : (
+                    <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-black text-white/20">
+                      LOCKED
+                    </div>
+                  )}
+                </Link>
               </motion.div>
             </div>
           </div>
