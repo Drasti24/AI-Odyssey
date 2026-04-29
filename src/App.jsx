@@ -13,6 +13,7 @@ import DecisionTree from "./pages/algorithms/DecisionTree";
 import LogisticRegression from "./pages/algorithms/LogisticRegression";
 import RandomForest from "./pages/algorithms/RandomForest";
 import Playground from "./pages/Playground";
+import ChapterOneNetflix from "./pages/playground/ChapterOneNetflix";
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false);
@@ -25,6 +26,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/playground" element={<Playground />} />
+          <Route path="/playground/chapter-1" element={<ChapterOneNetflix />} />
           <Route path="/algorithms/knn" element={<KNN />} />
           <Route path="/algorithms/linear-regression" element={<LinearRegression />} />
           <Route path="/algorithms/neural-network" element={<NeuralNetwork />} />
