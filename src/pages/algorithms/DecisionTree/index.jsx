@@ -35,7 +35,7 @@ export default function DecisionTree() {
                 <span className="font-bold text-cyan-300">Easy definition:</span> A Decision Tree is like a flowchart or a game of "20 Questions." It asks simple Yes/No questions about your data until it narrows everything down to a final answer!
               </p>
               <p className="text-md text-white/50 border-l-2 border-pink-400/30 pl-4">
-                <span className="font-bold text-white/70">Real-life example:</span> A doctor's diagnosis. 1. Do you have a fever? (Yes) -> 2. Is your throat sore? (Yes) -> 3. Result: You likely have Strep Throat. It's logic in branches!
+                <span className="font-bold text-white/70">Real-life example:</span> A doctor's diagnosis. 1. Do you have a fever? (Yes) &rarr; 2. Is your throat sore? (Yes) &rarr; 3. Result: You likely have Strep Throat. It's logic in branches!
               </p>
             </div>
           </div>
@@ -129,7 +129,7 @@ function TreeRealWorld() {
           "The Safety Path"
         </p>
         <p className="text-white/50 leading-relaxed">
-          Banks use Decision Trees to approve loans: "Is Income > $50k?" -> "Is Credit Score > 700?" -> APPROVED. They are used wherever a human needs to understand *why* the AI made a choice, especially in legal and medical fields.
+          Banks use Decision Trees to approve loans: "Is Income &gt; $50k?" &rarr; "Is Credit Score &gt; 700?" &rarr; APPROVED. They are used wherever a human needs to understand *why* the AI made a choice, especially in legal and medical fields.
         </p>
       </div>
 
