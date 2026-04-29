@@ -35,7 +35,7 @@ export default function Footer() {
 
                         <a href="https://www.linkedin.com/in/rudrahere21" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
                             <div className="font-bold text-white">Rudra Patel</div>
-                            <div className="text-sm text-white/50">Agile Collaborator · LinkedIn</div>
+                            <div className="text-sm text-white/50">Project Manager & Developer · LinkedIn</div>
                         </a>
 
                         <a href="https://www.linkedin.com/in/jiya-pandit01" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">

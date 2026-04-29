@@ -59,28 +59,28 @@ export default function Hero() {
                         {/* Primary CTA: Timeline */}
                         <a
                             href="#timeline"
-                            className="group relative flex flex-col items-center justify-center rounded-2xl border border-cyan-400/30 bg-cyan-400/10 p-8 transition-all hover:bg-cyan-400/20 hover:shadow-[0_0_40px_rgba(34,211,238,0.2)] col-span-1"
+                            className="group relative flex flex-col items-center justify-center rounded-[2rem] border border-white/20 bg-white/[0.08] p-8 backdrop-blur-2xl transition-all duration-500 hover:scale-[1.02] hover:border-cyan-400/50 hover:bg-white/[0.12] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3),0_0_30px_rgba(34,211,238,0.1)] col-span-1"
                         >
-                            <span className="mb-2 text-xl font-black text-cyan-300">Let’s See How AI Was Born</span>
-                            <span className="text-xs font-medium text-white/40 leading-relaxed">Follow the 70-year journey of AI breakthroughs</span>
+                            <span className="mb-3 text-lg font-black text-cyan-300 transition-colors group-hover:text-cyan-200">Let’s See How AI Was Born</span>
+                            <span className="text-[10px] font-medium text-white/40 leading-relaxed uppercase tracking-widest">The Timeline</span>
                         </a>
 
                         {/* Step 2: Algorithms */}
                         <a
                             href="#algorithms"
-                            className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
+                            className="group relative flex flex-col items-center justify-center rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-2xl transition-all duration-500 hover:scale-[1.02] hover:border-white/30 hover:bg-white/[0.08] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
                         >
-                            <span className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-cyan-300">Explore Algorithms</span>
-                            <span className="text-xs font-medium text-white/30 leading-relaxed">Master KNN, Linear Regression & more</span>
+                            <span className="mb-3 text-lg font-bold text-white/90 transition-colors group-hover:text-cyan-300">Explore Algorithms</span>
+                            <span className="text-[10px] font-medium text-white/30 leading-relaxed uppercase tracking-widest">Master Logic</span>
                         </a>
 
                         {/* Step 3: Playground */}
                         <Link
                             to="/playground"
-                            className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
+                            className="group relative flex flex-col items-center justify-center rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-2xl transition-all duration-500 hover:scale-[1.02] hover:border-white/30 hover:bg-white/[0.08] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
                         >
-                            <span className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-cyan-300">Learn with Game</span>
-                            <span className="text-xs font-medium text-white/30 leading-relaxed">Test your skills in the interactive playground</span>
+                            <span className="mb-3 text-lg font-bold text-white/90 transition-colors group-hover:text-cyan-300">Learn with Game</span>
+                            <span className="text-[10px] font-medium text-white/30 leading-relaxed uppercase tracking-widest">Interactive Play</span>
                         </Link>
                     </motion.div>
                 </div>

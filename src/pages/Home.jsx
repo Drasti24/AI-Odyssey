@@ -9,10 +9,12 @@ export default function Home() {
         <main>
             <Navbar />
             <Hero />
-            <AITimeline />
             <section id="about" className="px-8 py-20">
                 <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-white/[0.04] p-10">
-                    <h2 className="mb-6 text-4xl font-black">
+                    <h2 
+                        className="mb-10 text-2xl font-black uppercase text-white"
+                        style={{ fontFamily: "'Press Start 2P', system-ui" }}
+                    >
                         Why AI Odyssey?
                     </h2>
 
@@ -33,6 +35,7 @@ export default function Home() {
             </section>
 
             <AlgorithmSection />
+            <AITimeline />
             <Footer />
         </main>
     );
