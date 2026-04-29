@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import AlgorithmPage from "./pages/AlgorithmPage";
 import SplashScreen from "./components/SplashScreen";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Algorithm Pages
 import KNN from "./pages/algorithms/KNN";
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/algorithms/logistic-regression" element={<LogisticRegression />} />
           <Route path="/algorithms/random-forest" element={<RandomForest />} />
           <Route path="/algorithm/:id" element={<AlgorithmPage />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </>

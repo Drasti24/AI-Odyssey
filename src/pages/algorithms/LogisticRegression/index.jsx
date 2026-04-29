@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "../../../components/Navbar";
@@ -9,14 +9,18 @@ import LogisticRegressionBreakMode from "./LogisticRegressionBreakMode";
 export default function LogisticRegression() {
   const [activeTab, setActiveTab] = useState("play");
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -52,9 +56,8 @@ export default function LogisticRegression() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`rounded-lg px-6 py-2 font-bold transition-all ${
-                  activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
-                }`}
+                className={`rounded-lg px-6 py-2 font-bold transition-all ${activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
+                  }`}
               >
                 {t.label}
               </button>
@@ -122,7 +125,7 @@ function LogisticRealWorld() {
     <div className="flex flex-col gap-8 md:flex-row">
       <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-4 opacity-10">
-           <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
         </div>
         <h3 className="mb-4 text-2xl font-bold text-cyan-300">Gmail & Outlook</h3>
         <p className="mb-6 text-lg text-white/70 leading-relaxed italic">
