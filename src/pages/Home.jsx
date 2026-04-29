@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import AITimeline from "../components/AITimeline";
 import AlgorithmSection from "../components/AlgorithmSection";
 
 export default function Home() {
@@ -7,10 +8,11 @@ export default function Home() {
         <main>
             <Navbar />
             <Hero />
+            <AITimeline />
             <section id="about" className="px-8 py-20">
                 <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-white/[0.04] p-10">
                     <h2 className="mb-6 text-4xl font-black">
-                        Why ML Visualizer?
+                        Why AI Odyssey?
                     </h2>
 
                     <div className="grid gap-6 md:grid-cols-4">

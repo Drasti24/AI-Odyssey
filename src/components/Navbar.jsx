@@ -7,7 +7,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-3">
                     <BrainCircuit className="h-8 w-8 text-cyan-400" />
                     <span className="text-xl font-bold">
-                        ML <span className="text-purple-400">Visualizer</span>
+                        AI <span className="text-purple-400">Odyssey</span>
                     </span>
                 </div>
 
