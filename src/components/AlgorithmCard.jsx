@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 export default function AlgorithmCard({ algo }) {
     return (
         <Link
-            to={`/algorithm/${algo.id}`}
+            to={`/algorithms/${algo.id}`}
             className="group rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-400/10"
         >
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-cyan-400/10 text-2xl">
