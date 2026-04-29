@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import MountainScene from "./MountainScene";
+import { useCurtain } from "./CurtainTransition";
 
 const fadeUp = (delay = 0) => ({
     initial: { y: 40, opacity: 0 },
@@ -10,6 +11,7 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Hero() {
+    const { trigger } = useCurtain();
     return (
         <section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden px-8">
             {/* ── Three.js background ── */}

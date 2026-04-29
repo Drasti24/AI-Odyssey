@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import AlgorithmPage from "./pages/AlgorithmPage";
 import SplashScreen from "./components/SplashScreen";
 import ScrollToTop from "./components/ScrollToTop";
+import { CurtainTransitionProvider } from "./components/CurtainTransition";
+import AIStoryPage from "./pages/AIStoryPage";
 
 // Algorithm Pages
 import KNN from "./pages/algorithms/KNN";
@@ -28,24 +30,27 @@ export default function App() {
     <>
       {!splashDone && <SplashScreen onFinish={handleSplashFinish} />}
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/playground" element={<Playground />} />
-          <Route path="/playground/chapter-1" element={<ChapterOneNetflix />} />
-          <Route path="/playground/chapter-2" element={<ChapterTwoRealEstate />} />
-          <Route path="/playground/chapter-3" element={<ChapterThreeDoctor />} />
-          <Route path="/playground/chapter-4" element={<ChapterFourWeather />} />
-          <Route path="/playground/chapter-5" element={<ChapterFiveFaceID />} />
-          <Route path="/algorithms/knn" element={<KNN />} />
-          <Route path="/algorithms/linear-regression" element={<LinearRegression />} />
-          <Route path="/algorithms/neural-network" element={<NeuralNetwork />} />
-          <Route path="/algorithms/kmeans" element={<KMeans />} />
-          <Route path="/algorithms/decision-tree" element={<DecisionTree />} />
-          <Route path="/algorithms/logistic-regression" element={<LogisticRegression />} />
-          <Route path="/algorithms/random-forest" element={<RandomForest />} />
-          <Route path="/algorithm/:id" element={<AlgorithmPage />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
+        <CurtainTransitionProvider>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/story" element={<AIStoryPage />} />
+            <Route path="/playground" element={<Playground />} />
+            <Route path="/playground/chapter-1" element={<ChapterOneNetflix />} />
+            <Route path="/playground/chapter-2" element={<ChapterTwoRealEstate />} />
+            <Route path="/playground/chapter-3" element={<ChapterThreeDoctor />} />
+            <Route path="/playground/chapter-4" element={<ChapterFourWeather />} />
+            <Route path="/playground/chapter-5" element={<ChapterFiveFaceID />} />
+            <Route path="/algorithms/knn" element={<KNN />} />
+            <Route path="/algorithms/linear-regression" element={<LinearRegression />} />
+            <Route path="/algorithms/neural-network" element={<NeuralNetwork />} />
+            <Route path="/algorithms/kmeans" element={<KMeans />} />
+            <Route path="/algorithms/decision-tree" element={<DecisionTree />} />
+            <Route path="/algorithms/logistic-regression" element={<LogisticRegression />} />
+            <Route path="/algorithms/random-forest" element={<RandomForest />} />
+            <Route path="/algorithm/:id" element={<AlgorithmPage />} />
+          </Routes>
+        </CurtainTransitionProvider>
       </BrowserRouter>
     </>
   );
