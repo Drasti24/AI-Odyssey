@@ -17,6 +17,7 @@ import ChapterOneNetflix from "./pages/playground/ChapterOneNetflix";
 import ChapterTwoRealEstate from "./pages/playground/ChapterTwoRealEstate";
 import ChapterThreeDoctor from "./pages/playground/ChapterThreeDoctor";
 import ChapterFourWeather from "./pages/playground/ChapterFourWeather";
+import ChapterFiveFaceID from "./pages/playground/ChapterFiveFaceID";
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false);
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/playground/chapter-2" element={<ChapterTwoRealEstate />} />
           <Route path="/playground/chapter-3" element={<ChapterThreeDoctor />} />
           <Route path="/playground/chapter-4" element={<ChapterFourWeather />} />
+          <Route path="/playground/chapter-5" element={<ChapterFiveFaceID />} />
           <Route path="/algorithms/knn" element={<KNN />} />
           <Route path="/algorithms/linear-regression" element={<LinearRegression />} />
           <Route path="/algorithms/neural-network" element={<NeuralNetwork />} />

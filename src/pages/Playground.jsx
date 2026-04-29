@@ -46,8 +46,8 @@ const chapters = [
     title: "The FaceID Episode",
     subtitle: "How Your Phone Knows It's You",
     algorithm: "Neural Network",
-    status: "locked",
-    path: null,
+    status: "available",
+    path: "/playground/chapter-5",
     color: "orange",
   },
 ];
@@ -101,6 +101,7 @@ export default function Playground() {
                     emerald: { border: "border-emerald-500/20", bg: "bg-gradient-to-br from-emerald-500/10 to-transparent", hoverBorder: "hover:border-emerald-500/40", shadow: "hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]", via: "via-emerald-500", text: "text-emerald-400", hoverText: "group-hover:text-emerald-300", btnBg: "bg-emerald-600", btnShadow: "shadow-[0_0_15px_rgba(16,185,129,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(16,185,129,0.6)]" },
                     indigo: { border: "border-indigo-500/20", bg: "bg-gradient-to-br from-indigo-500/10 to-transparent", hoverBorder: "hover:border-indigo-500/40", shadow: "hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]", via: "via-indigo-500", text: "text-indigo-400", hoverText: "group-hover:text-indigo-300", btnBg: "bg-indigo-600", btnShadow: "shadow-[0_0_15px_rgba(99,102,241,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]" },
                     purple: { border: "border-purple-500/20", bg: "bg-gradient-to-br from-purple-500/10 to-transparent", hoverBorder: "hover:border-purple-500/40", shadow: "hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]", via: "via-purple-500", text: "text-purple-400", hoverText: "group-hover:text-purple-300", btnBg: "bg-purple-600", btnShadow: "shadow-[0_0_15px_rgba(168,85,247,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)]" },
+                    orange: { border: "border-orange-500/20", bg: "bg-gradient-to-br from-orange-500/10 to-transparent", hoverBorder: "hover:border-orange-500/40", shadow: "hover:shadow-[0_0_30px_rgba(249,115,22,0.15)]", via: "via-orange-500", text: "text-orange-400", hoverText: "group-hover:text-orange-300", btnBg: "bg-orange-600", btnShadow: "shadow-[0_0_15px_rgba(249,115,22,0.4)]", btnHover: "group-hover:shadow-[0_0_20px_rgba(249,115,22,0.6)]" },
                   };
                   const c = colors[ch.color] || colors.red;
                   return (
