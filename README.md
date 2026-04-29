@@ -1,20 +1,61 @@
-<<<<<<< HEAD
-# React + Vite
+# 🌌 AI Odyssey
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**AI Odyssey** is a journey of learning and discovering how Artificial Intelligence works. It is an interactive, visually stunning platform designed to make machine learning concepts visible and intuitive.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 How to Setup and Run
 
-## React Compiler
+To get the project running locally on your machine, follow these steps:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Prerequisites
+Ensure you have **Node.js** (v18 or higher) installed.
 
-## Expanding the ESLint configuration
+### 2. Install Dependencies
+Navigate to the project directory and run:
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# AI-Odessey
->>>>>>> 34008d63e7c18313c6d1910e3edcb8b5dece0c5f
+### 3. Run the Development Server
+Start the local server with:
+```bash
+npm run dev
+```
+Once the server starts, open [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal) in your browser.
+
+---
+
+## ✨ Features
+
+- **Cinematic Experience**: 
+  - A premium **Splash Screen** loading animation with orbital particles.
+  - Generative **3D Mountain Terrain** in the background that reacts to your mouse movements.
+- **Interactive Learning**:
+  - **AI History Timeline**: A scroll-triggered journey from the Turing Test (1950) to the ChatGPT Era (2022).
+  - **Algorithm Visualizers**: Watch how algorithms think step-by-step with interactive demos.
+- **Modern UI**: Built with a sleek, dark glassmorphism aesthetic and smooth Framer Motion animations.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [React 19](https://reactjs.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **3D Graphics**: [Three.js](https://threejs.org/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Styling**: [Tailwind CSS 4.0](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+---
+
+## 📂 Project Structure
+
+- `src/components`: UI components like Navbar, Hero, Timeline, and the 3D Scene.
+- `src/pages`: Main page layouts (Home, Algorithm Details).
+- `src/assets`: Static assets and global styles.
+
+---
+
+## 📝 License
+This project is for educational purposes. Let's make AI visible!
