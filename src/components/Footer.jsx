@@ -3,6 +3,8 @@ import { useState } from "react";
 export default function Footer() {
     const [showForm, setShowForm] = useState(false);
 
+    if (window.location.pathname !== "/") return null;
+
     return (
         <footer
             id="contact"
