@@ -9,16 +9,16 @@ export default function Home() {
         <main>
             <Navbar />
             <Hero />
-            <section id="about" className="px-8 py-20 bg-[#07070c]">
-                <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-white/[0.02] p-10 backdrop-blur-xl">
+            <section id="about" className="px-6 py-12 sm:px-8 sm:py-20 bg-[#07070c]">
+                <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-white/[0.02] p-6 sm:p-10 backdrop-blur-xl">
                     <h2 
-                        className="mb-12 text-2xl font-black uppercase text-white text-center"
+                        className="mb-8 sm:mb-12 text-lg sm:text-2xl font-black uppercase text-white text-center"
                         style={{ fontFamily: "'Press Start 2P', system-ui" }}
                     >
                         Why AI Odyssey?
                     </h2>
 
-                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
+                    <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
                         {[
                             { 
                                 title: "Interactive Stories", 
@@ -46,11 +46,11 @@ export default function Home() {
                                 color: "text-red-400" 
                             },
                         ].map(({ title, text, color }) => (
-                            <div key={title} className="group rounded-3xl border border-white/5 bg-white/[0.02] p-8 transition-all hover:border-white/20 hover:bg-white/[0.04] hover:scale-[1.02]">
-                                <h3 className={`mb-4 text-sm font-black uppercase tracking-widest ${color}`} style={{ fontFamily: "Inter, system-ui" }}>
+                            <div key={title} className="group rounded-3xl border border-white/5 bg-white/[0.02] p-6 sm:p-8 transition-all hover:border-white/20 hover:bg-white/[0.04] hover:scale-[1.02]">
+                                <h3 className={`mb-3 sm:mb-4 text-xs sm:text-sm font-black uppercase tracking-widest ${color}`} style={{ fontFamily: "Inter, system-ui" }}>
                                     {title}
                                 </h3>
-                                <p className="text-base font-medium leading-relaxed text-white/50 group-hover:text-white/70 transition-colors">
+                                <p className="text-sm sm:text-base font-medium leading-relaxed text-white/50 group-hover:text-white/70 transition-colors">
                                     {text}
                                 </p>
                             </div>

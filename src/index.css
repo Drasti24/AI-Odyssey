@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import "tailwindcss";
 
+:root {
+  --navbar-height: 80px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -14,4 +18,23 @@ body {
   background: #07070c;
   color: white;
   font-family: Inter, system-ui, sans-serif;
+  overflow-x: hidden;
+  width: 100vw;
+}
+
+/* Prevent horizontal scroll from animations */
+.overflow-x-hidden-global {
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --navbar-height: 70px;
+  }
+
+  /* Scale down the pixel font on mobile to prevent overflow */
+  .font-pixel {
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
 }

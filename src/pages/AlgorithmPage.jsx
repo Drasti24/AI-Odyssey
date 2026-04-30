@@ -75,21 +75,21 @@ export default function AlgorithmPage() {
 
     return (
         <main className="min-h-screen bg-[#07070c] text-white selection:bg-cyan-500/30">
-            <header className="sticky top-0 z-[100] flex items-center justify-between border-b border-white/5 px-10 py-5 backdrop-blur-xl bg-black/40">
-                <Link to="/algorithms" className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-colors" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back
+            <header className="sticky top-0 z-[100] flex items-center justify-between border-b border-white/5 px-6 py-4 sm:px-10 sm:py-5 backdrop-blur-xl bg-black/40">
+                <Link to="/algorithms" className="group flex items-center gap-2 text-[8px] sm:text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-colors" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> <span className="hidden sm:inline">Back</span>
                 </Link>
 
-                <div className="flex items-center gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-xl" style={{ color: algo.color }}>
+                <div className="flex items-center gap-2 sm:gap-4">
+                    <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-white/5 text-base sm:text-xl" style={{ color: algo.color }}>
                         {algo.icon}
                     </div>
-                    <h1 className="text-sm font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <h1 className="text-[10px] sm:text-sm font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         {algo.name}
                     </h1>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="hidden sm:flex items-center gap-2">
                     <div className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: algo.color }} />
                     <span className="text-[10px] font-black uppercase tracking-widest text-white/20" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         Active Module
@@ -97,21 +97,22 @@ export default function AlgorithmPage() {
                 </div>
             </header>
 
-            <section className="mx-auto max-w-7xl px-8 py-10">
+            <section className="mx-auto max-w-7xl px-4 sm:px-8 py-6 sm:py-10">
                 {/* Custom Tabs */}
-                <div className="mb-12 flex flex-wrap items-center justify-center gap-4">
+                <div className="mb-8 sm:mb-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                     {tabs.map((t) => (
                         <button
                             key={t.name}
                             onClick={() => setTab(t.name)}
-                            className={`flex items-center gap-3 rounded-2xl px-8 py-4 text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
+                            className={`flex items-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 py-3 sm:px-8 sm:py-4 text-[8px] sm:text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
                                 tab === t.name
                                     ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                                     : "bg-white/5 text-white/40 border-white/10 hover:border-white/30 hover:text-white"
                             }`}
                             style={{ fontFamily: "'Press Start 2P', system-ui" }}
                         >
-                            {t.icon} {t.name}
+                            {t.icon} <span className={t.name === "Mathematics" ? "hidden xs:inline" : ""}>{t.name}</span>
+                            {t.name === "Mathematics" && <span className="xs:hidden">Math</span>}
                         </button>
                     ))}
                 </div>

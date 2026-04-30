@@ -18,23 +18,23 @@ export default function NeuralNetworkMath() {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Header: The Single Neuron */}
             <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-                <div className="mb-6 flex items-center justify-between">
+                <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
-                        <h2 className="text-sm font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        <h2 className="text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                             The Perceptron
                         </h2>
-                        <p className="mt-2 text-white/50">Weights, Biases, and Activation</p>
+                        <p className="mt-2 text-xs sm:text-base text-white/50">Weights, Biases, and Activation</p>
                     </div>
-                    <div className="rounded-full bg-cyan-400/10 px-4 py-2 text-[10px] font-black uppercase text-cyan-300" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <div className="rounded-full bg-cyan-400/10 px-4 py-2 text-[8px] sm:text-[10px] font-black uppercase text-cyan-300" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         Logic Level: 3
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center rounded-2xl bg-black/60 p-6 border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500">
-                    <div className="text-2xl md:text-3xl font-light text-white text-center flex items-center gap-3">
+                <div className="flex flex-col items-center justify-center rounded-2xl bg-black/60 p-4 sm:p-6 border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500 overflow-x-auto w-full">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-light text-white text-center flex items-center gap-2 sm:gap-3 whitespace-nowrap">
                         y = <span className="text-pink-400 font-bold">σ</span>( <span className="text-cyan-400 font-bold">Σ wᵢxᵢ</span> + <span className="text-purple-400 font-bold">b</span> )
                     </div>
-                    <div className="mt-4 grid grid-cols-2 gap-8 text-[8px] font-black uppercase tracking-widest text-white/30">
+                    <div className="mt-4 grid grid-cols-2 gap-4 sm:gap-8 text-[7px] sm:text-[8px] font-black uppercase tracking-widest text-white/30">
                         <div className="text-right">σ = Sigmoid</div>
                         <div className="text-left">Σ wᵢxᵢ = Sum</div>
                     </div>
@@ -44,7 +44,7 @@ export default function NeuralNetworkMath() {
             <div className="grid gap-8 lg:grid-cols-2">
                 {/* Neuron Simulator */}
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-                    <h3 className="mb-8 text-sm font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <h3 className="mb-6 sm:mb-8 text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         Signal Simulator
                     </h3>
                     
@@ -87,19 +87,19 @@ export default function NeuralNetworkMath() {
                         <div className="absolute right-10 h-2 w-32 bg-gradient-to-r from-cyan-400 to-transparent rounded-full opacity-20" />
                     </div>
 
-                    <div className="mt-8 grid grid-cols-2 gap-6">
+                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase text-white/40 tracking-widest">Weight 1: {w1}</label>
-                            <input type="range" min="-1" max="1" step="0.1" value={w1} onChange={e => setW1(parseFloat(e.target.value))} className="w-full accent-cyan-400" />
+                            <label className="text-[9px] sm:text-[10px] font-black uppercase text-white/40 tracking-widest">Weight 1: {w1}</label>
+                            <input type="range" min="-1" max="1" step="0.1" value={w1} onChange={e => setW1(parseFloat(e.target.value))} className="w-full accent-cyan-400 h-2 bg-white/5 rounded-lg appearance-none cursor-pointer" />
                             
-                            <label className="text-[10px] font-black uppercase text-white/40 tracking-widest">Weight 2: {w2}</label>
-                            <input type="range" min="-1" max="1" step="0.1" value={w2} onChange={e => setW2(parseFloat(e.target.value))} className="w-full accent-purple-400" />
+                            <label className="text-[9px] sm:text-[10px] font-black uppercase text-white/40 tracking-widest">Weight 2: {w2}</label>
+                            <input type="range" min="-1" max="1" step="0.1" value={w2} onChange={e => setW2(parseFloat(e.target.value))} className="w-full accent-purple-400 h-2 bg-white/5 rounded-lg appearance-none cursor-pointer" />
                         </div>
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase text-white/40 tracking-widest">Bias (b): {bias}</label>
-                            <input type="range" min="-1" max="1" step="0.1" value={bias} onChange={e => setBias(parseFloat(e.target.value))} className="w-full accent-pink-400" />
+                            <label className="text-[9px] sm:text-[10px] font-black uppercase text-white/40 tracking-widest">Bias (b): {bias}</label>
+                            <input type="range" min="-1" max="1" step="0.1" value={bias} onChange={e => setBias(parseFloat(e.target.value))} className="w-full accent-pink-400 h-2 bg-white/5 rounded-lg appearance-none cursor-pointer" />
                             
-                            <div className="p-4 rounded-xl bg-black/20 text-[9px] leading-relaxed text-white/40 border border-white/5">
+                            <div className="p-3 sm:p-4 rounded-xl bg-black/20 text-[8px] sm:text-[9px] leading-relaxed text-white/40 border border-white/5">
                                 Weights decide importance. Bias decides the "threshold" for firing.
                             </div>
                         </div>
@@ -109,7 +109,7 @@ export default function NeuralNetworkMath() {
                 <div className="flex flex-col gap-6">
                     {/* Math Breakdown */}
                     <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl flex-1">
-                        <h3 className="mb-6 text-sm font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        <h3 className="mb-6 text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                             The Flow
                         </h3>
                         
@@ -131,7 +131,7 @@ export default function NeuralNetworkMath() {
 
                     {/* ELI5 */}
                     <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-                        <h3 className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-white/60" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        <h3 className="mb-4 text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-white/60" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                             ELI5
                         </h3>
                         <p className="text-sm leading-7 text-white/60 italic">

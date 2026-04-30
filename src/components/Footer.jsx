@@ -8,7 +8,7 @@ export default function Footer() {
     return (
         <footer
             id="contact"
-            className="border-t border-white/10 bg-[#07070c] px-8 py-20"
+            className="border-t border-white/10 bg-[#07070c] px-6 py-12 sm:px-8 sm:py-20"
         >
             <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_420px]">
                 <div>
@@ -16,31 +16,31 @@ export default function Footer() {
                         Built in 36 hours
                     </p>
 
-                    <h2 className="mb-5 text-4xl font-black text-white">
+                    <h2 className="mb-5 text-2xl sm:text-4xl font-black text-white uppercase tracking-tighter">
                         Meet the Team
                     </h2>
 
-                    <p className="mb-8 max-w-2xl text-lg leading-8 text-white/60">
+                    <p className="mb-8 max-w-2xl text-base sm:text-lg leading-7 sm:leading-8 text-white/60">
                         We’re a team of students who wanted to make machine learning feel
                         intuitive, not intimidating. AI Odyssey turns complex algorithms
                         into interactive experiences where learners can play, experiment,
                         and understand how AI makes decisions.
                     </p>
 
-                    <div className="mb-8 space-y-4">
-                        <a href="https://www.linkedin.com/in/pateldrasti" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
-                            <div className="font-bold text-white">Drasti Patel</div>
-                            <div className="text-sm text-white/50">Frontend, UI/UX & Software Developer · LinkedIn</div>
+                    <div className="mb-8 space-y-3 sm:space-y-4">
+                        <a href="https://www.linkedin.com/in/pateldrasti" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
+                            <div className="font-bold text-white text-sm sm:text-base">Drasti Patel</div>
+                            <div className="text-xs sm:text-sm text-white/50">Frontend, UI/UX & Software Developer · LinkedIn</div>
                         </a>
 
-                        <a href="https://www.linkedin.com/in/rudrahere21" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
-                            <div className="font-bold text-white">Rudra Patel</div>
-                            <div className="text-sm text-white/50">Project Manager & Developer · LinkedIn</div>
+                        <a href="https://www.linkedin.com/in/rudrahere21" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
+                            <div className="font-bold text-white text-sm sm:text-base">Rudra Patel</div>
+                            <div className="text-xs sm:text-sm text-white/50">Project Manager & Developer · LinkedIn</div>
                         </a>
 
-                        <a href="https://www.linkedin.com/in/jiya-pandit01" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
-                            <div className="font-bold text-white">Jiya Pandit</div>
-                            <div className="text-sm text-white/50">UI/UX & Content Designer · LinkedIn</div>
+                        <a href="https://www.linkedin.com/in/jiya-pandit01" target="_blank" rel="noreferrer" className="block rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
+                            <div className="font-bold text-white text-sm sm:text-base">Jiya Pandit</div>
+                            <div className="text-xs sm:text-sm text-white/50">UI/UX & Content Designer · LinkedIn</div>
                         </a>
                     </div>
 

@@ -48,11 +48,11 @@ export default function LinearRegressionMath() {
             <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-cyan-500/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 text-center">
-                    <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <h2 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-6 sm:mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         The Regression Formula
                     </h2>
-                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-6 bg-black/60 p-6 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500 group-hover:scale-105">
-                        <div className="text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-3">
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 bg-black/60 p-4 sm:p-6 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500 group-hover:scale-105 overflow-x-auto max-w-full">
+                        <div className="text-xl sm:text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-2 sm:gap-3 whitespace-nowrap">
                              y = <span className="text-purple-400">{slope.toFixed(2)}</span>x + <span className="text-pink-400">{intercept.toFixed(0)}</span>
                         </div>
                     </div>
@@ -67,14 +67,14 @@ export default function LinearRegressionMath() {
                 
                 {/* LEFT: Calculations Tab */}
                 <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
                         <div className="flex items-center gap-3">
                             <Calculator size={20} className="text-cyan-400" />
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                            <h3 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                                 The Error Log
                             </h3>
                         </div>
-                        <div className="text-[8px] font-black uppercase text-white/30 tracking-widest">Tracking {points.length} Points</div>
+                        <div className="text-[7px] sm:text-[8px] font-black uppercase text-white/30 tracking-widest">Tracking {points.length} Points</div>
                     </div>
 
                     <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar space-y-4">
@@ -87,17 +87,17 @@ export default function LinearRegressionMath() {
                                     exit={{ x: 20, opacity: 0 }}
                                     className="p-6 rounded-2xl bg-black/40 border-2 border-white/5 transition-all"
                                 >
-                                    <div className="flex items-center justify-between mb-6">
-                                        <div className="flex items-center gap-3">
-                                            <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
-                                            <span className="text-[8px] font-black text-white uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Point #{i+1}</span>
+                                    <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2">
+                                        <div className="flex items-center gap-2 sm:gap-3">
+                                            <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                                            <span className="text-[6px] sm:text-[8px] font-black text-white uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Point #{i+1}</span>
                                         </div>
-                                        <div className="text-5xl font-black text-red-400 drop-shadow-[0_0_20px_rgba(239,68,68,0.3)]">{p.error.toFixed(1)}</div>
+                                        <div className="text-3xl sm:text-5xl font-black text-red-400 drop-shadow-[0_0_20px_rgba(239,68,68,0.3)]">{p.error.toFixed(1)}</div>
                                     </div>
                                     <div className="grid grid-cols-1 gap-4">
-                                        <div className="bg-red-400/5 p-4 rounded-xl border border-red-400/20 flex flex-col items-center justify-center">
-                                            <div className="text-[10px] font-black text-white/20 uppercase mb-2 tracking-widest">Error Logic</div>
-                                            <div className="font-mono text-xl md:text-2xl font-black text-white text-center">
+                                        <div className="bg-red-400/5 p-3 sm:p-4 rounded-xl border border-red-400/20 flex flex-col items-center justify-center overflow-x-auto">
+                                            <div className="text-[8px] sm:text-[10px] font-black text-white/20 uppercase mb-2 tracking-widest whitespace-nowrap">Error Logic</div>
+                                            <div className="font-mono text-sm sm:text-xl md:text-2xl font-black text-white text-center whitespace-nowrap">
                                                 {p.y} - <span className="text-purple-400">({slope.toFixed(2)}×{p.x}+{intercept.toFixed(0)})</span>
                                             </div>
                                         </div>
@@ -110,10 +110,10 @@ export default function LinearRegressionMath() {
 
                 {/* RIGHT: Visual Lab */}
                 <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px] relative group">
-                    <div className="flex items-center justify-between mb-8 relative z-20">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4 relative z-20">
                         <div className="flex items-center gap-3">
                             <Target size={20} className="text-purple-400" />
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                            <h3 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                                 Visualization
                             </h3>
                         </div>
@@ -209,14 +209,14 @@ export default function LinearRegressionMath() {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-1 flex flex-col items-center justify-center p-8 rounded-[40px] border-8 border-white/5 bg-black/40 min-h-[240px] relative group overflow-hidden">
+                    <div className="lg:col-span-1 flex flex-col items-center justify-center p-6 sm:p-8 rounded-[40px] border-8 border-white/5 bg-black/40 min-h-[200px] sm:min-h-[240px] relative group overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-                        <div className="text-[10px] font-black uppercase text-white/20 mb-6 tracking-widest">Model Status</div>
+                        <div className="text-[8px] sm:text-[10px] font-black uppercase text-white/20 mb-4 sm:mb-6 tracking-widest">Model Status</div>
                         <motion.div 
                             key={residuals.mse}
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            className={`text-4xl font-black uppercase tracking-widest text-center drop-shadow-2xl ${parseFloat(residuals.mse) < 50 ? 'text-green-400' : 'text-red-500'}`}
+                            className={`text-2xl sm:text-4xl font-black uppercase tracking-widest text-center drop-shadow-2xl ${parseFloat(residuals.mse) < 50 ? 'text-green-400' : 'text-red-500'}`}
                             style={{ fontFamily: "'Press Start 2P', system-ui" }}
                         >
                             {parseFloat(residuals.mse) < 50 ? 'OPTIMIZED' : 'UNFITTED'}

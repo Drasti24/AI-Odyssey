@@ -70,12 +70,12 @@ export default function KNNMath() {
             <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-cyan-500/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 text-center">
-                    <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <h2 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-6 sm:mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         The Euclidean Blueprint
                     </h2>
-                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-6 bg-black/60 p-6 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500 group-hover:scale-105">
-                        <div className="text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-3">
-                            d = <span className="text-3xl md:text-5xl text-cyan-400">√</span>
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 bg-black/60 p-4 sm:p-6 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500 group-hover:scale-105 overflow-x-auto max-w-full">
+                        <div className="text-xl sm:text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-2 sm:gap-3 whitespace-nowrap">
+                            d = <span className="text-2xl sm:text-3xl md:text-5xl text-cyan-400">√</span>
                             <span className="border-t-2 border-white/80 pt-1">
                                 (x₂-x₁)² + (y₂-y₁)²
                             </span>
@@ -92,14 +92,14 @@ export default function KNNMath() {
                 
                 {/* LEFT: Calculations Tab */}
                 <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
                         <div className="flex items-center gap-3">
                             <Calculator size={20} className="text-cyan-400" />
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                            <h3 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                                 Live Calculations
                             </h3>
                         </div>
-                        <div className="text-[8px] font-black uppercase text-white/30 tracking-widest">Tracking {k} Neighbors</div>
+                        <div className="text-[7px] sm:text-[8px] font-black uppercase text-white/30 tracking-widest">Tracking {k} Neighbors</div>
                     </div>
 
                     <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar space-y-4">
@@ -112,18 +112,18 @@ export default function KNNMath() {
                                     exit={{ x: 20, opacity: 0 }}
                                     className={`p-6 rounded-2xl bg-black/40 border-2 transition-all ${n.type === 'Cyan' ? 'border-cyan-400/20' : 'border-pink-400/20'}`}
                                 >
-                                    <div className="flex items-center justify-between mb-6">
-                                        <div className="flex items-center gap-3">
-                                            <div className={`h-3 w-3 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)] ${n.type === 'Cyan' ? 'bg-cyan-400' : 'bg-pink-400'}`} />
-                                            <span className="text-[8px] font-black text-white uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Neighbor #{i+1}</span>
+                                    <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2">
+                                        <div className="flex items-center gap-2 sm:gap-3">
+                                            <div className={`h-2 w-2 sm:h-3 sm:w-3 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)] ${n.type === 'Cyan' ? 'bg-cyan-400' : 'bg-pink-400'}`} />
+                                            <span className="text-[6px] sm:text-[8px] font-black text-white uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Neighbor #{i+1}</span>
                                         </div>
-                                        <div className={`text-5xl font-black ${n.type === 'Cyan' ? 'text-cyan-400' : 'text-pink-400'} drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]`}>{n.dist.toFixed(2)}</div>
+                                        <div className={`text-3xl sm:text-5xl font-black ${n.type === 'Cyan' ? 'text-cyan-400' : 'text-pink-400'} drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]`}>{n.dist.toFixed(2)}</div>
                                     </div>
                                     <div className="grid grid-cols-1 gap-4">
-                                        <div className={`p-4 rounded-xl border flex flex-col items-center justify-center ${n.type === 'Cyan' ? 'bg-cyan-400/5 border-cyan-400/20' : 'bg-pink-400/5 border-pink-400/20'}`}>
-                                            <div className="text-[10px] font-black text-white/20 uppercase mb-2 tracking-widest">Live Math</div>
-                                            <div className="font-mono text-xl md:text-2xl font-black text-white">
-                                                √({n.x} - {testPoint.x})² + ({n.y} - {testPoint.y})²
+                                        <div className={`p-3 sm:p-4 rounded-xl border flex flex-col items-center justify-center overflow-x-auto ${n.type === 'Cyan' ? 'bg-cyan-400/5 border-cyan-400/20' : 'bg-pink-400/5 border-pink-400/20'}`}>
+                                            <div className="text-[8px] sm:text-[10px] font-black text-white/20 uppercase mb-2 tracking-widest whitespace-nowrap">Distance Math</div>
+                                            <div className="font-mono text-sm sm:text-xl md:text-2xl font-black text-white whitespace-nowrap">
+                                                √({n.x}-{testPoint.x})² + ({n.y}-{testPoint.y})²
                                             </div>
                                         </div>
                                     </div>
@@ -135,10 +135,10 @@ export default function KNNMath() {
 
                 {/* RIGHT: Labeled Interactive Graph */}
                 <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px] relative group">
-                    <div className="flex items-center justify-between mb-8 relative z-20">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4 relative z-20">
                         <div className="flex items-center gap-3">
                             <Target size={20} className="text-purple-400" />
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                            <h3 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                                 Interactive Grid
                             </h3>
                         </div>
@@ -249,19 +249,19 @@ export default function KNNMath() {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-1 flex flex-col items-center justify-center p-8 rounded-[40px] border-8 border-white/5 bg-black/40 min-h-[240px] relative group overflow-hidden">
+                    <div className="lg:col-span-1 flex flex-col items-center justify-center p-6 sm:p-8 rounded-[40px] border-8 border-white/5 bg-black/40 min-h-[200px] sm:min-h-[240px] relative group overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-                        <div className="text-[10px] font-black uppercase text-white/20 mb-6 tracking-widest">Final Prediction</div>
+                        <div className="text-[8px] sm:text-[10px] font-black uppercase text-white/20 mb-4 sm:mb-6 tracking-widest">Final Prediction</div>
                         <motion.div 
                             key={winner}
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            className={`text-4xl font-black uppercase tracking-widest text-center drop-shadow-2xl ${winner === 'Cyan' ? 'text-cyan-400' : winner === 'Pink' ? 'text-pink-400' : 'text-white'}`}
+                            className={`text-2xl sm:text-4xl font-black uppercase tracking-widest text-center drop-shadow-2xl ${winner === 'Cyan' ? 'text-cyan-400' : winner === 'Pink' ? 'text-pink-400' : 'text-white'}`}
                             style={{ fontFamily: "'Press Start 2P', system-ui" }}
                         >
                             {winner === "Tie" ? "TIE" : `${winner}`}
                         </motion.div>
-                        <div className="mt-8 px-6 py-2 rounded-full bg-white/5 text-[10px] font-black text-white/40 uppercase tracking-widest">
+                        <div className="mt-6 sm:mt-8 px-4 sm:px-6 py-2 rounded-full bg-white/5 text-[8px] sm:text-[10px] font-black text-white/40 uppercase tracking-widest">
                             {votes.Cyan > votes.Pink ? "Majority: Cyan" : votes.Pink > votes.Cyan ? "Majority: Pink" : "No Majority"}
                         </div>
                     </div>

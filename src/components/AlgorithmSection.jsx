@@ -102,7 +102,7 @@ export default function AlgorithmSection({
         : [];
 
     return (
-        <section id="algorithms" className="px-8 py-28">
+        <section id="algorithms" className="px-6 py-16 sm:px-8 sm:py-28">
             <div className="mx-auto max-w-7xl">
                 <div className="mb-12 text-center">
                     <motion.div
@@ -119,7 +119,7 @@ export default function AlgorithmSection({
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-3xl font-black uppercase tracking-tighter"
+                        className="text-xl sm:text-3xl font-black uppercase tracking-tighter"
                         style={{
                             fontFamily: "'Press Start 2P', system-ui",
                             lineHeight: "1.4",
@@ -136,7 +136,7 @@ export default function AlgorithmSection({
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="mt-5 text-white/60"
+                        className="mt-5 text-sm sm:text-base text-white/60"
                     >
                         Choose a path to start exploring algorithms.
                     </motion.p>
@@ -160,7 +160,7 @@ export default function AlgorithmSection({
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => setSelectedCategory(key)}
-                                className={`group relative overflow-hidden rounded-3xl border p-8 text-left transition-all duration-300 ${isSelected
+                                className={`group relative overflow-hidden rounded-3xl border p-6 sm:p-8 text-left transition-all duration-300 ${isSelected
                                         ? isSupervised
                                             ? "border-cyan-500/70 bg-cyan-500/10 shadow-[0_0_35px_-10px_rgba(6,182,212,0.7)]"
                                             : "border-purple-500/70 bg-purple-500/10 shadow-[0_0_35px_-10px_rgba(168,85,247,0.7)]"
@@ -238,11 +238,11 @@ export default function AlgorithmSection({
                                 Showing {categories[selectedCategory].title} ↓
                             </p>
 
-                            <div className="mb-12 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-10 backdrop-blur-sm shadow-[0_0_50px_rgba(168,85,247,0.05)]">
-                                <h4 className="mb-4 text-xl font-black text-purple-300 uppercase tracking-widest" style={{ fontFamily: "Inter, system-ui" }}>
+                            <div className="mb-12 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-6 sm:p-10 backdrop-blur-sm shadow-[0_0_50px_rgba(168,85,247,0.05)]">
+                                <h4 className="mb-4 text-lg sm:text-xl font-black text-purple-300 uppercase tracking-widest" style={{ fontFamily: "Inter, system-ui" }}>
                                     What is {categories[selectedCategory].title}?
                                 </h4>
-                                <p className="text-xl leading-relaxed text-white/70">
+                                <p className="text-lg sm:text-xl leading-relaxed text-white/70">
                                     {categories[selectedCategory].definition}
                                 </p>
                             </div>

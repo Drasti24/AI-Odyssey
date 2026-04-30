@@ -35,7 +35,7 @@ export default function Hero() {
                 <div className="flex flex-col items-center">
                     {/* Main heading */}
                     <motion.h1
-                        className="text-4xl font-black leading-tight md:text-7xl text-white uppercase tracking-tighter"
+                        className="text-2xl font-black leading-tight sm:text-4xl md:text-7xl text-white uppercase tracking-tighter"
                         style={{ fontFamily: "'Press Start 2P', system-ui", textShadow: '0 0-30px rgba(255,255,255,0.1)' }}
                         {...fadeUp(0.1)}
                     >
@@ -44,7 +44,7 @@ export default function Hero() {
 
                     {/* Sub tagline */}
                     <motion.p
-                        className="mt-10 max-w-2xl text-xl leading-relaxed text-white/70"
+                        className="mt-6 sm:mt-10 max-w-2xl text-lg sm:text-xl leading-relaxed text-white/70"
                         {...fadeUp(0.2)}
                     >
                         Deconstruct the black box. Experience the logic through interactive experiments and visual storytelling.
@@ -52,14 +52,14 @@ export default function Hero() {
 
                     {/* Accent line */}
                     <motion.div
-                        className="mt-14 flex flex-col items-center gap-4"
+                        className="mt-10 sm:mt-14 flex flex-col items-center gap-4"
                         {...fadeUp(0.3)}
                     >
-                        <div className="h-px w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
-                        <p className="text-2xl font-black text-cyan-400 uppercase tracking-[0.4em] drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+                        <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                        <p className="text-lg sm:text-2xl font-black text-cyan-400 uppercase tracking-[0.2em] sm:tracking-[0.4em] drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
                             Let's Make It Visible
                         </p>
-                        <div className="h-px w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                        <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
                     </motion.div>
 
                     {/* CTA Path */}
@@ -121,14 +121,14 @@ export default function Hero() {
                                 </div>
 
                                 {/* Glass Surface */}
-                                <div className="relative z-10 flex flex-col items-center justify-center p-12">
+                                <div className="relative z-10 flex flex-col items-center justify-center p-8 sm:p-12">
                                     <span 
-                                        className={`mb-6 text-2xl font-black drop-shadow-2xl tracking-tighter ${item.titleClass}`}
+                                        className={`mb-4 sm:mb-6 text-xl sm:text-2xl font-black drop-shadow-2xl tracking-tighter ${item.titleClass}`}
                                         style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
                                     >
                                         {item.title}
                                     </span>
-                                    <span className="max-w-[240px] text-center text-[10px] font-black uppercase tracking-[0.2em] text-white/30 leading-relaxed group-hover:text-white/60 transition-colors">
+                                    <span className="max-w-[200px] sm:max-w-[240px] text-center text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-white/30 leading-relaxed group-hover:text-white/60 transition-colors">
                                         {item.desc}
                                     </span>
                                 </div>
