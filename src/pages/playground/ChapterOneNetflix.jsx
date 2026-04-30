@@ -123,10 +123,8 @@ export default function ChapterOneNetflix() {
                   <h3 className="mb-4 text-base font-black uppercase tracking-[0.22em] text-red-300">
                     The Scenario
                   </h3>
-                  <p className="max-w-5xl text-2xl font-semibold leading-relaxed text-white/80 md:text-3xl">
-                    You will choose three movies. The game turns those choices into a
-                    taste profile, finds viewers with similar genres, and recommends a
-                    movie they liked. That is the core idea behind K-Nearest Neighbors.
+                  <p className="max-w-4xl text-xl font-semibold leading-relaxed text-white/80 md:text-2xl">
+                    Pick three movies to build your taste profile. The AI will instantly find viewers with similar tastes and recommend a movie they liked—just like K-Nearest Neighbors.
                   </p>
                 </div>
 
