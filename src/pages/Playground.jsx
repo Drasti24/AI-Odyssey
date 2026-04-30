@@ -1,6 +1,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Rocket, Play, Lock, Trophy, Zap, ShieldCheck, Key, X } from "lucide-react";
+import { ArrowLeft, Rocket, Play, Lock, Trophy, Zap, ShieldCheck, Key, X, RotateCcw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
 import MountainScene from "../components/MountainScene";
@@ -71,7 +71,7 @@ export default function Playground() {
   useEffect(() => {
     const saved = localStorage.getItem("ai_odyssey_progress");
     if (saved) setProgress(JSON.parse(saved));
-    
+
     const adminStatus = localStorage.getItem("ai_odyssey_admin") === "true";
     setIsAdmin(adminStatus);
   }, []);
@@ -101,6 +101,14 @@ export default function Playground() {
     localStorage.removeItem("ai_odyssey_admin");
   };
 
+  const resetProgress = () => {
+    if (window.confirm("Start a new Odyssey? This will lock all chapters and reset your XP to 0.")) {
+      localStorage.removeItem("ai_odyssey_progress");
+      setProgress({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
+      logoutAdmin();
+    }
+  };
+
   return (
     <main className="relative min-h-screen bg-[#07070c] text-white overflow-x-hidden">
       {/* Background Mountains (Less Vibrant / Muted) */}
@@ -126,7 +134,7 @@ export default function Playground() {
                   <ArrowLeft className="h-4 w-4" />
                   Back to Home
                 </Link>
-                
+
                 {isAdmin ? (
                   <button onClick={logoutAdmin} className="flex items-center gap-2 rounded-full bg-orange-500/10 px-3 py-1 text-[10px] font-black text-orange-400 border border-orange-500/20 uppercase tracking-widest">
                     <ShieldCheck size={12} /> Admin Mode (Logout)
@@ -137,14 +145,19 @@ export default function Playground() {
                   </button>
                 )}
               </div>
-              
+
               <div className="flex items-center gap-6">
                 <div className="flex flex-col items-end">
                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">Total Experience</span>
                   <span className="text-2xl font-black text-white">{isAdmin ? "∞" : totalScore} <span className="text-orange-500">XP</span></span>
                 </div>
-                <div className="h-10 w-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
-                  <Trophy size={20} className="text-orange-400" />
+                <div className="flex flex-col gap-2">
+                  <div className="h-10 w-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.2)] mx-auto">
+                    <Trophy size={20} className="text-orange-400" />
+                  </div>
+                  <button onClick={resetProgress} className="flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-[9px] font-black text-red-400 border border-red-500/20 uppercase tracking-widest hover:bg-red-500/20 transition-colors">
+                    <RotateCcw size={10} /> Restart Odyssey
+                  </button>
                 </div>
               </div>
             </div>
@@ -152,11 +165,11 @@ export default function Playground() {
             {/* Admin Login Modal */}
             <AnimatePresence>
               {showAdminForm && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-6"
                 >
-                  <motion.div 
+                  <motion.div
                     initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
                     className="max-w-sm w-full rounded-3xl border border-white/10 bg-[#121218] p-8 shadow-2xl"
                   >
@@ -167,19 +180,19 @@ export default function Playground() {
                     <form onSubmit={handleAdminLogin} className="space-y-4">
                       <div>
                         <label className="text-[10px] font-bold text-white/30 uppercase mb-1 block">Agent ID</label>
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           value={adminCreds.id}
-                          onChange={(e) => setAdminCreds({...adminCreds, id: e.target.value})}
+                          onChange={(e) => setAdminCreds({ ...adminCreds, id: e.target.value })}
                           className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-orange-500 outline-none"
                         />
                       </div>
                       <div>
                         <label className="text-[10px] font-bold text-white/30 uppercase mb-1 block">Access Key</label>
-                        <input 
-                          type="password" 
+                        <input
+                          type="password"
                           value={adminCreds.pass}
-                          onChange={(e) => setAdminCreds({...adminCreds, pass: e.target.value})}
+                          onChange={(e) => setAdminCreds({ ...adminCreds, pass: e.target.value })}
                           className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-orange-500 outline-none"
                         />
                       </div>
@@ -200,7 +213,7 @@ export default function Playground() {
                 </div>
               </div>
 
-              <h1 
+              <h1
                 className="mb-4 text-3xl font-black md:text-5xl uppercase tracking-tighter"
                 style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
               >
@@ -287,7 +300,7 @@ export default function Playground() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <Link 
+                <Link
                   to={(totalScore >= 400 || isAdmin) ? "/playground/boss" : "#"}
                   onMouseEnter={() => setHoveredColor("#f59e0b")}
                   onMouseLeave={() => setHoveredColor(mountainColors.default)}
@@ -296,7 +309,7 @@ export default function Playground() {
                   <div className="absolute -right-8 -top-8 rotate-12 opacity-10">
                     <Zap size={120} className={(totalScore >= 400 || isAdmin) ? "text-amber-500" : "text-white"} />
                   </div>
-                  
+
                   <div className="mb-6 flex items-center justify-between">
                     <div className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${(totalScore >= 400 || isAdmin) ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.5)]" : "bg-white/10 text-white/40"}`}>
                       Final Episode
@@ -310,7 +323,7 @@ export default function Playground() {
 
                   <h3 className={`mb-2 text-3xl font-black ${(totalScore >= 400 || isAdmin) ? "text-amber-400" : "text-white/20"}`} style={{ fontFamily: "'Press Start 2P', system-ui" }}>The Boss: General Intelligence</h3>
                   <p className="mb-6 text-sm text-white/40 font-medium">The ultimate test of all algorithms. Can you beat the machine?</p>
-                  
+
                   {(totalScore >= 400 || isAdmin) ? (
                     <div className="inline-flex items-center gap-2 rounded-xl border border-amber-500 bg-amber-500 px-6 py-3 text-xs font-black text-black group-hover:shadow-[0_0_20px_rgba(245,158,11,0.6)] transition-all">
                       ENTER THE CORE
