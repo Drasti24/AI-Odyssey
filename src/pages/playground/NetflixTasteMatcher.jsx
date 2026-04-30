@@ -18,7 +18,7 @@ const MOVIES = [
     iconLabel: "Space journey",
     genres: ["Sci-Fi", "Drama"],
     image:
-      "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80",
+      "/posters/interstellar.jpg",
   },
   {
     id: "inception",
@@ -27,7 +27,7 @@ const MOVIES = [
     iconLabel: "Dream layers",
     genres: ["Sci-Fi", "Thriller"],
     image:
-      "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=600&q=80",
+      "/posters/inception.jpg",
   },
   {
     id: "avengers",
@@ -36,7 +36,7 @@ const MOVIES = [
     iconLabel: "Superhero team",
     genres: ["Action", "Sci-Fi"],
     image:
-      "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80",
+      "/posters/avengers.jpg",
   },
   {
     id: "finding-nemo",
@@ -45,7 +45,7 @@ const MOVIES = [
     iconLabel: "Ocean adventure",
     genres: ["Animation", "Family"],
     image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+      "/posters/finding-nemo.jpg",
   },
   {
     id: "la-la-land",
@@ -54,7 +54,7 @@ const MOVIES = [
     iconLabel: "Musical romance",
     genres: ["Romance", "Music"],
     image:
-      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
+      "/posters/lalaland.jpg",
   },
   {
     id: "harry-potter",
@@ -63,7 +63,7 @@ const MOVIES = [
     iconLabel: "Magic fantasy",
     genres: ["Fantasy", "Adventure"],
     image:
-      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=600&q=80",
+      "/posters/harry-potter.jpg",
   },
 ];
 
@@ -380,7 +380,7 @@ export default function NetflixTasteMatcher({ onComplete }) {
             </div>
 
             <div className="space-y-3">
-              {rankedViewers.slice(0, 3).map((viewer, index) => {
+              {rankedViewers.slice(0, k).map((viewer, index) => {
                 const isNeighbor = index < k;
                 const width = selectedGenres.length
                   ? Math.max(8, (viewer.similarity / maxPossibleMatches) * 100)
