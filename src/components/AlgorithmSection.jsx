@@ -5,11 +5,13 @@ import AlgorithmCard from "./AlgorithmCard";
 const categories = {
     supervised: {
         title: "Supervised Learning",
-        definition: "Learning from labeled data. Imagine a teacher showing a student pictures of cats and dogs and telling them which is which. The student learns the patterns to identify them on their own later.",
+        definition:
+            "Learning from labeled data. The model is trained with examples where the correct answer is already known.",
     },
     unsupervised: {
         title: "Unsupervised Learning",
-        definition: "Learning from unlabeled data. Imagine giving a student a bucket of mixed blocks and asking them to group similar ones together. The student finds patterns and structures without being told what the groups are.",
+        definition:
+            "Learning from unlabeled data. The model looks for hidden groups, patterns, or structure without being given answers.",
     },
 };
 
@@ -72,8 +74,14 @@ const algorithms = [
     },
 ];
 
-export default function AlgorithmSection() {
-    const [selectedCategory, setSelectedCategory] = useState(null);
+export default function AlgorithmSection({
+    selectedCategory: controlledCategory,
+    setSelectedCategory: setControlledCategory,
+}) {
+    const [localCategory, setLocalCategory] = useState(null);
+
+    const selectedCategory = controlledCategory ?? localCategory;
+    const setSelectedCategory = setControlledCategory ?? setLocalCategory;
 
     const filteredAlgorithms = selectedCategory
         ? algorithms.filter((algo) => algo.type === selectedCategory)
@@ -83,7 +91,7 @@ export default function AlgorithmSection() {
         <section id="algorithms" className="px-8 py-28">
             <div className="mx-auto max-w-7xl">
                 <div className="mb-14 text-center">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -92,13 +100,13 @@ export default function AlgorithmSection() {
                         Choose Your Path
                     </motion.div>
 
-                    <motion.h2 
+                    <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
                         className="text-3xl font-black uppercase tracking-tighter"
-                        style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
+                        style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: "1.4" }}
                     >
                         Explore{" "}
                         <span className="bg-gradient-to-r from-cyan-300 via-white to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">
@@ -106,18 +114,17 @@ export default function AlgorithmSection() {
                         </span>
                     </motion.h2>
 
-                    <motion.p 
+                    <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
                         className="mt-5 text-white/60"
                     >
-                        Select a learning style to see how AI masters different tasks.
+                        Pick a learning style below. The algorithms will open automatically.
                     </motion.p>
                 </div>
 
-                {/* Category Selection */}
                 <div className="mb-16 grid gap-6 md:grid-cols-2">
                     {Object.entries(categories).map(([key, cat], index) => (
                         <motion.button
@@ -128,27 +135,26 @@ export default function AlgorithmSection() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => setSelectedCategory(key)}
-                            className={`group relative overflow-hidden rounded-3xl border p-8 text-left transition-all duration-300 ${
-                                selectedCategory === key
+                            className={`group relative overflow-hidden rounded-3xl border p-8 text-left transition-all duration-300 ${selectedCategory === key
                                     ? "border-cyan-500/50 bg-cyan-500/10 shadow-[0_0_30px_-10px_rgba(6,182,212,0.3)]"
                                     : "border-white/10 bg-white/5 hover:border-white/20"
-                            }`}
+                                }`}
                         >
-                            <div className="flex items-center gap-4">
-                                <div>
-                                    <h3 className={`text-2xl font-bold ${selectedCategory === key ? "text-cyan-300" : "text-white"}`}>
-                                        {cat.title}
-                                    </h3>
-                                    <p className="mt-1 text-sm text-white/40">
-                                        {key === 'supervised' ? '6 Algorithms' : '1 Algorithm'}
-                                    </p>
-                                </div>
-                            </div>
-                            
+                            <h3
+                                className={`text-2xl font-bold ${selectedCategory === key ? "text-cyan-300" : "text-white"
+                                    }`}
+                            >
+                                {cat.title}
+                            </h3>
+
+                            <p className="mt-1 text-sm text-white/40">
+                                {key === "supervised" ? "6 Algorithms" : "1 Algorithm"}
+                            </p>
+
                             {selectedCategory === key && (
-                                <motion.div 
+                                <motion.div
                                     layoutId="activeCategory"
-                                    className="absolute inset-0 border-2 border-cyan-500/50 rounded-3xl"
+                                    className="absolute inset-0 rounded-3xl border-2 border-cyan-500/50"
                                 />
                             )}
                         </motion.button>
@@ -164,19 +170,15 @@ export default function AlgorithmSection() {
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
                         >
-                            {/* Definition Box */}
                             <div className="mb-12 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-8 backdrop-blur-sm">
-                                <div className="flex items-start gap-4">
-                                    <div>
-                                        <h4 className="mb-2 text-lg font-bold text-purple-300">What is {categories[selectedCategory].title}?</h4>
-                                        <p className="text-lg leading-relaxed text-white/70">
-                                            {categories[selectedCategory].definition}
-                                        </p>
-                                    </div>
-                                </div>
+                                <h4 className="mb-2 text-lg font-bold text-purple-300">
+                                    What is {categories[selectedCategory].title}?
+                                </h4>
+                                <p className="text-lg leading-relaxed text-white/70">
+                                    {categories[selectedCategory].definition}
+                                </p>
                             </div>
 
-                            {/* Algorithms Grid */}
                             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                                 {filteredAlgorithms.map((algo) => (
                                     <AlgorithmCard key={algo.id} algo={algo} />
@@ -188,4 +190,4 @@ export default function AlgorithmSection() {
             </div>
         </section>
     );
-}
+}
