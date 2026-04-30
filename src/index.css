@@ -19,7 +19,19 @@ body {
   color: white;
   font-family: Inter, system-ui, sans-serif;
   overflow-x: hidden;
-  width: 100vw;
+  width: 100%;
+}
+
+img,
+svg,
+canvas,
+video {
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Prevent horizontal scroll from animations */
@@ -36,5 +48,20 @@ body {
   .font-pixel {
     font-size: 0.8em;
     line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  span,
+  button,
+  a {
+    overflow-wrap: anywhere;
+  }
+
+  [style*="Press Start 2P"] {
+    line-height: 1.45 !important;
+    letter-spacing: 0 !important;
   }
 }

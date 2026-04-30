@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import MountainScene from "./MountainScene";
-import { useCurtain } from "./CurtainTransition";
 
 const fadeUp = (delay = 0) => ({
     initial: { y: 40, opacity: 0 },
@@ -11,10 +10,8 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Hero() {
-    const { trigger } = useCurtain();
-    
     return (
-        <section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden px-8 bg-[#07070c]">
+        <section id="home" className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#07070c] px-4 py-16 sm:px-8 sm:py-20">
             {/* ── Three.js background ── */}
             <Suspense fallback={null}>
                 <MountainScene />
@@ -31,11 +28,11 @@ export default function Hero() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#07070c] via-[#07070c]/70 to-transparent" />
 
             {/* ── Content ── */}
-            <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-center text-center pt-20">
+            <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-center pt-20 text-center sm:pt-24">
                 <div className="flex flex-col items-center">
                     {/* Main heading */}
                     <motion.h1
-                        className="text-2xl font-black leading-tight sm:text-4xl md:text-7xl text-white uppercase tracking-tighter"
+                        className="max-w-[92vw] text-2xl font-black uppercase leading-tight text-white sm:text-4xl md:text-7xl"
                         style={{ fontFamily: "'Press Start 2P', system-ui", textShadow: '0 0-30px rgba(255,255,255,0.1)' }}
                         {...fadeUp(0.1)}
                     >
@@ -44,7 +41,7 @@ export default function Hero() {
 
                     {/* Sub tagline */}
                     <motion.p
-                        className="mt-6 sm:mt-10 max-w-2xl text-lg sm:text-xl leading-relaxed text-white/70"
+                        className="mt-5 max-w-[92vw] text-base leading-7 text-white/70 sm:mt-10 sm:max-w-2xl sm:text-xl sm:leading-relaxed"
                         {...fadeUp(0.2)}
                     >
                         Deconstruct the black box. Experience the logic through interactive experiments and visual storytelling.
@@ -52,11 +49,11 @@ export default function Hero() {
 
                     {/* Accent line */}
                     <motion.div
-                        className="mt-10 sm:mt-14 flex flex-col items-center gap-4"
+                        className="mt-8 flex max-w-[92vw] flex-col items-center gap-3 sm:mt-14 sm:gap-4"
                         {...fadeUp(0.3)}
                     >
                         <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
-                        <p className="text-lg sm:text-2xl font-black text-cyan-400 uppercase tracking-[0.2em] sm:tracking-[0.4em] drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+                        <p className="text-sm font-black uppercase text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] sm:text-2xl sm:tracking-[0.4em]">
                             Let's Make It Visible
                         </p>
                         <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
@@ -64,7 +61,7 @@ export default function Hero() {
 
                     {/* CTA Path */}
                     <motion.div 
-                        className="mt-24 grid w-full max-w-6xl grid-cols-1 gap-10 md:grid-cols-3 px-4" 
+                        className="mt-12 grid w-full max-w-6xl grid-cols-1 gap-4 px-0 sm:mt-20 sm:gap-6 sm:px-4 md:grid-cols-3 lg:mt-24 lg:gap-10" 
                         {...fadeUp(0.4)}
                     >
                         {[
@@ -92,14 +89,14 @@ export default function Hero() {
                                 blob: "bg-red-500/20",
                                 titleClass: "bg-gradient-to-r from-red-400 via-white to-cyan-400 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-cyan-300"
                             }
-                        ].map((item, i) => (
+                        ].map((item) => (
                             <Link 
                                 key={item.id} 
                                 to={item.to} 
-                                className="group relative flex flex-col items-center justify-center rounded-[3.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl transition-all duration-700 hover:scale-[1.05] hover:border-white/30 hover:bg-white/[0.05] hover:shadow-[0_40px_120px_rgba(0,0,0,0.7)] overflow-hidden min-h-[240px]"
+                                className="group relative flex min-h-[165px] flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl transition-all duration-700 hover:border-white/30 hover:bg-white/[0.05] sm:min-h-[220px] sm:rounded-[3.5rem] md:hover:scale-[1.05] md:hover:shadow-[0_40px_120px_rgba(0,0,0,0.7)]"
                             >
                                 {/* Animated Liquid Blobs */}
-                                <div className="absolute inset-0 overflow-hidden rounded-[3.5rem]">
+                                <div className="absolute inset-0 overflow-hidden rounded-3xl sm:rounded-[3.5rem]">
                                     <motion.div
                                         animate={{
                                             x: [0, 40, 0],
@@ -121,20 +118,20 @@ export default function Hero() {
                                 </div>
 
                                 {/* Glass Surface */}
-                                <div className="relative z-10 flex flex-col items-center justify-center p-8 sm:p-12">
+                                <div className="relative z-10 flex flex-col items-center justify-center p-6 sm:p-12">
                                     <span 
-                                        className={`mb-4 sm:mb-6 text-xl sm:text-2xl font-black drop-shadow-2xl tracking-tighter ${item.titleClass}`}
+                                        className={`mb-4 text-base font-black drop-shadow-2xl sm:mb-6 sm:text-2xl ${item.titleClass}`}
                                         style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
                                     >
                                         {item.title}
                                     </span>
-                                    <span className="max-w-[200px] sm:max-w-[240px] text-center text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-white/30 leading-relaxed group-hover:text-white/60 transition-colors">
+                                    <span className="max-w-[240px] text-center text-[8px] font-black uppercase tracking-[0.12em] text-white/35 transition-colors leading-relaxed group-hover:text-white/60 sm:text-[10px] sm:tracking-[0.2em]">
                                         {item.desc}
                                     </span>
                                 </div>
 
                                 {/* Glossy Overlay */}
-                                <div className="absolute inset-0 rounded-[3.5rem] bg-gradient-to-br from-white/10 via-transparent to-black/20 opacity-40" />
+                                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 via-transparent to-black/20 opacity-40 sm:rounded-[3.5rem]" />
                             </Link>
                         ))}
                     </motion.div>

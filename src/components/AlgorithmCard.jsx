@@ -9,7 +9,7 @@ export default function AlgorithmCard({ algo }) {
         <GlowCard color={color} className="h-full" isHighlighted={algo.id === 'knn'}>
             <Link
                 to={`/algorithms/${algo.id}`}
-                className="group flex h-full flex-col p-6"
+                className="group flex h-full flex-col p-5 sm:p-6"
             >
                 <div 
                     className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl text-2xl transition-colors duration-300"
@@ -18,7 +18,7 @@ export default function AlgorithmCard({ algo }) {
                     {algo.icon}
                 </div>
 
-                <div className="mb-3 flex items-center gap-3">
+                <div className="mb-3 flex flex-wrap items-center gap-2 sm:gap-3">
                     <h3 
                         className="text-xl font-black text-white uppercase"
                         style={{ fontFamily: "'Press Start 2P', system-ui", fontSize: '0.8rem', lineHeight: '1.4' }}
@@ -50,4 +50,4 @@ export default function AlgorithmCard({ algo }) {
         </GlowCard>
     );
 }
-
+

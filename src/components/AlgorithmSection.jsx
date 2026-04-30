@@ -102,7 +102,7 @@ export default function AlgorithmSection({
         : [];
 
     return (
-        <section id="algorithms" className="px-6 py-16 sm:px-8 sm:py-28">
+        <section id="algorithms" className="px-4 py-14 sm:px-8 sm:py-28">
             <div className="mx-auto max-w-7xl">
                 <div className="mb-12 text-center">
                     <motion.div
@@ -119,7 +119,7 @@ export default function AlgorithmSection({
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-xl sm:text-3xl font-black uppercase tracking-tighter"
+                        className="text-xl font-black uppercase sm:text-3xl"
                         style={{
                             fontFamily: "'Press Start 2P', system-ui",
                             lineHeight: "1.4",
@@ -142,11 +142,11 @@ export default function AlgorithmSection({
                     </motion.p>
                 </div>
 
-                <p className="mb-10 text-center text-base font-medium text-white/50">
+                <p className="mb-8 text-center text-sm font-medium text-white/50 sm:mb-10 sm:text-base">
                     Select a category below to see how it works.
                 </p>
 
-                <div className="mb-14 grid gap-6 md:grid-cols-2">
+                <div className="mb-10 grid gap-4 sm:mb-14 md:grid-cols-2 md:gap-6">
                     {Object.entries(categories).map(([key, cat], index) => {
                         const isSelected = selectedCategory === key;
                         const isSupervised = key === "supervised";
@@ -160,7 +160,7 @@ export default function AlgorithmSection({
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => setSelectedCategory(key)}
-                                className={`group relative overflow-hidden rounded-3xl border p-6 sm:p-8 text-left transition-all duration-300 ${isSelected
+                                className={`group relative overflow-hidden rounded-2xl border p-5 text-left transition-all duration-300 sm:rounded-3xl sm:p-8 ${isSelected
                                         ? isSupervised
                                             ? "border-cyan-500/70 bg-cyan-500/10 shadow-[0_0_35px_-10px_rgba(6,182,212,0.7)]"
                                             : "border-purple-500/70 bg-purple-500/10 shadow-[0_0_35px_-10px_rgba(168,85,247,0.7)]"
@@ -168,9 +168,9 @@ export default function AlgorithmSection({
                                     }`}
                             >
                                 <div className="relative z-10">
-                                    <div className="mb-6 flex items-center justify-between">
+                                    <div className="mb-5 flex items-center justify-between">
                                         <span
-                                            className={`rounded-full border px-4 py-1 text-[9px] font-black uppercase tracking-[0.2em] ${isSelected
+                                            className={`rounded-full border px-3 py-1 text-[8px] font-black uppercase tracking-[0.12em] sm:px-4 sm:text-[9px] sm:tracking-[0.2em] ${isSelected
                                                     ? isSupervised
                                                         ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-300"
                                                         : "border-purple-400/30 bg-purple-400/10 text-purple-300"
@@ -182,7 +182,7 @@ export default function AlgorithmSection({
                                     </div>
 
                                     <h3
-                                        className={`text-2xl font-bold ${isSelected
+                                        className={`text-xl font-bold sm:text-2xl ${isSelected
                                                 ? isSupervised
                                                     ? "text-cyan-300"
                                                     : "text-purple-300"
@@ -197,7 +197,7 @@ export default function AlgorithmSection({
                                     </p>
 
                                     <p
-                                        className={`mt-5 text-sm font-bold transition group-hover:translate-x-1 ${isSupervised ? "text-cyan-300" : "text-purple-300"
+                                        className={`mt-5 text-xs font-bold transition group-hover:translate-x-1 sm:text-sm ${isSupervised ? "text-cyan-300" : "text-purple-300"
                                             }`}
                                     >
                                         {isSupervised
@@ -239,10 +239,10 @@ export default function AlgorithmSection({
                             </p>
 
                             <div className="mb-12 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-6 sm:p-10 backdrop-blur-sm shadow-[0_0_50px_rgba(168,85,247,0.05)]">
-                                <h4 className="mb-4 text-lg sm:text-xl font-black text-purple-300 uppercase tracking-widest" style={{ fontFamily: "Inter, system-ui" }}>
+                                <h4 className="mb-4 text-base font-black uppercase tracking-widest text-purple-300 sm:text-xl" style={{ fontFamily: "Inter, system-ui" }}>
                                     What is {categories[selectedCategory].title}?
                                 </h4>
-                                <p className="text-lg sm:text-xl leading-relaxed text-white/70">
+                                <p className="text-base leading-relaxed text-white/70 sm:text-xl">
                                     {categories[selectedCategory].definition}
                                 </p>
                             </div>

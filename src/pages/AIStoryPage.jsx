@@ -48,7 +48,7 @@ function EraSlide({ era, direction }) {
     return (
         <motion.article
             key={era.year}
-            className="absolute inset-0 flex flex-col justify-center px-10 md:px-32 lg:px-48"
+            className="absolute inset-0 flex flex-col justify-center overflow-y-auto px-5 pb-8 pt-4 sm:px-10 md:px-32 lg:px-48"
             custom={direction}
             variants={variants}
             initial="enter"
@@ -57,7 +57,7 @@ function EraSlide({ era, direction }) {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
             {/* Background Year Watermark */}
-            <div className="pointer-events-none absolute -right-10 top-1/2 z-0 -translate-y-1/2 select-none opacity-20">
+            <div className="pointer-events-none absolute -right-10 top-1/2 z-0 hidden -translate-y-1/2 select-none opacity-20 md:block">
                 <motion.h1 
                     initial={{ opacity: 0, x: 50, filter: "blur(15px)" }}
                     animate={{ opacity: 1, x: 0, filter: "blur(8px)" }}
@@ -69,7 +69,7 @@ function EraSlide({ era, direction }) {
 
             <div className="relative z-10 max-w-3xl">
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                    className="mb-4 flex items-center gap-3">
+                    className="mb-4 flex flex-wrap items-center gap-2 sm:gap-3">
                     <span className="inline-flex items-center gap-2 rounded-lg px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white backdrop-blur-md"
                         style={{ background: `${era.accent}33`, border: `1px solid ${era.accent}66`, fontFamily: "'Press Start 2P', system-ui" }}>
                         {era.chapter}
@@ -80,13 +80,13 @@ function EraSlide({ era, direction }) {
                 </motion.div>
 
                 <motion.h2 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                    className="mb-6 text-4xl font-black text-white md:text-6xl uppercase tracking-tighter"
+                    className="mb-5 text-2xl font-black uppercase text-white sm:text-4xl md:mb-6 md:text-6xl"
                     style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.2' }}>
                     {era.title}
                 </motion.h2>
 
                 <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-                    className="mb-8 text-xl font-bold italic tracking-wide"
+                    className="mb-6 text-lg font-bold italic tracking-wide sm:mb-8 sm:text-xl"
                     style={{ color: era.accent }}>
                     &ldquo;{focus}&rdquo;
                     <motion.span className="inline-block w-[3px] h-[0.9em] ml-2 align-middle bg-white"
@@ -94,12 +94,12 @@ function EraSlide({ era, direction }) {
                 </motion.p>
 
                 <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-                    className="max-w-2xl text-lg leading-relaxed text-white/70">
+                    className="max-w-2xl text-sm leading-7 text-white/70 sm:text-lg sm:leading-relaxed">
                     {era.detail}
                 </motion.p>
 
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
-                    className="mt-8 inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40"
+                    className="mt-6 inline-flex items-center gap-3 text-[8px] font-black uppercase tracking-[0.12em] text-white/40 sm:mt-8 sm:text-[10px] sm:tracking-widest"
                     style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                     <span className="h-1.5 w-1.5 rounded-full" style={{ background: era.accent }} />
                     {era.stat}
@@ -153,28 +153,28 @@ export default function AIStoryPage() {
             <div className="pointer-events-none absolute inset-0 z-1 bg-gradient-to-t from-[#07070c] via-transparent to-transparent" />
 
             {/* Navbar */}
-            <nav className="absolute top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-8 backdrop-blur-md bg-black/40 border-b border-white/5">
+            <nav className="absolute left-0 right-0 top-0 z-50 flex h-16 items-center justify-between gap-3 border-b border-white/5 bg-black/40 px-4 backdrop-blur-md sm:px-8">
                 <button onClick={() => trigger("/")}
-                    className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors"
+                    className="group flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.12em] text-white/60 transition-colors hover:text-white sm:gap-3 sm:text-[10px] sm:tracking-widest"
                     style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                     <ArrowLeft size={16} /> Return
                 </button>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4">
                     <BrainCircuit size={20} style={{ color: era.accent }} />
                     <span className="text-xs font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         AI <span style={{ color: era.accent }}>ODYSSEY</span>
                     </span>
                 </div>
 
-                <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                <div className="hidden items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 sm:flex" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                     <BookOpen size={16} /> History
                 </div>
             </nav>
 
             {/* Timeline Strip */}
-            <div className="absolute top-16 left-0 right-0 z-50 h-12 flex items-center px-10 backdrop-blur-sm bg-white/5 border-b border-white/5">
-                <div className="relative flex w-full items-center justify-between">
+            <div className="absolute left-0 right-0 top-16 z-50 flex h-12 items-center overflow-x-auto border-b border-white/5 bg-white/5 px-4 backdrop-blur-sm sm:px-10">
+                <div className="relative flex min-w-[620px] flex-1 items-center justify-between">
                     <div className="absolute h-[1px] w-full bg-white/10" />
                     {ERAS.map((e, i) => (
                         <button 
@@ -205,33 +205,33 @@ export default function AIStoryPage() {
             </div>
 
             {/* Main Content */}
-            <div className="relative z-10 h-full w-full pt-28 pb-24">
+            <div className="relative z-10 h-full w-full pb-32 pt-28 sm:pb-24">
                 <AnimatePresence custom={direction} mode="wait">
                     <EraSlide key={active} era={era} direction={direction} />
                 </AnimatePresence>
             </div>
 
             {/* Footer / Controls */}
-            <div className="absolute bottom-0 left-0 right-0 z-50 flex h-24 flex-col justify-center px-10 backdrop-blur-xl bg-black/40 border-t border-white/5">
+            <div className="absolute bottom-0 left-0 right-0 z-50 flex min-h-28 flex-col justify-center border-t border-white/5 bg-black/40 px-4 py-4 backdrop-blur-xl sm:h-24 sm:px-10 sm:py-0">
                 <div className="absolute top-0 left-0 h-[2px] bg-white/10 w-full overflow-hidden">
                     <motion.div className="h-full" style={{ background: era.accent, width: `${progress * 100}%` }} />
                 </div>
 
-                <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
-                    <div className="flex flex-col">
+                <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex min-w-0 flex-col text-center sm:text-left">
                         <span className="text-[10px] font-black uppercase tracking-widest text-white/30 mb-1" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                             Timeline
                         </span>
-                        <span className="text-sm font-bold text-white/90">
+                        <span className="truncate text-sm font-bold text-white/90">
                             {era.year} · {era.title}
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center justify-center gap-4 sm:gap-6">
                         <button onClick={() => advance(-1)} className="rounded-full border border-white/10 p-3 hover:bg-white/10 transition-colors">
                             <ArrowLeft size={20} />
                         </button>
-                        <button onClick={() => setPlaying(p => !p)} className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-black hover:scale-105 transition-transform">
+                        <button onClick={() => setPlaying(p => !p)} className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black transition-transform hover:scale-105 sm:h-14 sm:w-14">
                             {playing ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" className="ml-1" />}
                         </button>
                         <button onClick={() => advance(1)} className="rounded-full border border-white/10 p-3 hover:bg-white/10 transition-colors">
@@ -239,7 +239,7 @@ export default function AIStoryPage() {
                         </button>
                     </div>
 
-                    <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-white/30" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <div className="hidden items-center gap-4 text-[10px] font-black uppercase tracking-widest text-white/30 sm:flex" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         {active + 1} / {ERAS.length}
                     </div>
                 </div>

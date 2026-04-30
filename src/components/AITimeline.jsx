@@ -55,7 +55,7 @@ function TimelineCard({ event, index, isAbove }) {
     return (
         <div
             ref={ref}
-            className={`relative flex flex-col ${isAbove ? "justify-end pb-10" : "justify-start pt-10"} flex-1 min-w-[160px] max-w-[200px]`}
+            className={`relative flex min-w-0 max-w-none flex-1 flex-col md:min-w-[160px] md:max-w-[200px] ${isAbove ? "md:justify-end md:pb-10" : "md:justify-start md:pt-10"}`}
         >
             {/* Card */}
             <motion.div
@@ -79,7 +79,7 @@ function TimelineCard({ event, index, isAbove }) {
 
             {/* Connector line from card to dot */}
             <motion.div
-                className={`absolute left-1/2 -translate-x-1/2 w-px`}
+                className="absolute left-1/2 hidden w-px -translate-x-1/2 md:block"
                 style={{
                     background: `linear-gradient(${isAbove ? "to bottom" : "to top"}, ${event.color}60, transparent)`,
                     height: 40,
@@ -92,7 +92,7 @@ function TimelineCard({ event, index, isAbove }) {
 
             {/* Dot on the timeline */}
             <motion.div
-                className="absolute left-1/2 -translate-x-1/2"
+                className="absolute left-1/2 hidden -translate-x-1/2 md:block"
                 style={{ [isAbove ? "bottom" : "top"]: -8 }}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={visible ? { scale: 1, opacity: 1 } : {}}
@@ -133,7 +133,7 @@ export default function AITimeline() {
     }, []);
 
     return (
-        <section id="timeline" className="relative overflow-hidden px-8 py-24">
+        <section id="timeline" className="relative overflow-hidden px-4 py-16 sm:px-8 sm:py-24">
             {/* Ambient glow */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(124,58,237,0.10),transparent)]" />
 
@@ -151,7 +151,7 @@ export default function AITimeline() {
                         AI History
                     </div>
                     <h2 
-                        className="text-2xl font-black text-white md:text-4xl uppercase tracking-tighter"
+                        className="text-xl font-black uppercase text-white sm:text-2xl md:text-4xl"
                         style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
                     >
                         From idea to{" "}
@@ -167,7 +167,7 @@ export default function AITimeline() {
                 {/* Timeline */}
                 <div className="relative" ref={lineRef}>
                     {/* Horizontal spine */}
-                    <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 bg-white/10 overflow-hidden rounded-full">
+                    <div className="absolute left-0 right-0 top-1/2 hidden h-px -translate-y-1/2 overflow-hidden rounded-full bg-white/10 md:block">
                         <motion.div
                             className="h-full rounded-full"
                             style={{
@@ -180,7 +180,7 @@ export default function AITimeline() {
                     </div>
 
                     {/* Cards row */}
-                    <div className="flex items-stretch justify-between gap-4">
+                    <div className="grid gap-4 md:flex md:items-stretch md:justify-between">
                         {EVENTS.map((event, i) => (
                             <TimelineCard
                                 key={event.year}

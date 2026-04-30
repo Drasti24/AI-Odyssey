@@ -75,7 +75,7 @@ export default function AlgorithmPage() {
 
     return (
         <main className="min-h-screen bg-[#07070c] text-white selection:bg-cyan-500/30">
-            <header className="sticky top-0 z-[100] flex items-center justify-between border-b border-white/5 px-6 py-4 sm:px-10 sm:py-5 backdrop-blur-xl bg-black/40">
+            <header className="sticky top-0 z-[100] flex items-center justify-between gap-3 border-b border-white/5 bg-black/40 px-4 py-4 backdrop-blur-xl sm:px-10 sm:py-5">
                 <Link to="/algorithms" className="group flex items-center gap-2 text-[8px] sm:text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-colors" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                     <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> <span className="hidden sm:inline">Back</span>
                 </Link>
@@ -84,7 +84,7 @@ export default function AlgorithmPage() {
                     <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-white/5 text-base sm:text-xl" style={{ color: algo.color }}>
                         {algo.icon}
                     </div>
-                    <h1 className="text-[10px] sm:text-sm font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <h1 className="text-center text-[9px] font-black uppercase sm:text-sm" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         {algo.name}
                     </h1>
                 </div>
@@ -99,12 +99,12 @@ export default function AlgorithmPage() {
 
             <section className="mx-auto max-w-7xl px-4 sm:px-8 py-6 sm:py-10">
                 {/* Custom Tabs */}
-                <div className="mb-8 sm:mb-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                <div className="mb-8 flex items-center gap-2 overflow-x-auto pb-1 sm:mb-12 sm:flex-wrap sm:justify-center sm:gap-4 sm:overflow-visible sm:pb-0">
                     {tabs.map((t) => (
                         <button
                             key={t.name}
                             onClick={() => setTab(t.name)}
-                            className={`flex items-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 py-3 sm:px-8 sm:py-4 text-[8px] sm:text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
+                            className={`flex shrink-0 items-center gap-2 rounded-xl border px-4 py-3 text-[8px] font-black uppercase tracking-widest transition-all duration-300 sm:gap-3 sm:rounded-2xl sm:px-8 sm:py-4 sm:text-[10px] ${
                                 tab === t.name
                                     ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                                     : "bg-white/5 text-white/40 border-white/10 hover:border-white/30 hover:text-white"
@@ -144,12 +144,12 @@ function MathEngine({ id }) {
 function VisualLearn({ algo }) {
     return (
         <div className="space-y-8">
-            <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl">
-                <div className="mb-8 flex gap-4">
-                    <button className="flex items-center gap-3 rounded-2xl bg-white px-8 py-4 text-[10px] font-black uppercase text-black hover:scale-105 transition-transform" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl sm:rounded-3xl sm:p-8">
+                <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                    <button className="flex items-center justify-center gap-3 rounded-2xl bg-white px-5 py-4 text-[9px] font-black uppercase text-black transition-transform hover:scale-105 sm:px-8 sm:text-[10px]" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         <Play size={16} fill="currentColor" /> Run Simulation
                     </button>
-                    <button className="flex items-center gap-3 rounded-2xl border border-white/10 px-8 py-4 text-[10px] font-black uppercase text-white/60 hover:bg-white/5 transition-all" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <button className="flex items-center justify-center gap-3 rounded-2xl border border-white/10 px-5 py-4 text-[9px] font-black uppercase text-white/60 transition-all hover:bg-white/5 sm:px-8 sm:text-[10px]" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         <RotateCcw size={16} /> Reset
                     </button>
                 </div>
@@ -162,9 +162,9 @@ function VisualLearn({ algo }) {
                 </div>
             </div>
 
-            <div className="relative h-[500px] rounded-3xl border border-white/10 bg-black/40 p-10 overflow-hidden shadow-2xl">
+            <div className="relative h-[320px] overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-5 shadow-2xl sm:h-[500px] sm:rounded-3xl sm:p-10">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px]" />
-                <div className="flex h-full items-center justify-center text-white/10 font-black text-4xl opacity-10">CANVAS_PLACEHOLDER</div>
+                <div className="flex h-full items-center justify-center text-center text-2xl font-black text-white/10 opacity-10 sm:text-4xl">CANVAS_PLACEHOLDER</div>
             </div>
         </div>
     );
@@ -172,9 +172,9 @@ function VisualLearn({ algo }) {
 
 function TeachMe({ algo }) {
     return (
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-12 backdrop-blur-xl">
-            <h2 className="mb-8 text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>The {algo.name} Story</h2>
-            <p className="text-xl leading-10 text-white/60 max-w-4xl">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl sm:rounded-3xl sm:p-12">
+            <h2 className="mb-6 text-2xl font-black uppercase sm:mb-8 sm:text-4xl" style={{ fontFamily: "'Press Start 2P', system-ui" }}>The {algo.name} Story</h2>
+            <p className="max-w-4xl text-base leading-8 text-white/60 sm:text-xl sm:leading-10">
                 Before we dive into the numbers, let's understand why we use this. {algo.about}
                 Imagine a world where data is a conversation, and this algorithm is the translator.
             </p>
@@ -185,14 +185,14 @@ function TeachMe({ algo }) {
 function ProsCons({ algo }) {
     return (
         <div className="grid gap-8 md:grid-cols-2">
-            <div className="rounded-3xl border border-green-500/20 bg-green-500/5 p-8 backdrop-blur-xl">
+            <div className="rounded-2xl border border-green-500/20 bg-green-500/5 p-5 backdrop-blur-xl sm:rounded-3xl sm:p-8">
                 <h3 className="mb-6 text-sm font-black uppercase text-green-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Strengths</h3>
                 <ul className="space-y-4 text-white/60">
                     <li className="flex gap-3">✓ <span className="flex-1 italic">Easy to understand and implement.</span></li>
                     <li className="flex gap-3">✓ <span className="flex-1 italic">Works well with small datasets.</span></li>
                 </ul>
             </div>
-            <div className="rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
+            <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-5 backdrop-blur-xl sm:rounded-3xl sm:p-8">
                 <h3 className="mb-6 text-sm font-black uppercase text-red-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Weaknesses</h3>
                 <ul className="space-y-4 text-white/60">
                     <li className="flex gap-3">✗ <span className="flex-1 italic">Slows down with very large data.</span></li>
@@ -205,11 +205,11 @@ function ProsCons({ algo }) {
 
 function WhyPanel() {
     return (
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-12 backdrop-blur-xl">
-            <h2 className="mb-8 text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>The "Why"</h2>
-            <p className="text-xl leading-10 text-white/60 max-w-4xl italic">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl sm:rounded-3xl sm:p-12">
+            <h2 className="mb-6 text-2xl font-black uppercase sm:mb-8 sm:text-4xl" style={{ fontFamily: "'Press Start 2P', system-ui" }}>The "Why"</h2>
+            <p className="max-w-4xl text-base leading-8 text-white/60 italic sm:text-xl sm:leading-10">
                 &ldquo;Why this formula? Why not another? Mathematics isn't just a set of rules; it's a series of decisions. This section explains the intuition behind every choice made in the algorithm design.&rdquo;
             </p>
         </div>
     );
-}
+}

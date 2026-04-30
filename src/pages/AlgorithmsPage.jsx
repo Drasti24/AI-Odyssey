@@ -73,11 +73,11 @@ export default function AlgorithmsPage() {
             <div className="relative z-10">
                 <Navbar />
 
-                <div className="px-4 pb-10 pt-40 text-center">
+                <div className="px-4 pb-8 pt-32 text-center sm:pt-40">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl font-black uppercase tracking-tighter text-white md:text-6xl"
+                        className="text-2xl font-black uppercase text-white sm:text-4xl md:text-6xl"
                         style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: "1.4" }}
                     >
                         AI{" "}
@@ -90,7 +90,7 @@ export default function AlgorithmsPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="mt-6 text-[10px] font-black uppercase tracking-[0.4em] text-white/50 md:text-xs"
+                        className="mt-5 text-[8px] font-black uppercase tracking-[0.14em] text-white/50 sm:mt-6 sm:text-[10px] sm:tracking-[0.4em] md:text-xs"
                         style={{ fontFamily: "'Press Start 2P', system-ui" }}
                     >
                         Master the logic of intelligence
@@ -98,14 +98,14 @@ export default function AlgorithmsPage() {
                 </div>
 
                 <div className="pb-20">
-                    <div className="mx-auto mb-20 max-w-6xl px-6">
+                    <div className="mx-auto mb-12 max-w-6xl px-4 sm:mb-20 sm:px-6">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl md:p-12"
+                            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:rounded-3xl sm:p-8 md:p-12"
                         >
-                            <div className="grid items-center gap-12 lg:grid-cols-2">
+                            <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
                                 <div>
                                     <span
                                         className="mb-4 block text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400"
@@ -115,26 +115,26 @@ export default function AlgorithmsPage() {
                                     </span>
 
                                     <h2
-                                        className="mb-6 text-3xl font-black uppercase text-white"
+                                        className="mb-5 text-xl font-black uppercase text-white sm:mb-6 sm:text-3xl"
                                         style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: "1.4" }}
                                     >
                                         Don&apos;t let the <span className="text-red-500">math</span>{" "}
                                         scare you!
                                     </h2>
 
-                                    <p className="mb-8 text-lg leading-relaxed text-white/60">
+                                    <p className="mb-6 text-base leading-7 text-white/60 sm:mb-8 sm:text-lg sm:leading-relaxed">
                                         Before jumping into algorithms, start with how AI learns.
                                         Some models learn from answers. Others find patterns without
                                         answers. Pick a path below to understand the difference.
                                     </p>
 
-                                    <div className="space-y-6">
+                                    <div className="space-y-4 sm:space-y-6">
                                         <button
                                             onClick={() => openLearningModal("supervised")}
-                                            className="w-full rounded-2xl border border-white/5 bg-white/5 p-6 text-left transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10"
+                                            className="w-full rounded-2xl border border-white/5 bg-white/5 p-5 text-left transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10 sm:p-6"
                                         >
                                             <h3
-                                                className="mb-2 text-sm font-black uppercase text-cyan-400"
+                                                className="mb-2 text-xs font-black uppercase text-cyan-400 sm:text-sm"
                                                 style={{ fontFamily: "'Press Start 2P', system-ui" }}
                                             >
                                                 1. Supervised Learning
@@ -147,10 +147,10 @@ export default function AlgorithmsPage() {
 
                                         <button
                                             onClick={() => openLearningModal("unsupervised")}
-                                            className="w-full rounded-2xl border border-white/5 bg-white/5 p-6 text-left transition-all hover:border-purple-500/40 hover:bg-purple-500/10"
+                                            className="w-full rounded-2xl border border-white/5 bg-white/5 p-5 text-left transition-all hover:border-purple-500/40 hover:bg-purple-500/10 sm:p-6"
                                         >
                                             <h3
-                                                className="mb-2 text-sm font-black uppercase text-purple-400"
+                                                className="mb-2 text-xs font-black uppercase text-purple-400 sm:text-sm"
                                                 style={{ fontFamily: "'Press Start 2P', system-ui" }}
                                             >
                                                 2. Unsupervised Learning
@@ -172,7 +172,7 @@ export default function AlgorithmsPage() {
                                             className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-[#07070c] via-transparent to-transparent opacity-60" />
-                                        <div className="absolute bottom-4 left-6">
+                                        <div className="absolute bottom-4 left-4 sm:left-6">
                                             <span
                                                 className="text-[8px] font-black uppercase tracking-widest text-white/40"
                                                 style={{ fontFamily: "'Press Start 2P', system-ui" }}
@@ -237,9 +237,9 @@ function LearningModal({ type, showAnswer, setShowAnswer, onClose, onExplore }) 
                 initial={{ scale: 0.9, y: 20, opacity: 0 }}
                 animate={{ scale: 1, y: 0, opacity: 1 }}
                 exit={{ scale: 0.9, y: 20, opacity: 0 }}
-                className="w-full max-w-2xl rounded-3xl border border-white/10 bg-[#101018] p-8 shadow-2xl"
+                className="max-h-[88dvh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/10 bg-[#101018] p-5 shadow-2xl sm:rounded-3xl sm:p-8"
             >
-                <div className="mb-6 flex items-start justify-between gap-6">
+                <div className="mb-6 flex items-start justify-between gap-4 sm:gap-6">
                     <div>
                         <p
                             className={`mb-3 text-[10px] font-black uppercase tracking-[0.3em] ${isSupervised ? "text-cyan-300" : "text-purple-300"
@@ -249,7 +249,7 @@ function LearningModal({ type, showAnswer, setShowAnswer, onClose, onExplore }) 
                             Learning Path
                         </p>
 
-                        <h3 className="text-3xl font-black text-white">{info.title}</h3>
+                        <h3 className="text-2xl font-black text-white sm:text-3xl">{info.title}</h3>
                     </div>
 
                     <button

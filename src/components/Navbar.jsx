@@ -42,11 +42,11 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#07070c]/80 backdrop-blur-xl">
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8">
+        <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#07070c]/85 backdrop-blur-xl">
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 md:px-8">
                 <button onClick={goHome} className="z-50 flex items-center gap-3">
-                    <BrainCircuit className="h-8 w-8 text-cyan-400" />
-                    <span className="text-xl font-bold">
+                    <BrainCircuit className="h-7 w-7 shrink-0 text-cyan-400 sm:h-8 sm:w-8" />
+                    <span className="text-lg font-bold sm:text-xl">
                         AI <span className="text-purple-400">Odyssey</span>
                     </span>
                 </button>
@@ -99,23 +99,23 @@ export default function Navbar() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="absolute left-0 top-0 flex min-h-screen w-full flex-col items-center justify-center gap-8 bg-[#07070c] px-8 text-2xl font-bold md:hidden"
+                            className="fixed inset-0 z-40 flex min-h-dvh w-full flex-col items-stretch justify-center gap-3 bg-[#07070c] px-5 py-24 text-xl font-bold md:hidden"
                         >
-                            <button onClick={goHome} className="hover:text-cyan-400">
+                            <button onClick={goHome} className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-center hover:text-cyan-400">
                                 Home
                             </button>
-                            <button onClick={() => goToSection("algorithms")} className="hover:text-cyan-400">
+                            <button onClick={() => goToSection("algorithms")} className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-center hover:text-cyan-400">
                                 Algorithms
                             </button>
-                            <Link to="/playground" onClick={() => setIsOpen(false)} className="hover:text-cyan-400">
+                            <Link to="/playground" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-center hover:text-cyan-400">
                                 Playground
                             </Link>
-                            <button onClick={() => goToSection("about")} className="hover:text-cyan-400">
+                            <button onClick={() => goToSection("about")} className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-center hover:text-cyan-400">
                                 About
                             </button>
                             <button
                                 onClick={() => handleTrigger("/story")}
-                                className="text-orange-500"
+                                className="rounded-2xl border border-orange-500/20 bg-orange-500/10 px-5 py-4 text-center text-orange-500"
                             >
                                 🎭 Story
                             </button>
@@ -125,4 +125,4 @@ export default function Navbar() {
             </div>
         </nav>
     );
-}
+}

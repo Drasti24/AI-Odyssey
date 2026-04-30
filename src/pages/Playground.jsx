@@ -123,10 +123,10 @@ export default function Playground() {
 
       <div className="relative z-10">
         <Navbar />
-        <section className="px-8 pt-32 pb-20">
+        <section className="px-4 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-32">
           <div className="mx-auto max-w-7xl">
-            <div className="flex items-center justify-between mb-12">
-              <div className="flex items-center gap-4">
+            <div className="mb-10 flex flex-col gap-6 lg:mb-12 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   to="/"
                   className="inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
@@ -136,7 +136,7 @@ export default function Playground() {
                 </Link>
 
                 {isAdmin ? (
-                  <button onClick={logoutAdmin} className="flex items-center gap-2 rounded-full bg-orange-500/10 px-3 py-1 text-[10px] font-black text-orange-400 border border-orange-500/20 uppercase tracking-widest">
+                  <button onClick={logoutAdmin} className="flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-orange-400">
                     <ShieldCheck size={12} /> Admin Mode (Logout)
                   </button>
                 ) : (
@@ -146,12 +146,12 @@ export default function Playground() {
                 )}
               </div>
 
-              <div className="flex items-center gap-6">
-                <div className="flex flex-col items-end">
+              <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:gap-6 lg:bg-transparent lg:p-0 lg:border-0">
+                <div className="flex flex-col items-start lg:items-end">
                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">Total Experience</span>
                   <span className="text-2xl font-black text-white">{isAdmin ? "∞" : totalScore} <span className="text-orange-500">XP</span></span>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col items-center gap-2">
                   <div className="h-10 w-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.2)] mx-auto">
                     <Trophy size={20} className="text-orange-400" />
                   </div>
@@ -206,7 +206,7 @@ export default function Playground() {
             </AnimatePresence>
 
             {/* Header */}
-            <div className="mb-16 text-center">
+            <div className="mb-12 text-center sm:mb-16">
               <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-red-500 to-purple-600 p-1 shadow-[0_0_30px_rgba(239,68,68,0.3)]">
                 <div className="flex h-full w-full items-center justify-center rounded-[20px] bg-[#07070c]">
                   <Rocket size={36} className="text-red-400" />
@@ -214,7 +214,7 @@ export default function Playground() {
               </div>
 
               <h1
-                className="mb-4 text-3xl font-black md:text-5xl uppercase tracking-tighter"
+                className="mb-4 text-2xl font-black uppercase sm:text-3xl md:text-5xl"
                 style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
               >
                 The{" "}
@@ -222,14 +222,14 @@ export default function Playground() {
                   Playground
                 </span>
               </h1>
-              <p className="mx-auto max-w-2xl text-xl text-white/50 leading-relaxed font-medium">
+              <p className="mx-auto max-w-2xl text-base font-medium leading-7 text-white/50 sm:text-xl sm:leading-relaxed">
                 Unlock the Odyssey. Earn 80+ points to progress.
                 Reach <span className="text-orange-400 font-bold">400 XP</span> for the Boss Level.
               </p>
             </div>
 
             {/* Chapter Grid */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {chapters.map((ch, index) => {
                 const unlocked = isUnlocked(ch.id);
                 const score = progress[ch.id] || 0;
@@ -253,9 +253,9 @@ export default function Playground() {
                   >
                     {unlocked ? (
                       <Link to={ch.path} className="block group">
-                        <div className={`relative overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm bg-black/40 ${c.border} ${c.hoverBorder} ${c.shadow}`}>
+                        <div className={`relative overflow-hidden rounded-2xl border bg-black/40 p-5 backdrop-blur-sm transition-all duration-300 sm:p-6 md:hover:scale-[1.02] ${c.border} ${c.hoverBorder} ${c.shadow}`}>
                           <div className={`h-0.5 absolute top-0 left-0 right-0 bg-gradient-to-r from-transparent to-transparent ${c.via}`} />
-                          <div className="mb-4 flex items-center justify-between">
+                          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                             <span className={`text-xs font-bold uppercase tracking-widest ${c.text}`}>Chapter {ch.id}</span>
                             <div className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold ${score > 0 ? "bg-green-500/10 text-green-400" : "bg-blue-500/10 text-blue-400"}`}>
                               {score > 0 ? (
@@ -267,7 +267,7 @@ export default function Playground() {
                           </div>
                           <h3 className={`mb-1 text-xl font-black text-white transition-colors ${c.hoverText}`}>{ch.title}</h3>
                           <p className="mb-4 text-sm text-white/40">{ch.subtitle}</p>
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
                             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-bold text-white/50">{ch.algorithm}</span>
                             <div className={`flex h-8 w-8 items-center justify-center rounded-full text-white transition-shadow ${c.btnBg} ${c.btnShadow} ${c.btnHover}`}>
                               <Play className="h-3.5 w-3.5 fill-white" />
@@ -276,8 +276,8 @@ export default function Playground() {
                         </div>
                       </Link>
                     ) : (
-                      <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-6 opacity-40 grayscale">
-                        <div className="mb-4 flex items-center justify-between">
+                      <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-5 opacity-40 grayscale sm:p-6">
+                        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                           <span className="text-xs font-bold uppercase tracking-widest text-white/30">Chapter {ch.id}</span>
                           <div className="flex items-center gap-1.5 rounded-full bg-white/5 px-2.5 py-1 text-xs font-bold text-white/30">
                             <Lock className="h-3 w-3" /> Locked
@@ -304,13 +304,13 @@ export default function Playground() {
                   to={(totalScore >= 400 || isAdmin) ? "/playground/boss" : "#"}
                   onMouseEnter={() => setHoveredColor("#f59e0b")}
                   onMouseLeave={() => setHoveredColor(mountainColors.default)}
-                  className={`relative group overflow-hidden rounded-3xl border-2 p-8 transition-all duration-500 backdrop-blur-sm ${(totalScore >= 400 || isAdmin) ? "border-amber-500/50 bg-amber-500/5 shadow-[0_0_50px_rgba(245,158,11,0.1)] cursor-pointer hover:scale-[1.02]" : "border-white/5 bg-white/[0.02] opacity-40 cursor-not-allowed"}`}
+                  className={`group relative overflow-hidden rounded-2xl border-2 p-5 backdrop-blur-sm transition-all duration-500 sm:rounded-3xl sm:p-8 ${(totalScore >= 400 || isAdmin) ? "cursor-pointer border-amber-500/50 bg-amber-500/5 shadow-[0_0_50px_rgba(245,158,11,0.1)] md:hover:scale-[1.02]" : "cursor-not-allowed border-white/5 bg-white/[0.02] opacity-40"}`}
                 >
                   <div className="absolute -right-8 -top-8 rotate-12 opacity-10">
                     <Zap size={120} className={(totalScore >= 400 || isAdmin) ? "text-amber-500" : "text-white"} />
                   </div>
 
-                  <div className="mb-6 flex items-center justify-between">
+                  <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
                     <div className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${(totalScore >= 400 || isAdmin) ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.5)]" : "bg-white/10 text-white/40"}`}>
                       Final Episode
                     </div>
@@ -321,7 +321,7 @@ export default function Playground() {
                     )}
                   </div>
 
-                  <h3 className={`mb-2 text-3xl font-black ${(totalScore >= 400 || isAdmin) ? "text-amber-400" : "text-white/20"}`} style={{ fontFamily: "'Press Start 2P', system-ui" }}>The Boss: General Intelligence</h3>
+                  <h3 className={`mb-2 text-xl font-black sm:text-3xl ${(totalScore >= 400 || isAdmin) ? "text-amber-400" : "text-white/20"}`} style={{ fontFamily: "'Press Start 2P', system-ui" }}>The Boss: General Intelligence</h3>
                   <p className="mb-6 text-sm text-white/40 font-medium">The ultimate test of all algorithms. Can you beat the machine?</p>
 
                   {(totalScore >= 400 || isAdmin) ? (
