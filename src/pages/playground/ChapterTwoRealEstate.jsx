@@ -280,16 +280,19 @@ export default function ChapterTwoRealEstate() {
 
                   {/* Buttons */}
                   <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                    <Link
+                      to="/playground"
+                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3 font-bold text-white transition-all hover:scale-105 hover:bg-emerald-500 hover:text-white hover:border-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-95"
+                    >
+                      Return to Arena
+                    </Link>
                     <Link to="/algorithms/linear-regression"
                       className="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3 font-bold text-black transition-all hover:bg-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 active:scale-95">
-                      Try Linear Regression <ChevronRight className="h-4 w-4" />
+                      Deep Dive into Linear Regression
                     </Link>
                     <button onClick={handleRestart}
                       className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3 font-bold text-white/60 transition-all hover:border-white/20 hover:text-white hover:scale-105 active:scale-95">
                       <RotateCcw className="h-4 w-4" /> Play Again
-                    </button>
-                    <button disabled className="inline-flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-6 py-3 font-bold text-white/20 cursor-not-allowed" title="Coming soon!">
-                      Next Episode <ChevronRight className="h-4 w-4" />
                     </button>
                   </div>
                 </div>

@@ -295,8 +295,11 @@ export default function ChapterFourWeather() {
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-4">
+                  <Link to="/playground" className="border-2 border-white/20 px-6 py-3 font-black text-white hover:bg-white/5 hover:border-purple-500 hover:text-purple-400 transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
+                    RETURN TO ARENA
+                  </Link>
                   <Link to="/algorithms/logistic-regression" className="bg-purple-600 px-6 py-3 font-black text-white shadow-[4px_4px_0px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-all">
-                    TRY LOGISTIC REGRESSION
+                    DEEP DIVE INTO LOGISTIC REGRESSION
                   </Link>
                   <button onClick={resetGame} className="border-2 border-white/20 px-6 py-3 font-black text-white hover:bg-white/5 transition-all">
                     <RotateCcw className="inline mr-2 h-4 w-4" /> RESTART

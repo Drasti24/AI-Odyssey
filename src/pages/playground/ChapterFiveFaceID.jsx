@@ -516,8 +516,11 @@ export default function ChapterFiveFaceID() {
                 </div>
 
                 <div className="mt-12 flex flex-wrap justify-center gap-4">
+                  <Link to="/playground" className="border-2 border-white/10 px-8 py-4 rounded-xl font-black text-white hover:bg-white/5 hover:border-orange-500 hover:text-orange-400 transition-all">
+                    RETURN TO ARENA
+                  </Link>
                   <Link to="/algorithms/neural-network" className="bg-orange-500 px-8 py-4 rounded-xl font-black text-black hover:bg-orange-400 transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)]">
-                    MASTER NEURAL NETWORKS
+                    DEEP DIVE INTO NEURAL NETWORKS
                   </Link>
                   <button onClick={reset} className="border-2 border-white/10 px-8 py-4 rounded-xl font-black text-white hover:bg-white/5 transition-all">
                     <RotateCcw className="inline mr-2 h-5 w-5" /> RESTART ODYSSEY

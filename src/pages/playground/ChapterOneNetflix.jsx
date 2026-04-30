@@ -229,9 +229,16 @@ export default function ChapterOneNetflix() {
                   <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                     <Link
                       to="/playground"
-                      className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-bold text-black transition-all hover:scale-105 hover:bg-red-500 hover:text-white hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-95"
+                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3 font-bold text-white transition-all hover:scale-105 hover:bg-red-500 hover:text-white hover:border-red-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-95"
                     >
                       Return to Arena
+                    </Link>
+
+                    <Link
+                      to="/algorithms/knn"
+                      className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-bold text-black transition-all hover:scale-105 hover:bg-cyan-300 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] active:scale-95"
+                    >
+                      Deep Dive into KNN
                     </Link>
 
                     <button
