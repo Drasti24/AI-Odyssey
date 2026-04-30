@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Play, GraduationCap, Calculator, ListChecks, HelpCircle, Activity } from "lucide-react";
 import Navbar from "../../../components/Navbar";
 import KNNPlayMode from "./KNNPlayMode";
 import KNNTeachMode from "./KNNTeachMode";
 import KNNBreakMode from "./KNNBreakMode";
+
+const KNNMath = lazy(() => import("../../../components/math-engine/KNNMath"));
 
 export default function KNN() {
   const [activeTab, setActiveTab] = useState("play");
@@ -13,61 +15,71 @@ export default function KNN() {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
 
+  const tabs = [
+    { id: "play", label: "Play Lab", icon: <Play size={16} /> },
+    { id: "teach", label: "Teach Me", icon: <GraduationCap size={16} /> },
+    { id: "math", label: "Mathematics", icon: <Calculator size={16} /> },
+    { id: "break", label: "Step-by-Step", icon: <Activity size={16} /> },
+    { id: "proscons", label: "Pros & Cons", icon: <ListChecks size={16} /> },
+    { id: "realworld", label: "Real World", icon: <HelpCircle size={16} /> },
+  ];
+
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
-          <Link
-            to="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
-          <div className="mb-12">
-            <h1 className="mb-4 text-5xl font-black">
-              K-Nearest{" "}
-              <span className="text-cyan-400">Neighbors</span>
-            </h1>
-            <div className="max-w-2xl space-y-4">
-              <p className="text-lg text-white/80 leading-relaxed">
-                <span className="font-bold text-cyan-300">Easy definition:</span> KNN is like asking your neighbors for advice. To classify a new point, we just look at the <span className="italic text-cyan-300">K</span> closest points already in the data and take a majority vote!
-              </p>
-              <p className="text-md text-white/50 border-l-2 border-cyan-400/30 pl-4">
-                <span className="font-bold text-white/70">Real-life example:</span> Imagine you are in a library and find a mystery book. If the 5 books closest to it on the shelf are all "Sci-Fi," you can safely guess that the mystery book is also Sci-Fi.
-              </p>
+          <header className="mb-12">
+            <Link
+              to="/algorithms"
+              className="group mb-8 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/40 transition-colors hover:text-cyan-400"
+              style={{ fontFamily: "'Press Start 2P', system-ui" }}
+            >
+              <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+              Back
+            </Link>
+            
+            <div className="mt-8">
+              <h1 className="mb-6 text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                K-Nearest <span className="text-cyan-400">Neighbors</span>
+              </h1>
+              <div className="max-w-3xl rounded-3xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl">
+                <p className="text-lg text-white/70 leading-relaxed italic">
+                  &ldquo;KNN is like asking your neighbors for advice. To classify a new point, we just look at the closest points already in the data and take a majority vote!&rdquo;
+                </p>
+              </div>
             </div>
-          </div>
+          </header>
 
           {/* Tabs */}
-          <div className="mb-8 flex flex-wrap gap-2 rounded-xl bg-white/5 p-2 w-fit border border-white/5">
-            {[
-              { id: "play", label: "Play" },
-              { id: "teach", label: "Teach" },
-              { id: "break", label: "Break" },
-              { id: "proscons", label: "Pros & Cons" },
-              { id: "realworld", label: "Real World" },
-            ].map((t) => (
+          <div className="mb-12 flex flex-wrap gap-3 rounded-2xl bg-white/[0.03] p-2 w-fit border border-white/5">
+            {tabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`rounded-lg px-6 py-2 font-bold transition-all ${activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
-                  }`}
+                className={`flex items-center gap-3 rounded-xl px-6 py-3 text-[10px] font-black uppercase tracking-widest transition-all ${
+                  activeTab === t.id 
+                    ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]" 
+                    : "text-white/40 hover:text-white hover:bg-white/5"
+                }`}
+                style={{ fontFamily: "'Press Start 2P', system-ui" }}
               >
-                {t.label}
+                {t.icon} {t.label}
               </button>
             ))}
           </div>
 
           {/* Active Mode */}
-          <div className="min-h-[500px]">
-            {activeTab === "play" && <KNNPlayMode />}
-            {activeTab === "teach" && <KNNTeachMode />}
-            {activeTab === "break" && <KNNBreakMode />}
-            {activeTab === "proscons" && <KNNProsCons />}
-            {activeTab === "realworld" && <KNNRealWorld />}
+          <div className="min-h-[600px] animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <Suspense fallback={<div className="flex h-64 items-center justify-center text-cyan-400 animate-pulse">Initializing Component...</div>}>
+              {activeTab === "play" && <KNNPlayMode />}
+              {activeTab === "teach" && <KNNTeachMode />}
+              {activeTab === "math" && <KNNMath />}
+              {activeTab === "break" && <KNNBreakMode />}
+              {activeTab === "proscons" && <KNNProsCons />}
+              {activeTab === "realworld" && <KNNRealWorld />}
+            </Suspense>
           </div>
         </div>
       </section>
@@ -90,24 +102,24 @@ function KNNProsCons() {
 
   return (
     <div className="grid gap-8 md:grid-cols-2">
-      <div className="rounded-2xl border border-green-500/10 bg-green-500/5 p-6">
-        <h3 className="mb-6 text-2xl font-bold text-green-400">Pros</h3>
+      <div className="rounded-3xl border border-green-500/20 bg-green-500/5 p-8 backdrop-blur-xl">
+        <h3 className="mb-6 text-sm font-black uppercase text-green-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Pros</h3>
         <div className="space-y-4">
           {pros.map((p, i) => (
-            <div key={i} className="rounded-xl bg-black/20 p-4 border border-white/5">
-              <h4 className="font-bold text-white mb-1">{p.title}</h4>
+            <div key={i} className="rounded-2xl bg-black/40 p-6 border border-white/5">
+              <h4 className="font-bold text-white mb-2">{p.title}</h4>
               <p className="text-sm text-white/50">{p.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="rounded-2xl border border-red-500/10 bg-red-500/5 p-6">
-        <h3 className="mb-6 text-2xl font-bold text-red-400">Cons</h3>
+      <div className="rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
+        <h3 className="mb-6 text-sm font-black uppercase text-red-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Cons</h3>
         <div className="space-y-4">
           {cons.map((c, i) => (
-            <div key={i} className="rounded-xl bg-black/20 p-4 border border-white/5">
-              <h4 className="font-bold text-white mb-1">{c.title}</h4>
+            <div key={i} className="rounded-2xl bg-black/40 p-6 border border-white/5">
+              <h4 className="font-bold text-white mb-2">{c.title}</h4>
               <p className="text-sm text-white/50">{c.desc}</p>
             </div>
           ))}
@@ -120,19 +132,19 @@ function KNNProsCons() {
 function KNNRealWorld() {
   return (
     <div className="flex flex-col gap-8 md:flex-row">
-      <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-4 opacity-10">
-          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-10 relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute top-0 right-0 p-8 opacity-10">
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
         </div>
-        <h3 className="mb-4 text-2xl font-bold text-cyan-300">Netflix & Amazon</h3>
+        <h3 className="mb-6 text-2xl font-black text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui", fontSize: '1rem' }}>Netflix & Amazon</h3>
         <p className="mb-6 text-lg text-white/70 leading-relaxed italic">
           "People who watched this also watched..."
         </p>
         <p className="text-white/50 leading-relaxed">
-          Netflix and Amazon use KNN to find users with similar tastes. If your movie-watching history is "near" another user's history, the algorithm recommends the movies they liked to you. You are the "Mystery Point," and other users are your "Neighbors"!
+          Netflix and Amazon use KNN to find users with similar tastes. If your movie-watching history is "near" another user's history, the algorithm recommends the movies they liked to you.
         </p>
 
         <div className="mt-8 flex gap-4">
@@ -141,23 +153,20 @@ function KNNRealWorld() {
         </div>
       </div>
 
-      <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8">
-        <h3 className="mb-4 text-2xl font-bold text-purple-400">Other Uses</h3>
-        <ul className="space-y-4">
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Handwriting Recognition:</span> Identifying letters based on their shape similarity to known examples.</p>
+      <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-xl">
+        <h3 className="mb-8 text-2xl font-black text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui", fontSize: '1rem' }}>Other Uses</h3>
+        <ul className="space-y-6">
+          <li className="flex items-start gap-4">
+            <div className="mt-1 h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(167,139,250,0.8)]" />
+            <p className="text-white/60 leading-relaxed"><span className="font-bold text-white block mb-1">Handwriting Recognition</span> Identifying letters based on shape similarity.</p>
           </li>
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Medical Diagnosis:</span> Comparing a patient's symptoms to the nearest recorded medical cases.</p>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Credit Scoring:</span> Banks check if your financial profile is similar to "good" or "bad" borrowers.</p>
+          <li className="flex items-start gap-4">
+            <div className="mt-1 h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(167,139,250,0.8)]" />
+            <p className="text-white/60 leading-relaxed"><span className="font-bold text-white block mb-1">Medical Diagnosis</span> Comparing patient symptoms to nearest medical cases.</p>
           </li>
         </ul>
       </div>
     </div>
   );
 }
+

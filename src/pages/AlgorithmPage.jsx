@@ -1,169 +1,169 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Play, RotateCcw } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, Play, RotateCcw, Brain, Calculator, GraduationCap, ListChecks, HelpCircle } from "lucide-react";
+import { useState, lazy, Suspense } from "react";
+
+// Lazy load math components
+const KNNMath = lazy(() => import("../components/math-engine/KNNMath"));
+const LinearRegressionMath = lazy(() => import("../components/math-engine/LinearRegressionMath"));
+const DecisionTreeMath = lazy(() => import("../components/math-engine/DecisionTreeMath"));
+const NeuralNetworkMath = lazy(() => import("../components/math-engine/NeuralNetworkMath"));
 
 const data = {
     knn: {
         name: "K-Nearest Neighbors",
         icon: "◎",
-        about:
-            "KNN classifies a new data point by finding the closest training points and letting them vote.",
+        about: "KNN classifies a new data point by finding the closest training points and letting them vote.",
         type: "Supervised Learning",
+        color: "#f97316"
     },
     "linear-regression": {
         name: "Linear Regression",
         icon: "↗",
-        about:
-            "Linear Regression predicts continuous values using a straight line that best fits the data.",
+        about: "Linear Regression predicts continuous values using a straight line that best fits the data.",
         type: "Supervised Learning",
+        color: "#3b82f6"
     },
     "decision-tree": {
         name: "Decision Tree",
         icon: "⌘",
-        about:
-            "A Decision Tree predicts by asking yes/no questions and following branches until it reaches an answer.",
+        about: "A Decision Tree predicts by asking yes/no questions and following branches until it reaches an answer.",
         type: "Supervised Learning",
+        color: "#10b981"
     },
     "logistic-regression": {
         name: "Logistic Regression",
         icon: "S",
-        about:
-            "Logistic Regression predicts probability and uses that probability for classification.",
+        about: "Logistic Regression predicts probability and classifies results using a sigmoid curve.",
         type: "Supervised Learning",
+        color: "#8b5cf6"
     },
     "random-forest": {
         name: "Random Forest",
         icon: "♧",
-        about:
-            "Random Forest uses many decision trees and combines their votes for a stronger prediction.",
+        about: "Random Forest combines many decision trees and lets them vote on the final answer.",
         type: "Supervised Learning",
+        color: "#14b8a6"
     },
     "neural-network": {
         name: "Neural Network",
         icon: "⚡",
-        about:
-            "Neural Networks learn patterns using connected layers, weights, biases, and activation functions.",
+        about: "Neural Networks learn patterns using connected layers, weights, biases, and activation functions.",
         type: "Deep Learning",
+        color: "#ec4899"
+    },
+    "kmeans": {
+        name: "K-Means Clustering",
+        icon: "⚝",
+        about: "K-Means groups data points into clusters based on their similarity.",
+        type: "Unsupervised Learning",
+        color: "#f59e0b"
     },
 };
 
 export default function AlgorithmPage() {
     const { id } = useParams();
     const algo = data[id] || data.knn;
-    const [tab, setTab] = useState("Visual Learn");
+    const [tab, setTab] = useState("Mathematics"); // Default to Math as per user focus
 
-    const tabs = ["Visual Learn", "Teach Me", "Step-by-Step", "Why?", "Mathematics"];
+    const tabs = [
+        { name: "Visual Lab", icon: <Play size={16} /> },
+        { name: "Teach Me", icon: <GraduationCap size={16} /> },
+        { name: "Mathematics", icon: <Calculator size={16} /> },
+        { name: "Pros & Cons", icon: <ListChecks size={16} /> },
+        { name: "Why?", icon: <HelpCircle size={16} /> }
+    ];
 
     return (
-        <main className="min-h-screen bg-[#07070c]">
-            <header className="flex items-center justify-between border-b border-white/10 px-10 py-5">
-                <Link to="/" className="flex items-center gap-3 font-bold text-white/80 hover:text-cyan-300">
-                    <ArrowLeft className="h-5 w-5" />
-                    Back to Home
+        <main className="min-h-screen bg-[#07070c] text-white selection:bg-cyan-500/30">
+            <header className="sticky top-0 z-[100] flex items-center justify-between border-b border-white/5 px-10 py-5 backdrop-blur-xl bg-black/40">
+                <Link to="/algorithms" className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-colors" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back
                 </Link>
 
-                <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-400/10 text-2xl text-cyan-300">
+                <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-xl" style={{ color: algo.color }}>
                         {algo.icon}
                     </div>
-                    <h1 className="text-xl font-bold">{algo.name}</h1>
+                    <h1 className="text-sm font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        {algo.name}
+                    </h1>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: algo.color }} />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/20" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        Active Module
+                    </span>
                 </div>
             </header>
 
-            <section className="mx-auto max-w-7xl px-8 py-8">
-                <div className="mb-8 flex flex-wrap gap-3 rounded-2xl bg-white/[0.04] p-2">
-                    {tabs.map((item) => (
+            <section className="mx-auto max-w-7xl px-8 py-10">
+                {/* Custom Tabs */}
+                <div className="mb-12 flex flex-wrap items-center justify-center gap-4">
+                    {tabs.map((t) => (
                         <button
-                            key={item}
-                            onClick={() => setTab(item)}
-                            className={`rounded-xl px-6 py-4 font-semibold transition ${tab === item
-                                    ? "bg-cyan-400 text-black"
-                                    : "text-white/60 hover:bg-white/10 hover:text-white"
-                                }`}
+                            key={t.name}
+                            onClick={() => setTab(t.name)}
+                            className={`flex items-center gap-3 rounded-2xl px-8 py-4 text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
+                                tab === t.name
+                                    ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                                    : "bg-white/5 text-white/40 border-white/10 hover:border-white/30 hover:text-white"
+                            }`}
+                            style={{ fontFamily: "'Press Start 2P', system-ui" }}
                         >
-                            {item}
+                            {t.icon} {t.name}
                         </button>
                     ))}
                 </div>
 
-                <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
-                    <div>
-                        {tab === "Visual Learn" && <VisualLearn />}
+                <div className="min-h-[600px]">
+                    <Suspense fallback={<div className="flex h-64 items-center justify-center text-cyan-400 animate-pulse">Loading Math Engine...</div>}>
+                        {tab === "Visual Lab" && <VisualLearn algo={algo} />}
                         {tab === "Teach Me" && <TeachMe algo={algo} />}
-                        {tab === "Step-by-Step" && <StepByStep />}
+                        {tab === "Mathematics" && <MathEngine id={id} />}
+                        {tab === "Pros & Cons" && <ProsCons algo={algo} />}
                         {tab === "Why?" && <WhyPanel />}
-                        {tab === "Mathematics" && <MathPanel />}
-                    </div>
-
-                    <aside className="space-y-6">
-                        <InfoCard title="About">{algo.about}</InfoCard>
-
-                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-                            <h3 className="mb-5 text-xl font-bold">Quick Info</h3>
-                            <p className="mb-2 text-xs uppercase text-white/40">Type</p>
-                            <p className="mb-5 text-cyan-300">{algo.type}</p>
-
-                            <p className="mb-3 text-xs uppercase text-white/40">Modes</p>
-                            <div className="flex flex-wrap gap-2">
-                                {["Visual", "Teach", "Steps", "Why"].map((x) => (
-                                    <span key={x} className="rounded-full bg-purple-400/15 px-3 py-1 text-sm text-purple-300">
-                                        {x}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    </aside>
+                    </Suspense>
                 </div>
             </section>
         </main>
     );
 }
 
-function VisualLearn() {
+function MathEngine({ id }) {
+    switch (id) {
+        case "knn": return <KNNMath />;
+        case "linear-regression": return <LinearRegressionMath />;
+        case "decision-tree": return <DecisionTreeMath />;
+        case "neural-network": return <NeuralNetworkMath />;
+        default: return <div className="text-center py-20 text-white/30">Math module for this algorithm is coming soon!</div>;
+    }
+}
+
+function VisualLearn({ algo }) {
     return (
-        <div className="space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-                <div className="mb-6 flex gap-4">
-                    <button className="flex items-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 font-bold text-black">
-                        <Play className="h-4 w-4" /> Play
+        <div className="space-y-8">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl">
+                <div className="mb-8 flex gap-4">
+                    <button className="flex items-center gap-3 rounded-2xl bg-white px-8 py-4 text-[10px] font-black uppercase text-black hover:scale-105 transition-transform" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        <Play size={16} fill="currentColor" /> Run Simulation
                     </button>
-                    <button className="flex items-center gap-2 rounded-xl border border-white/10 px-5 py-3 font-bold text-white/80">
-                        <RotateCcw className="h-4 w-4" /> Reset
+                    <button className="flex items-center gap-3 rounded-2xl border border-white/10 px-8 py-4 text-[10px] font-black uppercase text-white/60 hover:bg-white/5 transition-all" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        <RotateCcw size={16} /> Reset
                     </button>
                 </div>
 
-                <label className="text-white/60">K Value: 5</label>
-                <input className="mt-3 w-full accent-cyan-400" type="range" />
-
-                <div className="mt-8 grid gap-5 md:grid-cols-2">
-                    <div>
-                        <label className="text-white/60">Test Point X</label>
-                        <input className="mt-3 w-full accent-cyan-400" type="range" />
-                    </div>
-                    <div>
-                        <label className="text-white/60">Test Point Y</label>
-                        <input className="mt-3 w-full accent-cyan-400" type="range" />
+                <div className="grid gap-10 md:grid-cols-3">
+                    <div className="space-y-3">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40">Hyperparameters</label>
+                        <input className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-white" type="range" />
                     </div>
                 </div>
             </div>
 
-            <div className="relative h-[430px] rounded-2xl border border-white/10 bg-black/30 p-6 overflow-hidden">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:70px_70px]" />
-
-                {[
-                    [20, 70, "cyan"], [30, 65, "cyan"], [35, 78, "cyan"],
-                    [52, 48, "pink"], [60, 42, "pink"], [70, 55, "pink"],
-                    [46, 60, "cyan"], [58, 62, "pink"], [66, 68, "pink"],
-                ].map(([x, y, color], i) => (
-                    <div
-                        key={i}
-                        className={`absolute h-4 w-4 rounded-full ${color === "cyan" ? "bg-cyan-300" : "bg-pink-400"
-                            } shadow-lg`}
-                        style={{ left: `${x}%`, top: `${y}%` }}
-                    />
-                ))}
-
-                <div className="absolute left-[56%] top-[52%] h-6 w-6 rounded-full border-4 border-white bg-purple-500 shadow-[0_0_25px_rgba(168,85,247,0.9)]" />
+            <div className="relative h-[500px] rounded-3xl border border-white/10 bg-black/40 p-10 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px]" />
+                <div className="flex h-full items-center justify-center text-white/10 font-black text-4xl opacity-10">CANVAS_PLACEHOLDER</div>
             </div>
         </div>
     );
@@ -171,36 +171,32 @@ function VisualLearn() {
 
 function TeachMe({ algo }) {
     return (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8">
-            <h2 className="mb-4 text-3xl font-black">Teach Me Mode</h2>
-            <p className="text-lg leading-8 text-white/70">
-                {algo.name} is explained here in simple language. This section is for
-                students who want the “what is this?” explanation before seeing the math
-                or execution.
+        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-12 backdrop-blur-xl">
+            <h2 className="mb-8 text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>The {algo.name} Story</h2>
+            <p className="text-xl leading-10 text-white/60 max-w-4xl">
+                Before we dive into the numbers, let's understand why we use this. {algo.about}
+                Imagine a world where data is a conversation, and this algorithm is the translator.
             </p>
         </div>
     );
 }
 
-function StepByStep() {
-    const steps = [
-        "Take the new input point.",
-        "Compare it with existing training data.",
-        "Calculate the distance or condition.",
-        "Choose the closest points or correct branch.",
-        "Return the final prediction.",
-    ];
-
+function ProsCons({ algo }) {
     return (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8">
-            <h2 className="mb-6 text-3xl font-black">Step-by-Step Execution</h2>
-            <div className="space-y-4">
-                {steps.map((step, i) => (
-                    <div key={step} className="rounded-xl border border-white/10 bg-black/20 p-5">
-                        <span className="mr-3 text-cyan-300">Step {i + 1}</span>
-                        {step}
-                    </div>
-                ))}
+        <div className="grid gap-8 md:grid-cols-2">
+            <div className="rounded-3xl border border-green-500/20 bg-green-500/5 p-8 backdrop-blur-xl">
+                <h3 className="mb-6 text-sm font-black uppercase text-green-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Strengths</h3>
+                <ul className="space-y-4 text-white/60">
+                    <li className="flex gap-3">✓ <span className="flex-1 italic">Easy to understand and implement.</span></li>
+                    <li className="flex gap-3">✓ <span className="flex-1 italic">Works well with small datasets.</span></li>
+                </ul>
+            </div>
+            <div className="rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
+                <h3 className="mb-6 text-sm font-black uppercase text-red-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Weaknesses</h3>
+                <ul className="space-y-4 text-white/60">
+                    <li className="flex gap-3">✗ <span className="flex-1 italic">Slows down with very large data.</span></li>
+                    <li className="flex gap-3">✗ <span className="flex-1 italic">Sensitive to noisy data and outliers.</span></li>
+                </ul>
             </div>
         </div>
     );
@@ -208,45 +204,11 @@ function StepByStep() {
 
 function WhyPanel() {
     return (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8">
-            <h2 className="mb-4 text-3xl font-black">Why?</h2>
-            <p className="text-lg leading-8 text-white/70">
-                This section explains why the algorithm makes each decision. The goal is
-                to answer the exact questions students ask during exams: “why this
-                formula?”, “why this prediction?”, and “why does this step matter?”
+        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-12 backdrop-blur-xl">
+            <h2 className="mb-8 text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>The "Why"</h2>
+            <p className="text-xl leading-10 text-white/60 max-w-4xl italic">
+                &ldquo;Why this formula? Why not another? Mathematics isn't just a set of rules; it's a series of decisions. This section explains the intuition behind every choice made in the algorithm design.&rdquo;
             </p>
         </div>
     );
-}
-
-function MathPanel() {
-    return (
-        <div className="space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8">
-                <h2 className="mb-4 text-xl font-bold">Formula 1</h2>
-                <div className="rounded-xl bg-black/30 p-6 font-mono text-xl text-cyan-300">
-                    d(x,y) = sqrt(Σ(xᵢ - yᵢ)²)
-                </div>
-                <p className="mt-4 text-white/60">
-                    This calculates the distance between two points.
-                </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8">
-                <h2 className="mb-4 text-xl font-bold">Formula 2</h2>
-                <div className="rounded-xl bg-black/30 p-6 font-mono text-xl text-purple-300">
-                    prediction = majority vote of nearest neighbors
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function InfoCard({ title, children }) {
-    return (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <h3 className="mb-4 text-xl font-bold">{title}</h3>
-            <p className="leading-7 text-white/60">{children}</p>
-        </div>
-    );
-}
+}
