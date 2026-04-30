@@ -1,5 +1,5 @@
-import { Suspense, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Suspense } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import MountainScene from "./MountainScene";
 import { useCurtain } from "./CurtainTransition";
@@ -9,40 +9,6 @@ const fadeUp = (delay = 0) => ({
     animate: { y: 0, opacity: 1 },
     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay },
 });
-
-function ThunderEffect() {
-    const [flash, setFlash] = useState(false);
-
-    useEffect(() => {
-        const triggerFlash = () => {
-            setFlash(true);
-            // Flicker effect for realistic "thunder/lightning" atmosphere
-            setTimeout(() => setFlash(false), 50);
-            setTimeout(() => setFlash(true), 100);
-            setTimeout(() => setFlash(false), 250);
-
-            const nextFlash = 5000 + Math.random() * 10000;
-            setTimeout(triggerFlash, nextFlash);
-        };
-
-        const timer = setTimeout(triggerFlash, 4000);
-        return () => clearTimeout(timer);
-    }, []);
-
-    return (
-        <AnimatePresence>
-            {flash && (
-                <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0, 0.4, 0.1, 0.4, 0] }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="pointer-events-none absolute inset-0 z-[5] bg-white mix-blend-overlay"
-                />
-            )}
-        </AnimatePresence>
-    );
-}
 
 export default function Hero() {
     const { trigger } = useCurtain();
@@ -55,8 +21,7 @@ export default function Hero() {
             </Suspense>
 
             {/* ── Visual Effects ── */}
-            {/* Restored Thunder (flashes) but keeping strokes removed */}
-            <ThunderEffect />
+            {/* Thunder is now integrated into MountainScene */}
             
             {/* ── Colour tints ── */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_40%_40%,rgba(168,85,247,0.15),transparent_55%)]" />

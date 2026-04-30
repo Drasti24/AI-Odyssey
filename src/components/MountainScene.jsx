@@ -1,12 +1,49 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
+import { motion, AnimatePresence } from "framer-motion";
+
+/**
+ * ThunderEffect component integrated into the scene
+ */
+function ThunderOverlay() {
+  const [flash, setFlash] = useState(false);
+
+  useEffect(() => {
+    const triggerFlash = () => {
+      setFlash(true);
+      setTimeout(() => setFlash(false), 50);
+      setTimeout(() => setFlash(true), 100);
+      setTimeout(() => setFlash(false), 250);
+
+      const nextFlash = 5000 + Math.random() * 10000;
+      setTimeout(triggerFlash, nextFlash);
+    };
+
+    const timer = setTimeout(triggerFlash, 4000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {flash && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.4, 0.1, 0.4, 0] }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="pointer-events-none absolute inset-0 z-[5] bg-white mix-blend-overlay"
+        />
+      )}
+    </AnimatePresence>
+  );
+}
 
 /**
  * GenerativeMountainScene
  * Solid, undulating mountain landscape rendered with a custom GLSL shader.
  * Mouse movement shifts the point light for a dynamic feel.
  */
-export default function MountainScene({ color: customColor = "#a855f7" }) {
+export default function MountainScene({ color: customColor = "#a855f7", showThunder = true }) {
   const mountRef = useRef(null);
   const lightRef = useRef(null);
   const materialRef = useRef(null);
@@ -48,7 +85,6 @@ export default function MountainScene({ color: customColor = "#a855f7" }) {
       uniforms: {
         time: { value: 0 },
         pointLightPosition: { value: new THREE.Vector3(0, 0, 5) },
-        // Dynamic tint for the mountains
         color: { value: new THREE.Color(customColor) },
       },
       vertexShader: `
@@ -111,10 +147,10 @@ export default function MountainScene({ color: customColor = "#a855f7" }) {
           float noiseAmp  = 0.6;
 
           float d  = snoise(vec3(position.x * noiseFreq, position.y * noiseFreq - time * 0.2, 0.0)) * noiseAmp;
-              d += snoise(vec3(position.x * noiseFreq * 2.0, position.y * noiseFreq * 2.0 - time * 0.2, 0.0)) * (noiseAmp * 0.5);
+          d += snoise(vec3(position.x * noiseFreq * 2.0, position.y * noiseFreq * 2.0 - time * 0.2, 0.0)) * (noiseAmp * 0.5);
 
           vec3 newPos = position + normal * d;
-          vPosition = newPos; // Pass updated position for gradient calculation
+          vPosition = newPos; 
           gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1.0);
         }
       `,
@@ -131,9 +167,8 @@ export default function MountainScene({ color: customColor = "#a855f7" }) {
           float diffuse = max(dot(n, lightDir), 0.0);
           float fresnel = pow(1.0 - dot(n, vec3(0.0, 0.0, 1.0)), 2.0);
 
-          // Purple Gradient based on height (vPosition.y)
           vec3 topColor = color; 
-          vec3 bottomColor = vec3(0.15, 0.0, 0.35); // Deep purple base
+          vec3 bottomColor = vec3(0.15, 0.0, 0.35); 
           vec3 gradientColor = mix(bottomColor, topColor, clamp(vPosition.y * 0.4 + 0.5, 0.0, 1.0));
 
           vec3 finalColor = gradientColor * diffuse + gradientColor * fresnel * 0.5;
@@ -153,7 +188,6 @@ export default function MountainScene({ color: customColor = "#a855f7" }) {
     lightRef.current = pointLight;
     scene.add(pointLight);
 
-    // ── Animation loop ────────────────────────────────────────────────────
     let frameId;
     const animate = (t) => {
       material.uniforms.time.value = t * 0.0003;
@@ -162,7 +196,6 @@ export default function MountainScene({ color: customColor = "#a855f7" }) {
     };
     animate(0);
 
-    // ── Resize handler ────────────────────────────────────────────────────
     const handleResize = () => {
       if (!currentMount) return;
       camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
@@ -170,7 +203,6 @@ export default function MountainScene({ color: customColor = "#a855f7" }) {
       renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
     };
 
-    // ── Mouse light tracking ──────────────────────────────────────────────
     const handleMouseMove = (e) => {
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -197,5 +229,9 @@ export default function MountainScene({ color: customColor = "#a855f7" }) {
     };
   }, []);
 
-  return <div ref={mountRef} className="absolute inset-0 w-full h-full z-0" />;
+  return (
+    <div ref={mountRef} className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+      {showThunder && <ThunderOverlay />}
+    </div>
+  );
 }

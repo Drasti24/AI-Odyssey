@@ -5,6 +5,40 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar";
 import { saveChapterProgress } from "../../utils/progressUtils";
 
+function ThunderEffect() {
+  const [flash, setFlash] = useState(false);
+
+  useEffect(() => {
+    const triggerFlash = () => {
+      setFlash(true);
+      setTimeout(() => setFlash(false), 50);
+      setTimeout(() => setFlash(true), 100);
+      setTimeout(() => setFlash(false), 250);
+
+      const nextFlash = 3000 + Math.random() * 7000;
+      setTimeout(triggerFlash, nextFlash);
+    };
+
+    const timer = setTimeout(triggerFlash, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {flash && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.4, 0.1, 0.4, 0] }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="pointer-events-none absolute inset-0 z-[5] bg-white mix-blend-overlay"
+        />
+      )}
+    </AnimatePresence>
+  );
+}
+
+
 // ─── Weather Data Points ───
 // Features: [Temperature (°C), Humidity (%)]
 // Label: 1 (Rain), 0 (Sun)
@@ -70,7 +104,11 @@ export default function ChapterFourWeather() {
     <main className="min-h-screen bg-[#0d0d1a] text-white font-mono">
       <Navbar />
       
-      <section className="px-6 pt-28 pb-20">
+      {/* Dynamic Thunder Effect on Rainy Days */}
+      {phase === "game" && currentDay.actual === 1 && <ThunderEffect />}
+      
+      <section className="px-6 pt-28 pb-20 relative z-10">
+
         <div className="mx-auto max-w-5xl">
           <Link to="/playground" className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-purple-400">
             <ArrowLeft className="h-4 w-4" /> Back to Playground
