@@ -21,7 +21,8 @@ const algorithms = [
         name: "K-Nearest Neighbors",
         icon: "◎",
         status: "MVP",
-        description: "Classifies a new point by checking which nearby points are closest to it.",
+        description:
+            "Classifies a new point by checking which nearby points are closest to it.",
         type: "supervised",
         color: "#f97316", // orange-500
     },
@@ -30,7 +31,8 @@ const algorithms = [
         name: "Linear Regression",
         icon: "↗",
         status: "MVP",
-        description: "Predicts a number by finding the best-fit line through data points.",
+        description:
+            "Predicts a number by finding the best-fit line through data points.",
         type: "supervised",
         color: "#3b82f6", // blue-500
     },
@@ -39,7 +41,8 @@ const algorithms = [
         name: "Decision Tree",
         icon: "⌘",
         status: "MVP",
-        description: "Makes predictions by following yes/no questions like a flowchart.",
+        description:
+            "Makes predictions by following yes/no questions like a flowchart.",
         type: "supervised",
         color: "#10b981", // emerald-500
     },
@@ -48,7 +51,8 @@ const algorithms = [
         name: "Logistic Regression",
         icon: "S",
         status: "MVP",
-        description: "Predicts probability and classifies results using a sigmoid curve.",
+        description:
+            "Predicts probability and classifies results using a sigmoid curve.",
         type: "supervised",
         color: "#8b5cf6", // violet-500
     },
@@ -57,7 +61,8 @@ const algorithms = [
         name: "Random Forest",
         icon: "♧",
         status: "MVP",
-        description: "Combines many decision trees and lets them vote on the final answer.",
+        description:
+            "Combines many decision trees and lets them vote on the final answer.",
         type: "supervised",
         color: "#14b8a6", // teal-500
     },
@@ -66,7 +71,8 @@ const algorithms = [
         name: "Neural Network",
         icon: "⚡",
         status: "MVP",
-        description: "Learns patterns using layers, weights, biases, and activation functions.",
+        description:
+            "Learns patterns using layers, weights, biases, and activation functions.",
         type: "supervised",
         color: "#ec4899", // pink-500
     },
@@ -75,7 +81,8 @@ const algorithms = [
         name: "K-Means Clustering",
         icon: "⚝",
         status: "MVP",
-        description: "Groups data points into clusters based on their similarity.",
+        description:
+            "Groups data points into clusters based on their similarity.",
         type: "unsupervised",
         color: "#f59e0b", // amber-500
     },
@@ -97,7 +104,7 @@ export default function AlgorithmSection({
     return (
         <section id="algorithms" className="px-8 py-28">
             <div className="mx-auto max-w-7xl">
-                <div className="mb-14 text-center">
+                <div className="mb-12 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -113,7 +120,10 @@ export default function AlgorithmSection({
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
                         className="text-3xl font-black uppercase tracking-tighter"
-                        style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: "1.4" }}
+                        style={{
+                            fontFamily: "'Press Start 2P', system-ui",
+                            lineHeight: "1.4",
+                        }}
                     >
                         Explore{" "}
                         <span className="bg-gradient-to-r from-cyan-300 via-white to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">
@@ -128,44 +138,95 @@ export default function AlgorithmSection({
                         transition={{ delay: 0.2 }}
                         className="mt-5 text-white/60"
                     >
-                        Pick a learning style below. The algorithms will open automatically.
+                        Choose a path to start exploring algorithms.
                     </motion.p>
                 </div>
 
-                <div className="mb-16 grid gap-6 md:grid-cols-2">
-                    {Object.entries(categories).map(([key, cat], index) => (
-                        <motion.button
-                            key={key}
-                            initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => setSelectedCategory(key)}
-                            className={`group relative overflow-hidden rounded-3xl border p-8 text-left transition-all duration-300 ${selectedCategory === key
-                                    ? "border-cyan-500/50 bg-cyan-500/10 shadow-[0_0_30px_-10px_rgba(6,182,212,0.3)]"
-                                    : "border-white/10 bg-white/5 hover:border-white/20"
-                                }`}
-                        >
-                            <h3
-                                className={`text-2xl font-bold ${selectedCategory === key ? "text-cyan-300" : "text-white"
+                <p className="mb-8 text-center text-sm text-white/40">
+                    Select a category below to view the algorithms inside.
+                </p>
+
+                <div className="mb-14 grid gap-6 md:grid-cols-2">
+                    {Object.entries(categories).map(([key, cat], index) => {
+                        const isSelected = selectedCategory === key;
+                        const isSupervised = key === "supervised";
+
+                        return (
+                            <motion.button
+                                key={key}
+                                initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => setSelectedCategory(key)}
+                                className={`group relative overflow-hidden rounded-3xl border p-8 text-left transition-all duration-300 ${isSelected
+                                        ? isSupervised
+                                            ? "border-cyan-500/70 bg-cyan-500/10 shadow-[0_0_35px_-10px_rgba(6,182,212,0.7)]"
+                                            : "border-purple-500/70 bg-purple-500/10 shadow-[0_0_35px_-10px_rgba(168,85,247,0.7)]"
+                                        : "border-white/10 bg-white/5 hover:border-cyan-400/40 hover:bg-white/[0.08] hover:shadow-[0_0_25px_rgba(34,211,238,0.16)]"
                                     }`}
                             >
-                                {cat.title}
-                            </h3>
+                                <div className="relative z-10">
+                                    <div className="mb-4 flex items-center justify-between gap-4">
+                                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-3xl">
+                                            {isSupervised ? "🎯" : "🧩"}
+                                        </div>
 
-                            <p className="mt-1 text-sm text-white/40">
-                                {key === "supervised" ? "6 Algorithms" : "1 Algorithm"}
-                            </p>
+                                        <span
+                                            className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${isSelected
+                                                    ? isSupervised
+                                                        ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-300"
+                                                        : "border-purple-400/30 bg-purple-400/10 text-purple-300"
+                                                    : "border-white/10 bg-white/5 text-white/30"
+                                                }`}
+                                        >
+                                            Start Here
+                                        </span>
+                                    </div>
 
-                            {selectedCategory === key && (
-                                <motion.div
-                                    layoutId="activeCategory"
-                                    className="absolute inset-0 rounded-3xl border-2 border-cyan-500/50"
+                                    <h3
+                                        className={`text-2xl font-bold ${isSelected
+                                                ? isSupervised
+                                                    ? "text-cyan-300"
+                                                    : "text-purple-300"
+                                                : "text-white"
+                                            }`}
+                                    >
+                                        {cat.title}
+                                    </h3>
+
+                                    <p className="mt-2 text-sm text-white/40">
+                                        {isSupervised ? "6 Algorithms" : "1 Algorithm"}
+                                    </p>
+
+                                    <p
+                                        className={`mt-5 text-sm font-bold transition group-hover:translate-x-1 ${isSupervised ? "text-cyan-300" : "text-purple-300"
+                                            }`}
+                                    >
+                                        {isSupervised
+                                            ? "View Supervised Algorithms →"
+                                            : "View Unsupervised Algorithms →"}
+                                    </p>
+                                </div>
+
+                                <div
+                                    className={`absolute -right-10 -top-10 h-32 w-32 rounded-full blur-3xl transition-opacity ${isSelected ? "opacity-30" : "opacity-0 group-hover:opacity-20"
+                                        } ${isSupervised ? "bg-cyan-400" : "bg-purple-400"}`}
                                 />
-                            )}
-                        </motion.button>
-                    ))}
+
+                                {isSelected && (
+                                    <motion.div
+                                        layoutId="activeCategory"
+                                        className={`absolute inset-0 rounded-3xl border-2 ${isSupervised
+                                                ? "border-cyan-500/60"
+                                                : "border-purple-500/60"
+                                            }`}
+                                    />
+                                )}
+                            </motion.button>
+                        );
+                    })}
                 </div>
 
                 <AnimatePresence mode="wait">
@@ -177,6 +238,10 @@ export default function AlgorithmSection({
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
                         >
+                            <p className="mb-6 text-center text-sm font-semibold text-cyan-300">
+                                Showing {categories[selectedCategory].title} ↓
+                            </p>
+
                             <div className="mb-12 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-8 backdrop-blur-sm">
                                 <h4 className="mb-2 text-lg font-bold text-purple-300">
                                     What is {categories[selectedCategory].title}?
