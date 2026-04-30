@@ -124,7 +124,7 @@ export default function ChapterOneNetflix() {
                     The Scenario
                   </h3>
                   <p className="max-w-4xl text-xl font-semibold leading-relaxed text-white/80 md:text-2xl">
-                    Pick three movies to build your taste profile. The AI will instantly find viewers with similar tastes and recommend a movie they liked—just like K-Nearest Neighbors.
+                    Pick three movies to build your taste profile. The AI will instantly find viewers with similar tastes and recommend a movie they liked, just like K-Nearest Neighbors.
                   </p>
                 </div>
 
