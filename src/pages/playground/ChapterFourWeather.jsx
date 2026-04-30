@@ -124,7 +124,7 @@ export default function ChapterFourWeather() {
                   animate={{ width: phase === "preview" ? "10%" : phase === "game" ? `${((dayIdx + 1) / WEATHER_DAYS.length) * 80 + 10}%` : "100%" }}
                 />
               </div>
-              <span className="text-[10px] font-bold text-white/40 uppercase tracking-tighter">Day {dayIdx + 1} of 5</span>
+              <span className="text-[7px] font-bold text-white/40 uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Day {dayIdx + 1} of 5</span>
             </div>
             <div className="flex items-center gap-2 rounded-sm border-2 border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-sm font-bold text-purple-400 shadow-[4px_4px_0px_rgba(168,85,247,0.3)]">
               <Trophy className="h-4 w-4" /> {score} PTS
@@ -141,7 +141,7 @@ export default function ChapterFourWeather() {
                 exit={{ opacity: 0, scale: 1.1 }}
                 className="relative overflow-hidden rounded-sm border-4 border-purple-500/20 bg-[#13132b] p-10 md:p-14 shadow-[8px_8px_0px_rgba(0,0,0,0.5)]"
               >
-                <div className="mb-6 inline-flex items-center gap-2 bg-purple-600 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+                <div className="mb-6 inline-flex items-center gap-2 bg-purple-600 px-3 py-1 text-[8px] font-black uppercase tracking-widest text-white shadow-[2px_2px_0px_rgba(0,0,0,0.5)]" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                   Weather Station Alpha
                 </div>
                 <h1 className="mb-2 text-xs font-black tracking-[0.2em] text-purple-400 uppercase">AI Odyssey: Chapter 4</h1>

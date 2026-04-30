@@ -115,7 +115,7 @@ export default function KNNMath() {
                                     <div className="flex items-center justify-between mb-4">
                                         <div className="flex items-center gap-3">
                                             <div className={`h-3 w-3 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)] ${n.type === 'Cyan' ? 'bg-cyan-400' : 'bg-pink-400'}`} />
-                                            <span className="text-xs font-black text-white uppercase tracking-tighter">Neighbor #{i+1}</span>
+                                            <span className="text-[8px] font-black text-white uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Neighbor #{i+1}</span>
                                         </div>
                                         <div className="text-2xl font-black text-white">{n.dist.toFixed(2)}</div>
                                     </div>
@@ -168,8 +168,8 @@ export default function KNNMath() {
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
                         <div className="absolute left-0 bottom-0 w-full h-px bg-white/20" />
                         <div className="absolute left-0 bottom-0 w-px h-full bg-white/20" />
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[8px] font-black text-white/10 uppercase tracking-[0.3em]">Feature X</div>
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[8px] font-black text-white/10 uppercase tracking-[0.3em] [writing-mode:vertical-lr]">Feature Y</div>
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[6px] font-black text-white/20 uppercase tracking-[0.3em]" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Feature X</div>
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[6px] font-black text-white/20 uppercase tracking-[0.3em] [writing-mode:vertical-lr]" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Feature Y</div>
 
                         <svg className="absolute inset-0 h-full w-full pointer-events-none z-10">
                             <AnimatePresence>

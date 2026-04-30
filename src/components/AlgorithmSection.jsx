@@ -142,8 +142,8 @@ export default function AlgorithmSection({
                     </motion.p>
                 </div>
 
-                <p className="mb-8 text-center text-sm text-white/40">
-                    Select a category below to view the algorithms inside.
+                <p className="mb-10 text-center text-base font-medium text-white/50">
+                    Select a category below to see how it works.
                 </p>
 
                 <div className="mb-14 grid gap-6 md:grid-cols-2">
@@ -168,20 +168,16 @@ export default function AlgorithmSection({
                                     }`}
                             >
                                 <div className="relative z-10">
-                                    <div className="mb-4 flex items-center justify-between gap-4">
-                                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-3xl">
-                                            {isSupervised ? "🎯" : "🧩"}
-                                        </div>
-
+                                    <div className="mb-6 flex items-center justify-between">
                                         <span
-                                            className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${isSelected
+                                            className={`rounded-full border px-4 py-1 text-[9px] font-black uppercase tracking-[0.2em] ${isSelected
                                                     ? isSupervised
                                                         ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-300"
                                                         : "border-purple-400/30 bg-purple-400/10 text-purple-300"
                                                     : "border-white/10 bg-white/5 text-white/30"
                                                 }`}
                                         >
-                                            Start Here
+                                            {isSupervised ? "Path 01" : "Path 02"}
                                         </span>
                                     </div>
 
@@ -196,8 +192,8 @@ export default function AlgorithmSection({
                                         {cat.title}
                                     </h3>
 
-                                    <p className="mt-2 text-sm text-white/40">
-                                        {isSupervised ? "6 Algorithms" : "1 Algorithm"}
+                                    <p className="mt-3 text-base font-bold text-white/40 group-hover:text-white/60">
+                                        {isSupervised ? "6 Active Modules" : "1 Active Module"}
                                     </p>
 
                                     <p
@@ -242,11 +238,11 @@ export default function AlgorithmSection({
                                 Showing {categories[selectedCategory].title} ↓
                             </p>
 
-                            <div className="mb-12 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-8 backdrop-blur-sm">
-                                <h4 className="mb-2 text-lg font-bold text-purple-300">
+                            <div className="mb-12 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-10 backdrop-blur-sm shadow-[0_0_50px_rgba(168,85,247,0.05)]">
+                                <h4 className="mb-4 text-xl font-black text-purple-300 uppercase tracking-widest" style={{ fontFamily: "Inter, system-ui" }}>
                                     What is {categories[selectedCategory].title}?
                                 </h4>
-                                <p className="text-lg leading-relaxed text-white/70">
+                                <p className="text-xl leading-relaxed text-white/70">
                                     {categories[selectedCategory].definition}
                                 </p>
                             </div>

@@ -20,15 +20,39 @@ export default function Home() {
 
                     <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
                         {[
-                            { title: "Teach Me", text: "Simple beginner-friendly explanations.", color: "text-cyan-400" },
-                            { title: "Run It", text: "Interact with small datasets and inputs.", color: "text-purple-400" },
-                            { title: "Step-by-Step", text: "Watch the algorithm execute one action at a time.", color: "text-emerald-400" },
-                            { title: "Why?", text: "Understand why each step is happening.", color: "text-amber-400" },
-                            { title: "Story Mode", text: "Learn algorithms then play the game.", color: "text-red-400" },
+                            { 
+                                title: "Interactive Stories", 
+                                text: "We turn complex AI logic into simple, visual stories anyone can follow.", 
+                                color: "text-cyan-400" 
+                            },
+                            { 
+                                title: "Live Visuals", 
+                                text: "Watch the AI 'think' and see exactly how it makes every decision.", 
+                                color: "text-purple-400" 
+                            },
+                            { 
+                                title: "Play with Data", 
+                                text: "Move points around and witness how the AI reacts instantly to your changes.", 
+                                color: "text-emerald-400" 
+                            },
+                            { 
+                                title: "No-Fear Math", 
+                                text: "We break down the scary equations into simple, logical steps.", 
+                                color: "text-amber-400" 
+                            },
+                            { 
+                                title: "Fun Missions", 
+                                text: "Take on challenges in our story-driven playground to test what you've learned.", 
+                                color: "text-red-400" 
+                            },
                         ].map(({ title, text, color }) => (
-                            <div key={title} className="group rounded-2xl border border-white/5 bg-white/[0.03] p-6 transition-all hover:border-white/20 hover:bg-white/[0.06] hover:scale-105">
-                                <h3 className={`mb-3 text-lg font-black uppercase tracking-tighter ${color}`} style={{ fontSize: '14px', lineHeight: '1.4' }}>{title}</h3>
-                                <p className="text-xs font-medium leading-relaxed text-white/40 group-hover:text-white/60 transition-colors">{text}</p>
+                            <div key={title} className="group rounded-3xl border border-white/5 bg-white/[0.02] p-8 transition-all hover:border-white/20 hover:bg-white/[0.04] hover:scale-[1.02]">
+                                <h3 className={`mb-4 text-sm font-black uppercase tracking-widest ${color}`} style={{ fontFamily: "Inter, system-ui" }}>
+                                    {title}
+                                </h3>
+                                <p className="text-base font-medium leading-relaxed text-white/50 group-hover:text-white/70 transition-colors">
+                                    {text}
+                                </p>
                             </div>
                         ))}
                     </div>

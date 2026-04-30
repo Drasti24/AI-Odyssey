@@ -34,7 +34,7 @@ export default function AlgorithmCard({ algo }) {
                 </div>
 
                 <p 
-                    className="flex-1 text-xs leading-6 text-white/70"
+                    className="flex-1 text-sm leading-7 text-white/60"
                     style={{ fontFamily: "Inter, system-ui", fontWeight: 500 }}
                 >
                     {algo.description}
