@@ -56,9 +56,9 @@ export default function DecisionTreeMath() {
                     <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         The Gini Impurity
                     </h2>
-                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-8 bg-black/40 p-10 rounded-4xl border border-white/10 shadow-[0_0_50px_rgba(168,85,247,0.1)]">
-                        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter flex items-center gap-6">
-                            G = 1 - <span className="text-6xl md:text-8xl">Σ</span>
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-6 bg-black/60 p-6 rounded-2xl border border-purple-400/30 shadow-[0_0_50px_rgba(168,85,247,0.2)] hover:shadow-[0_0_70px_rgba(168,85,247,0.4)] transition-all duration-500 group-hover:scale-105">
+                        <div className="text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-4">
+                            G = 1 - <span className="text-3xl md:text-5xl text-purple-400">Σ</span>
                             <span className="text-purple-400">pᵢ²</span>
                         </div>
                     </div>
@@ -84,23 +84,23 @@ export default function DecisionTreeMath() {
                     </div>
 
                     <div className="flex-1 space-y-4 overflow-y-auto pr-4 custom-scrollbar">
-                        <div className="p-6 rounded-2xl bg-cyan-400/5 border-2 border-cyan-400/20">
+                        <div className="p-6 rounded-2xl bg-cyan-400/5 border-2 border-cyan-400/20 shadow-xl">
                             <div className="flex justify-between items-center mb-4">
-                                <span className="text-[10px] font-black text-cyan-400 uppercase">Left Branch</span>
-                                <span className="text-3xl font-black text-white">{stats.leftGini}</span>
+                                <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">Left Branch</span>
+                                <span className="text-5xl font-black text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">{stats.leftGini}</span>
                             </div>
-                            <div className="font-mono text-xs text-white/30 bg-black/20 p-3 rounded-lg">
-                                G = 1 - ((c/n)² + (p/n)²)
+                            <div className="font-mono text-lg font-black text-white/50 bg-black/40 p-3 rounded-lg text-center border border-white/5">
+                                1 - Σ<span className="text-cyan-400">p²</span>
                             </div>
                         </div>
 
-                        <div className="p-6 rounded-2xl bg-pink-400/5 border-2 border-pink-400/20">
+                        <div className="p-6 rounded-2xl bg-pink-400/5 border-2 border-pink-400/20 shadow-xl">
                             <div className="flex justify-between items-center mb-4">
-                                <span className="text-[10px] font-black text-pink-400 uppercase">Right Branch</span>
-                                <span className="text-3xl font-black text-white">{stats.rightGini}</span>
+                                <span className="text-[10px] font-black text-pink-400 uppercase tracking-widest">Right Branch</span>
+                                <span className="text-5xl font-black text-white drop-shadow-[0_0_15px_rgba(244,114,182,0.3)]">{stats.rightGini}</span>
                             </div>
-                            <div className="font-mono text-xs text-white/30 bg-black/20 p-3 rounded-lg">
-                                G = 1 - ((c/n)² + (p/n)²)
+                            <div className="font-mono text-lg font-black text-white/50 bg-black/40 p-3 rounded-lg text-center border border-white/5">
+                                1 - Σ<span className="text-pink-400">p²</span>
                             </div>
                         </div>
 

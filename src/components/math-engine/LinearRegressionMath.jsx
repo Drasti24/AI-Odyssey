@@ -51,12 +51,12 @@ export default function LinearRegressionMath() {
                     <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         The Regression Formula
                     </h2>
-                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-8 bg-black/40 p-10 rounded-4xl border border-white/10 shadow-[0_0_50px_rgba(34,211,238,0.1)]">
-                        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter flex items-center gap-4">
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-6 bg-black/60 p-6 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500 group-hover:scale-105">
+                        <div className="text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-3">
                              y = <span className="text-purple-400">{slope.toFixed(2)}</span>x + <span className="text-pink-400">{intercept.toFixed(0)}</span>
                         </div>
                     </div>
-                    <p className="mt-8 text-sm text-white/30 tracking-[0.2em] font-medium uppercase">
+                    <p className="mt-6 text-[10px] text-white/30 tracking-[0.2em] font-medium uppercase">
                         The Mathematical Path through Scattered Data
                     </p>
                 </div>
@@ -87,21 +87,19 @@ export default function LinearRegressionMath() {
                                     exit={{ x: 20, opacity: 0 }}
                                     className="p-6 rounded-2xl bg-black/40 border-2 border-white/5 transition-all"
                                 >
-                                    <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center justify-between mb-6">
                                         <div className="flex items-center gap-3">
                                             <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
-                                            <span className="text-xs font-black text-white uppercase tracking-tighter">Data Point #{i+1}</span>
+                                            <span className="text-[8px] font-black text-white uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Point #{i+1}</span>
                                         </div>
-                                        <div className="text-2xl font-black text-red-400">{p.error.toFixed(1)}</div>
+                                        <div className="text-5xl font-black text-red-400 drop-shadow-[0_0_20px_rgba(239,68,68,0.3)]">{p.error.toFixed(1)}</div>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="bg-white/5 p-3 rounded-xl border border-white/5 text-center">
-                                            <div className="text-[8px] font-black text-white/20 uppercase mb-1">Gap</div>
-                                            <div className="font-mono text-xs text-white/70">{p.y} - {p.predictedY.toFixed(1)}</div>
-                                        </div>
-                                        <div className="bg-white/5 p-3 rounded-xl border border-white/5 text-center">
-                                            <div className="text-[8px] font-black text-white/20 uppercase mb-1">Squared Error</div>
-                                            <div className="font-mono text-xs text-white/70">{(p.error * p.error).toFixed(1)}</div>
+                                    <div className="grid grid-cols-1 gap-4">
+                                        <div className="bg-red-400/5 p-4 rounded-xl border border-red-400/20 flex flex-col items-center justify-center">
+                                            <div className="text-[10px] font-black text-white/20 uppercase mb-2 tracking-widest">Error Logic</div>
+                                            <div className="font-mono text-xl md:text-2xl font-black text-white text-center">
+                                                {p.y} - <span className="text-purple-400">({slope.toFixed(2)}×{p.x}+{intercept.toFixed(0)})</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>

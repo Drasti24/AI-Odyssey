@@ -73,15 +73,15 @@ export default function KNNMath() {
                     <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         The Euclidean Blueprint
                     </h2>
-                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-8 bg-black/40 p-10 rounded-4xl border border-white/10 shadow-[0_0_50px_rgba(34,211,238,0.1)]">
-                        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter flex items-center gap-4">
-                            d = <span className="text-6xl md:text-8xl">√</span>
-                            <span className="border-t-4 border-white pt-2">
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-6 bg-black/60 p-6 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500 group-hover:scale-105">
+                        <div className="text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-3">
+                            d = <span className="text-3xl md:text-5xl text-cyan-400">√</span>
+                            <span className="border-t-2 border-white/80 pt-1">
                                 (x₂-x₁)² + (y₂-y₁)²
                             </span>
                         </div>
                     </div>
-                    <p className="mt-8 text-sm text-white/30 tracking-[0.2em] font-medium uppercase">
+                    <p className="mt-6 text-[10px] text-white/30 tracking-[0.2em] font-medium uppercase">
                         The Pythagorean Ruler of Machine Learning
                     </p>
                 </div>
@@ -112,21 +112,19 @@ export default function KNNMath() {
                                     exit={{ x: 20, opacity: 0 }}
                                     className={`p-6 rounded-2xl bg-black/40 border-2 transition-all ${n.type === 'Cyan' ? 'border-cyan-400/20' : 'border-pink-400/20'}`}
                                 >
-                                    <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center justify-between mb-6">
                                         <div className="flex items-center gap-3">
                                             <div className={`h-3 w-3 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)] ${n.type === 'Cyan' ? 'bg-cyan-400' : 'bg-pink-400'}`} />
                                             <span className="text-[8px] font-black text-white uppercase tracking-widest" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Neighbor #{i+1}</span>
                                         </div>
-                                        <div className="text-2xl font-black text-white">{n.dist.toFixed(2)}</div>
+                                        <div className={`text-5xl font-black ${n.type === 'Cyan' ? 'text-cyan-400' : 'text-pink-400'} drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]`}>{n.dist.toFixed(2)}</div>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                                            <div className="text-[8px] font-black text-white/20 uppercase mb-1">X-Distance</div>
-                                            <div className="font-mono text-xs text-white/70">{n.x} - {testPoint.x} = {n.dx}</div>
-                                        </div>
-                                        <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                                            <div className="text-[8px] font-black text-white/20 uppercase mb-1">Y-Distance</div>
-                                            <div className="font-mono text-xs text-white/70">{n.y} - {testPoint.y} = {n.dy}</div>
+                                    <div className="grid grid-cols-1 gap-4">
+                                        <div className={`p-4 rounded-xl border flex flex-col items-center justify-center ${n.type === 'Cyan' ? 'bg-cyan-400/5 border-cyan-400/20' : 'bg-pink-400/5 border-pink-400/20'}`}>
+                                            <div className="text-[10px] font-black text-white/20 uppercase mb-2 tracking-widest">Live Math</div>
+                                            <div className="font-mono text-xl md:text-2xl font-black text-white">
+                                                √({n.x} - {testPoint.x})² + ({n.y} - {testPoint.y})²
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>

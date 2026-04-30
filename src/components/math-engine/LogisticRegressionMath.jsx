@@ -22,11 +22,11 @@ export default function LogisticRegressionMath() {
                     <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-pink-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         The Sigmoid Function
                     </h2>
-                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-8 bg-black/40 p-10 rounded-4xl border border-white/10 shadow-[0_0_50px_rgba(244,114,182,0.1)]">
-                        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter flex items-center gap-6">
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-6 bg-black/60 p-6 rounded-2xl border border-pink-400/30 shadow-[0_0_50px_rgba(244,114,182,0.2)] hover:shadow-[0_0_70px_rgba(244,114,182,0.4)] transition-all duration-500 group-hover:scale-105">
+                        <div className="text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-4">
                             P = <div className="inline-flex flex-col items-center">
-                                <span className="border-b-4 border-white pb-1 px-6">1</span>
-                                <span className="pt-2 text-4xl md:text-6xl">1 + e⁻ᶻ</span>
+                                <span className="border-b-2 border-white/80 pb-1 px-4">1</span>
+                                <span className="pt-1 text-2xl md:text-4xl">1 + e⁻ᶻ</span>
                             </div>
                         </div>
                     </div>
@@ -55,27 +55,25 @@ export default function LogisticRegressionMath() {
                         <div className="p-8 rounded-3xl bg-black/40 border-2 border-white/5 space-y-6 shadow-xl">
                             <div className="flex justify-between items-end">
                                 <div className="space-y-2">
-                                    <div className="text-[8px] font-black uppercase text-white/20 tracking-widest">Input Value (z)</div>
-                                    <div className="text-5xl font-black text-white tracking-tighter">{testVal}</div>
+                                    <div className="text-[8px] font-black uppercase text-white/20 tracking-widest">Input (z)</div>
+                                    <div className="text-6xl font-black text-white tracking-tighter drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">{testVal}</div>
                                 </div>
                                 <div className="text-right space-y-2">
                                     <div className="text-[8px] font-black uppercase text-white/20 tracking-widest">Exponent</div>
-                                    <div className="text-2xl font-black text-pink-400 font-mono">-{(steepness * (testVal - midpoint)).toFixed(2)}</div>
+                                    <div className="text-3xl font-black text-pink-400 font-mono drop-shadow-[0_0_10px_rgba(244,114,182,0.4)]">-{(steepness * (testVal - midpoint)).toFixed(2)}</div>
                                 </div>
                             </div>
                             
                             <div className="h-px bg-white/10 w-full" />
                             
                             <div className="space-y-4">
-                                <div className="text-[8px] font-black uppercase text-white/20 tracking-widest">Mathematical Steps</div>
-                                <div className="space-y-3 font-mono text-sm bg-white/[0.02] p-6 rounded-2xl border border-white/5">
-                                    <div className="flex justify-between text-white/60">
-                                        <span>Denominator:</span>
-                                        <span>1 + {Math.exp(-steepness * (testVal - midpoint)).toFixed(4)}</span>
+                                <div className="text-[8px] font-black uppercase text-white/20 tracking-widest">Live Sigmoid Step</div>
+                                <div className="space-y-3 font-mono text-xl bg-white/[0.02] p-6 rounded-2xl border border-white/5 text-center">
+                                    <div className="text-pink-400 font-black">
+                                        1 / (1 + e<sup className="text-xs">{(steepness * (testVal - midpoint) * -1).toFixed(2)}</sup>)
                                     </div>
-                                    <div className="flex justify-between text-pink-400 font-bold pt-2 border-t border-white/5">
-                                        <span>Result (P):</span>
-                                        <span className="text-xl">{probability.toFixed(6)}</span>
+                                    <div className="text-3xl text-white font-black pt-2 border-t border-white/5">
+                                        = {probability.toFixed(4)}
                                     </div>
                                 </div>
                             </div>

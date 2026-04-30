@@ -30,13 +30,13 @@ export default function NeuralNetworkMath() {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center rounded-2xl bg-black/40 p-10">
-                    <div className="text-3xl font-light text-white text-center flex items-center gap-3">
-                        y = <span className="text-pink-400">σ</span>( <span className="text-cyan-400">Σ wᵢxᵢ</span> + <span className="text-purple-400">b</span> )
+                <div className="flex flex-col items-center justify-center rounded-2xl bg-black/60 p-6 border border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.2)] hover:shadow-[0_0_70px_rgba(34,211,238,0.4)] transition-all duration-500">
+                    <div className="text-2xl md:text-3xl font-light text-white text-center flex items-center gap-3">
+                        y = <span className="text-pink-400 font-bold">σ</span>( <span className="text-cyan-400 font-bold">Σ wᵢxᵢ</span> + <span className="text-purple-400 font-bold">b</span> )
                     </div>
-                    <div className="mt-8 grid grid-cols-2 gap-8 text-[10px] font-black uppercase tracking-widest text-white/30">
-                        <div className="text-right">σ = Sigmoid Function</div>
-                        <div className="text-left">Σ wᵢxᵢ = Weighted Sum</div>
+                    <div className="mt-4 grid grid-cols-2 gap-8 text-[8px] font-black uppercase tracking-widest text-white/30">
+                        <div className="text-right">σ = Sigmoid</div>
+                        <div className="text-left">Σ wᵢxᵢ = Sum</div>
                     </div>
                 </div>
             </div>
@@ -114,16 +114,16 @@ export default function NeuralNetworkMath() {
                         </h3>
                         
                         <div className="space-y-6">
-                            <div className="rounded-xl bg-black/40 p-6">
-                                <p className="text-[10px] font-black uppercase text-white/30 mb-2 tracking-widest">Step 1: Weighted Sum (z)</p>
-                                <div className="font-mono text-sm">
-                                    ({x1} × {w1}) + ({x2} × {w2}) + {bias} = <span className="text-cyan-300 font-bold">{math.z}</span>
+                            <div className="rounded-xl bg-cyan-400/5 border border-cyan-400/20 p-6 shadow-lg">
+                                <p className="text-[10px] font-black uppercase text-cyan-400/50 mb-3 tracking-widest text-center">Step 1: Weighted Sum (z)</p>
+                                <div className="font-mono text-xl md:text-2xl text-center font-black text-white">
+                                    ({x1}×{w1}) + ({x2}×{w2}) + {bias} = <span className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">{math.z}</span>
                                 </div>
                             </div>
-                            <div className="rounded-xl bg-black/40 p-6">
-                                <p className="text-[10px] font-black uppercase text-white/30 mb-2 tracking-widest">Step 2: Activation (a)</p>
-                                <div className="font-mono text-sm">
-                                    Sigmoid({math.z}) = <span className="text-pink-400 font-bold">{math.a}</span>
+                            <div className="rounded-xl bg-pink-400/5 border border-pink-400/20 p-6 shadow-lg">
+                                <p className="text-[10px] font-black uppercase text-pink-400/50 mb-3 tracking-widest text-center">Step 2: Activation (a)</p>
+                                <div className="font-mono text-xl md:text-2xl text-center font-black text-white">
+                                    Sigmoid({math.z}) = <span className="text-pink-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.4)]">{math.a}</span>
                                 </div>
                             </div>
                         </div>

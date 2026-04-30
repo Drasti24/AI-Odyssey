@@ -35,11 +35,11 @@ export default function RandomForestMath() {
                     <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-green-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         Ensemble Aggregation
                     </h2>
-                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-8 bg-black/40 p-10 rounded-4xl border border-white/10 shadow-[0_0_50px_rgba(34,197,94,0.1)]">
-                        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter flex items-center gap-6">
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-6 bg-black/60 p-6 rounded-2xl border border-green-400/30 shadow-[0_0_50px_rgba(34,197,94,0.2)] hover:shadow-[0_0_70px_rgba(34,197,94,0.4)] transition-all duration-500 group-hover:scale-105">
+                        <div className="text-2xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-4">
                             H(x) = <div className="inline-flex flex-col items-center">
-                                <span className="border-b-4 border-white pb-1 px-6 text-4xl md:text-6xl">Σ hₜ(x)</span>
-                                <span className="pt-2 text-4xl md:text-6xl">T</span>
+                                <span className="border-b-2 border-white/80 pb-1 px-4 text-xl md:text-3xl">Σ hₜ(x)</span>
+                                <span className="pt-1 text-xl md:text-3xl">T</span>
                             </div>
                         </div>
                     </div>
@@ -80,14 +80,14 @@ export default function RandomForestMath() {
                                             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-[10px] font-black text-white/40 border border-white/5">T{i+1}</div>
                                             <div>
                                                 <div className="text-[8px] font-black uppercase text-white/20 mb-1 tracking-widest">Prediction</div>
-                                                <div className={`text-xl font-black uppercase ${tree.prediction === 'Cyan' ? 'text-cyan-400' : 'text-pink-400'}`}>
+                                                <div className={`text-2xl font-black uppercase ${tree.prediction === 'Cyan' ? 'text-cyan-400' : 'text-pink-400'} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]`}>
                                                     {tree.prediction}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="text-right">
                                             <div className="text-[8px] font-black uppercase text-white/20 mb-1 tracking-widest">Weight</div>
-                                            <div className="text-lg font-mono font-black text-white">{tree.confidence}%</div>
+                                            <div className="text-2xl font-mono font-black text-white">{tree.confidence}%</div>
                                         </div>
                                     </div>
                                     <div className="mt-4 text-[7px] font-black text-white/20 uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity text-center">Click to Flip Decision</div>
