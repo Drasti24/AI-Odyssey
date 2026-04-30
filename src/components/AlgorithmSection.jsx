@@ -23,6 +23,7 @@ const algorithms = [
         status: "MVP",
         description: "Classifies a new point by checking which nearby points are closest to it.",
         type: "supervised",
+        color: "#f97316", // orange-500
     },
     {
         id: "linear-regression",
@@ -31,6 +32,7 @@ const algorithms = [
         status: "MVP",
         description: "Predicts a number by finding the best-fit line through data points.",
         type: "supervised",
+        color: "#3b82f6", // blue-500
     },
     {
         id: "decision-tree",
@@ -39,6 +41,7 @@ const algorithms = [
         status: "MVP",
         description: "Makes predictions by following yes/no questions like a flowchart.",
         type: "supervised",
+        color: "#10b981", // emerald-500
     },
     {
         id: "logistic-regression",
@@ -47,6 +50,7 @@ const algorithms = [
         status: "MVP",
         description: "Predicts probability and classifies results using a sigmoid curve.",
         type: "supervised",
+        color: "#8b5cf6", // violet-500
     },
     {
         id: "random-forest",
@@ -55,6 +59,7 @@ const algorithms = [
         status: "MVP",
         description: "Combines many decision trees and lets them vote on the final answer.",
         type: "supervised",
+        color: "#14b8a6", // teal-500
     },
     {
         id: "neural-network",
@@ -63,6 +68,7 @@ const algorithms = [
         status: "MVP",
         description: "Learns patterns using layers, weights, biases, and activation functions.",
         type: "supervised",
+        color: "#ec4899", // pink-500
     },
     {
         id: "kmeans",
@@ -71,6 +77,7 @@ const algorithms = [
         status: "MVP",
         description: "Groups data points into clusters based on their similarity.",
         type: "unsupervised",
+        color: "#f59e0b", // amber-500
     },
 ];
 
