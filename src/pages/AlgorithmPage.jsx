@@ -99,12 +99,12 @@ export default function AlgorithmPage() {
 
             <section className="mx-auto max-w-7xl px-4 sm:px-8 py-6 sm:py-10">
                 {/* Custom Tabs */}
-                <div className="mb-8 flex items-center gap-2 overflow-x-auto pb-1 sm:mb-12 sm:flex-wrap sm:justify-center sm:gap-4 sm:overflow-visible sm:pb-0">
+                <div className="algo-tabs mb-8 flex items-center gap-2 overflow-x-auto pb-1 sm:mb-12 sm:flex-wrap sm:justify-center sm:gap-4 sm:overflow-visible sm:pb-0">
                     {tabs.map((t) => (
                         <button
                             key={t.name}
                             onClick={() => setTab(t.name)}
-                            className={`flex shrink-0 items-center gap-2 rounded-xl border px-4 py-3 text-[8px] font-black uppercase tracking-widest transition-all duration-300 sm:gap-3 sm:rounded-2xl sm:px-8 sm:py-4 sm:text-[10px] ${
+                            className={`algo-tab flex shrink-0 items-center gap-2 rounded-xl border px-4 py-3 text-[8px] font-black uppercase tracking-widest transition-all duration-300 sm:gap-3 sm:rounded-2xl sm:px-8 sm:py-4 sm:text-[10px] ${
                                 tab === t.name
                                     ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                                     : "bg-white/5 text-white/40 border-white/10 hover:border-white/30 hover:text-white"

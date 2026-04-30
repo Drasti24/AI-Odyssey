@@ -53,12 +53,12 @@ export default function LogisticRegression() {
           </header>
 
           {/* Tabs */}
-          <div className="mb-10 flex w-full gap-2 overflow-x-auto rounded-2xl border border-white/5 bg-white/[0.03] p-2 sm:mb-12 sm:w-fit sm:flex-wrap sm:gap-3">
+          <div className="algo-tabs mb-10 flex w-full gap-2 overflow-x-auto rounded-2xl border border-white/5 bg-white/[0.03] p-2 sm:mb-12 sm:w-fit sm:flex-wrap sm:gap-3">
             {tabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-3 text-[9px] font-black uppercase tracking-widest transition-all sm:gap-3 sm:px-6 sm:text-[10px] ${
+                className={`algo-tab flex shrink-0 items-center gap-2 rounded-xl px-4 py-3 text-[9px] font-black uppercase tracking-widest transition-all sm:gap-3 sm:px-6 sm:text-[10px] ${
                   activeTab === t.id 
                     ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]" 
                     : "text-white/40 hover:text-white hover:bg-white/5"

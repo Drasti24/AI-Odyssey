@@ -25,14 +25,13 @@ export default function LinearRegressionMath() {
         return { points: res, mse: mse.toFixed(2) };
     }, [points, slope, intercept]);
 
-    const handleGridClick = (e) => {
+    const handleGridPointerDown = (e) => {
+        if (interactionMode !== "add") return;
         const rect = e.currentTarget.getBoundingClientRect();
         const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
         const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
 
-        if (interactionMode === "add") {
-            setPoints([...points, { id: Date.now(), x, y }]);
-        }
+        setPoints([...points, { id: Date.now(), x, y }]);
     };
 
     const deletePoint = (id) => {
@@ -45,7 +44,7 @@ export default function LinearRegressionMath() {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-7xl mx-auto">
             
             {/* 1. TOP: The Equation Section */}
-            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
+            <section className="math-panel rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-cyan-500/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 text-center">
                     <h2 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-6 sm:mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
@@ -66,7 +65,7 @@ export default function LinearRegressionMath() {
             <div className="grid gap-6 lg:grid-cols-2">
                 
                 {/* LEFT: Calculations Tab */}
-                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
+                <section className="math-panel math-workspace rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
                         <div className="flex items-center gap-3">
                             <Calculator size={20} className="text-cyan-400" />
@@ -109,7 +108,7 @@ export default function LinearRegressionMath() {
                 </section>
 
                 {/* RIGHT: Visual Lab */}
-                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px] relative group">
+                <section className="math-panel math-workspace rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px] relative group">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4 relative z-20">
                         <div className="flex items-center gap-3">
                             <Target size={20} className="text-purple-400" />
@@ -128,8 +127,8 @@ export default function LinearRegressionMath() {
                     </div>
 
                     <div 
-                        className="flex-1 relative rounded-3xl border border-white/10 bg-[#050508] overflow-hidden cursor-crosshair shadow-inner"
-                        onClick={handleGridClick}
+                        className="touch-graph flex-1 relative rounded-3xl border border-white/10 bg-[#050508] overflow-hidden cursor-crosshair shadow-inner"
+                        onPointerDown={handleGridPointerDown}
                     >
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
                         <div className="absolute left-0 bottom-0 w-full h-px bg-white/20" />
@@ -164,7 +163,8 @@ export default function LinearRegressionMath() {
                             <motion.div 
                                 key={p.id}
                                 layoutId={p.id}
-                                onClick={(e) => { e.stopPropagation(); deletePoint(p.id); }}
+                                onPointerDown={(e) => { e.stopPropagation(); deletePoint(p.id); }}
+                                onPointerUp={(e) => e.stopPropagation()}
                                 className={`absolute -translate-x-1/2 -translate-y-1/2 h-5 w-5 rounded-full bg-white shadow-xl cursor-pointer hover:scale-150 transition-transform ${interactionMode === 'delete' ? 'hover:bg-red-500' : ''}`}
                                 style={{ left: `${p.x}%`, top: `${p.y}%` }}
                             >
@@ -193,7 +193,7 @@ export default function LinearRegressionMath() {
             </div>
 
             {/* 3. BOTTOM: Final Result */}
-            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
+            <section className="math-panel rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
                 <div className="grid gap-8 lg:grid-cols-3 items-center">
                     
                     <div className="lg:col-span-1 space-y-6 text-center">

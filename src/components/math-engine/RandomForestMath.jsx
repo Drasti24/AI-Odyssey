@@ -29,7 +29,7 @@ export default function RandomForestMath() {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-7xl mx-auto">
             
             {/* 1. TOP: The Equation Section */}
-            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
+            <section className="math-panel rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-green-500/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 text-center">
                     <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-green-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
@@ -53,7 +53,7 @@ export default function RandomForestMath() {
             <div className="grid gap-6 lg:grid-cols-2">
                 
                 {/* LEFT: Calculations Tab */}
-                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
+                <section className="math-panel math-workspace rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <Calculator size={20} className="text-green-400" />
@@ -69,7 +69,7 @@ export default function RandomForestMath() {
                             {treeVotes.map((tree, i) => (
                                 <motion.div 
                                     key={tree.id}
-                                    onClick={() => toggleTree(tree.id)}
+                                    onPointerDown={() => toggleTree(tree.id)}
                                     initial={{ x: -20, opacity: 0 }}
                                     animate={{ x: 0, opacity: 1 }}
                                     className="p-6 rounded-2xl bg-black/40 border-2 border-white/5 transition-all cursor-pointer group hover:border-green-400/40 relative overflow-hidden"
@@ -98,7 +98,7 @@ export default function RandomForestMath() {
                 </section>
 
                 {/* RIGHT: Visual Forest */}
-                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl h-[600px] flex flex-col relative group">
+                <section className="math-panel math-workspace rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl h-[600px] flex flex-col relative group">
                     <div className="flex items-center justify-between mb-8 relative z-20">
                         <div className="flex items-center gap-3">
                             <Trees size={20} className="text-cyan-400" />
@@ -108,8 +108,8 @@ export default function RandomForestMath() {
                         </div>
                     </div>
 
-                    <div className="flex-1 relative bg-[#050508] rounded-3xl border border-white/10 p-12 flex flex-col items-center justify-around shadow-inner">
-                        <div className="grid grid-cols-3 gap-8 w-full max-w-md relative z-10">
+                    <div className="touch-graph flex-1 relative bg-[#050508] rounded-3xl border border-white/10 p-5 sm:p-12 flex flex-col items-center justify-around shadow-inner">
+                        <div className="grid grid-cols-2 gap-4 w-full max-w-md relative z-10 sm:grid-cols-3 sm:gap-8">
                             {treeVotes.map((tree) => (
                                 <motion.div 
                                     key={tree.id}
@@ -170,7 +170,7 @@ export default function RandomForestMath() {
             </div>
 
             {/* 3. BOTTOM: The Verdict */}
-            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
+            <section className="math-panel rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
                 <div className="grid gap-8 lg:grid-cols-3 items-center">
                     
                     <div className="lg:col-span-1 space-y-6">

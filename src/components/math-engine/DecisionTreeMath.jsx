@@ -38,19 +38,18 @@ export default function DecisionTreeMath() {
         return { left, right, leftGini, rightGini, weightedGini };
     }, [points, threshold]);
 
-    const handleGridClick = (e) => {
+    const handleGraphPointerDown = (e) => {
+        if (interactionMode !== "add") return;
         const rect = e.currentTarget.getBoundingClientRect();
         const val = Math.round(((e.clientX - rect.left) / rect.width) * 100);
-        if (interactionMode === "add") {
-            setPoints([...points, { id: Date.now(), val, type: activeClass }]);
-        }
+        setPoints([...points, { id: Date.now(), val, type: activeClass }]);
     };
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-7xl mx-auto">
             
             {/* 1. TOP: The Equation Section */}
-            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
+            <section className="math-panel rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-purple-500/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 text-center">
                     <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
@@ -72,7 +71,7 @@ export default function DecisionTreeMath() {
             <div className="grid gap-6 lg:grid-cols-2">
                 
                 {/* LEFT: Calculations Tab */}
-                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
+                <section className="math-panel math-workspace rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <Calculator size={20} className="text-purple-400" />
@@ -113,7 +112,7 @@ export default function DecisionTreeMath() {
                 </section>
 
                 {/* RIGHT: Visual Splitter */}
-                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl h-[600px] flex flex-col relative group">
+                <section className="math-panel math-workspace rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl h-[600px] flex flex-col relative group">
                     <div className="flex items-center justify-between mb-8 relative z-20">
                         <div className="flex items-center gap-3">
                             <GitBranch size={20} className="text-cyan-400" />
@@ -132,8 +131,8 @@ export default function DecisionTreeMath() {
                     </div>
 
                     <div 
-                        className="flex-1 relative bg-[#050508] rounded-3xl border border-white/10 overflow-hidden p-12 flex items-center justify-center shadow-inner"
-                        onClick={handleGridClick}
+                        className="touch-graph flex-1 relative bg-[#050508] rounded-3xl border border-white/10 overflow-hidden p-6 sm:p-12 flex items-center justify-center shadow-inner"
+                        onPointerDown={handleGraphPointerDown}
                     >
                          {/* X-Axis */}
                          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
@@ -154,7 +153,8 @@ export default function DecisionTreeMath() {
                                 <motion.div 
                                     key={p.id}
                                     layoutId={p.id}
-                                    onClick={(e) => { e.stopPropagation(); interactionMode === 'delete' && setPoints(points.filter(pt => pt.id !== p.id)); }}
+                                    onPointerDown={(e) => { e.stopPropagation(); interactionMode === 'delete' && setPoints(points.filter(pt => pt.id !== p.id)); }}
+                                    onPointerUp={(e) => e.stopPropagation()}
                                     className={`absolute -translate-x-1/2 h-10 w-10 rounded-2xl flex items-center justify-center text-[10px] font-black shadow-2xl cursor-pointer ${p.type === 'Cyan' ? 'bg-cyan-400 text-black shadow-cyan-400/30' : 'bg-pink-400 text-black shadow-pink-400/30'}`}
                                     style={{ left: `${p.val}%` }}
                                     whileHover={{ y: -10, scale: 1.2 }}
@@ -181,7 +181,7 @@ export default function DecisionTreeMath() {
             </div>
 
             {/* 3. BOTTOM: The Verdict */}
-            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
+            <section className="math-panel rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
                 <div className="grid gap-8 lg:grid-cols-3 items-center">
                     
                     <div className="lg:col-span-1 space-y-6">

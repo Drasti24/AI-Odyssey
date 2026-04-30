@@ -17,7 +17,7 @@ export default function NeuralNetworkMath() {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Header: The Single Neuron */}
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+            <div className="math-panel rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
                 <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                         <h2 className="text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
@@ -43,12 +43,12 @@ export default function NeuralNetworkMath() {
 
             <div className="grid gap-8 lg:grid-cols-2">
                 {/* Neuron Simulator */}
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+                <div className="math-panel rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
                     <h3 className="mb-6 sm:mb-8 text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         Signal Simulator
                     </h3>
                     
-                    <div className="relative aspect-video w-full rounded-2xl border border-white/10 bg-black/40 flex items-center justify-center overflow-hidden">
+                    <div className="touch-graph relative aspect-video min-h-[300px] w-full rounded-2xl border border-white/10 bg-black/40 flex items-center justify-center overflow-hidden">
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.05)_0%,transparent_70%)]" />
 
                         {/* Input Nodes */}
@@ -108,7 +108,7 @@ export default function NeuralNetworkMath() {
 
                 <div className="flex flex-col gap-6">
                     {/* Math Breakdown */}
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl flex-1">
+                    <div className="math-panel rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl flex-1">
                         <h3 className="mb-6 text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                             The Flow
                         </h3>
@@ -130,7 +130,7 @@ export default function NeuralNetworkMath() {
                     </div>
 
                     {/* ELI5 */}
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+                    <div className="math-panel rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
                         <h3 className="mb-4 text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-white/60" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                             ELI5
                         </h3>
