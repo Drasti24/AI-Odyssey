@@ -79,7 +79,7 @@ export default function Hero() {
                             {
                                 id: "algorithms",
                                 to: "/algorithms",
-                                title: "THE ENGINE",
+                                title: "ALGORITHMS",
                                 desc: "Master KNN, Decision Trees & Neural Networks.",
                                 blob: "bg-purple-500/20",
                                 titleClass: "text-white transition-colors group-hover:text-cyan-300"
@@ -87,7 +87,7 @@ export default function Hero() {
                             {
                                 id: "playground",
                                 to: "/playground",
-                                title: "THE ARENA",
+                                title: "PLAYGROUND",
                                 desc: "Stress test your skills in the interactive playground.",
                                 blob: "bg-red-500/20",
                                 titleClass: "bg-gradient-to-r from-red-400 via-white to-cyan-400 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-cyan-300"
