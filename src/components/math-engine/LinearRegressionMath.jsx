@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Trash2, MousePointer2, Info, Equal, Ruler, Target } from "lucide-react";
+import { Plus, Trash2, MousePointer2, Info, Equal, Ruler, Target, Calculator } from "lucide-react";
 
 export default function LinearRegressionMath() {
     const [points, setPoints] = useState([
@@ -11,7 +11,7 @@ export default function LinearRegressionMath() {
     ]);
     const [slope, setSlope] = useState(-0.6);
     const [intercept, setIntercept] = useState(80);
-    const [interactionMode, setInteractionMode] = useState("add"); // 'add', 'delete'
+    const [interactionMode, setInteractionMode] = useState("add"); 
 
     const residuals = useMemo(() => {
         let totalSquaredError = 0;
@@ -42,67 +42,101 @@ export default function LinearRegressionMath() {
     };
 
     return (
-        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* Header Section */}
-            <div className="rounded-4xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="max-w-md">
-                        <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 mb-4" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                            The Regression Engine
-                        </h2>
-                        <div className="text-4xl md:text-5xl font-black text-white flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-7xl mx-auto">
+            
+            {/* 1. TOP: The Equation Section */}
+            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-cyan-500/10 to-transparent pointer-events-none" />
+                <div className="relative z-10 text-center">
+                    <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        The Regression Formula
+                    </h2>
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-8 bg-black/40 p-10 rounded-4xl border border-white/10 shadow-[0_0_50px_rgba(34,211,238,0.1)]">
+                        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter flex items-center gap-4">
                              y = <span className="text-purple-400">{slope.toFixed(2)}</span>x + <span className="text-pink-400">{intercept.toFixed(0)}</span>
                         </div>
-                        <p className="mt-6 text-sm text-white/40 leading-relaxed italic">
-                            &ldquo;Draw a line that stays as close to the dots as possible. The math measures the gaps!&rdquo;
-                        </p>
                     </div>
-
-                    <div className="flex-1 w-full max-w-sm rounded-3xl bg-black/40 p-8 border-2 border-red-500/20 flex flex-col items-center justify-center relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-20 transition-opacity">
-                            <Target size={120} />
-                        </div>
-                        <span className="text-[10px] font-black uppercase text-red-400/60 mb-2 tracking-widest">Total Error (MSE)</span>
-                        <motion.div 
-                            key={residuals.mse}
-                            initial={{ scale: 0.9 }}
-                            animate={{ scale: 1 }}
-                            className="text-6xl font-black text-white drop-shadow-[0_0_20px_rgba(239,68,68,0.3)]"
-                        >
-                            {residuals.mse}
-                        </motion.div>
-                        <div className="mt-4 flex items-center gap-2 text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">
-                             Objective: Minimize this number
-                        </div>
-                    </div>
+                    <p className="mt-8 text-sm text-white/30 tracking-[0.2em] font-medium uppercase">
+                        The Mathematical Path through Scattered Data
+                    </p>
                 </div>
-            </div>
+            </section>
 
-            {/* Main Interactive Grid & Math Side-by-Side */}
-            <div className="grid gap-8 lg:grid-cols-2">
+            {/* 2. MIDDLE: Side-by-Side */}
+            <div className="grid gap-6 lg:grid-cols-2">
                 
-                {/* Left: Interactive Graph */}
-                <div className="rounded-4xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl relative">
-                    <div className="mb-6 flex items-center justify-between">
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                            Visual Lab
-                        </h3>
+                {/* LEFT: Calculations Tab */}
+                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
+                    <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center gap-3">
+                            <Calculator size={20} className="text-cyan-400" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                                The Error Log
+                            </h3>
+                        </div>
+                        <div className="text-[8px] font-black uppercase text-white/30 tracking-widest">Tracking {points.length} Points</div>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar space-y-4">
+                        <AnimatePresence mode="popLayout">
+                            {residuals.points.map((p, i) => (
+                                <motion.div 
+                                    key={p.id}
+                                    initial={{ x: -20, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    exit={{ x: 20, opacity: 0 }}
+                                    className="p-6 rounded-2xl bg-black/40 border-2 border-white/5 transition-all"
+                                >
+                                    <div className="flex items-center justify-between mb-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                                            <span className="text-xs font-black text-white uppercase tracking-tighter">Data Point #{i+1}</span>
+                                        </div>
+                                        <div className="text-2xl font-black text-red-400">{p.error.toFixed(1)}</div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="bg-white/5 p-3 rounded-xl border border-white/5 text-center">
+                                            <div className="text-[8px] font-black text-white/20 uppercase mb-1">Gap</div>
+                                            <div className="font-mono text-xs text-white/70">{p.y} - {p.predictedY.toFixed(1)}</div>
+                                        </div>
+                                        <div className="bg-white/5 p-3 rounded-xl border border-white/5 text-center">
+                                            <div className="text-[8px] font-black text-white/20 uppercase mb-1">Squared Error</div>
+                                            <div className="font-mono text-xs text-white/70">{(p.error * p.error).toFixed(1)}</div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </div>
+                </section>
+
+                {/* RIGHT: Visual Lab */}
+                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px] relative group">
+                    <div className="flex items-center justify-between mb-8 relative z-20">
+                        <div className="flex items-center gap-3">
+                            <Target size={20} className="text-purple-400" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                                Visualization
+                            </h3>
+                        </div>
                         <div className="flex gap-2">
-                            <button onClick={() => setInteractionMode("add")} className={`p-3 rounded-xl border transition-all ${interactionMode === 'add' ? 'bg-cyan-400 border-cyan-400 text-black' : 'bg-white/5 border-white/10 text-white/40'}`}>
+                            <button onClick={() => setInteractionMode("add")} className={`p-3 rounded-xl border transition-all ${interactionMode === 'add' ? 'bg-cyan-400 border-cyan-400 text-black' : 'bg-black/40 border-white/10 text-white/40 hover:text-white'}`}>
                                 <Plus size={18} strokeWidth={3} />
                             </button>
-                            <button onClick={() => setInteractionMode("delete")} className={`p-3 rounded-xl border transition-all ${interactionMode === 'delete' ? 'bg-red-500 border-red-500 text-white' : 'bg-white/5 border-white/10 text-white/40'}`}>
+                            <button onClick={() => setInteractionMode("delete")} className={`p-3 rounded-xl border transition-all ${interactionMode === 'delete' ? 'bg-red-500 border-red-500 text-white' : 'bg-black/40 border-white/10 text-white/40 hover:text-white'}`}>
                                 <Trash2 size={18} strokeWidth={3} />
                             </button>
                         </div>
                     </div>
 
                     <div 
-                        className="relative aspect-square w-full rounded-3xl border border-white/10 bg-[#07070c] overflow-hidden cursor-crosshair group shadow-2xl"
+                        className="flex-1 relative rounded-3xl border border-white/10 bg-[#050508] overflow-hidden cursor-crosshair shadow-inner"
                         onClick={handleGridClick}
                     >
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
-                        
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+                        <div className="absolute left-0 bottom-0 w-full h-px bg-white/20" />
+                        <div className="absolute left-0 bottom-0 w-px h-full bg-white/20" />
+
                         <svg className="absolute inset-0 h-full w-full pointer-events-none">
                             {/* Residual Lines */}
                             {residuals.points.map((p) => (
@@ -136,7 +170,7 @@ export default function LinearRegressionMath() {
                                 className={`absolute -translate-x-1/2 -translate-y-1/2 h-5 w-5 rounded-full bg-white shadow-xl cursor-pointer hover:scale-150 transition-transform ${interactionMode === 'delete' ? 'hover:bg-red-500' : ''}`}
                                 style={{ left: `${p.x}%`, top: `${p.y}%` }}
                             >
-                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black/80 px-2 py-1 rounded text-[8px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black/80 px-2 py-1 rounded text-[8px] font-bold opacity-0 hover:opacity-100 transition-opacity">
                                     ({p.x}, {p.y})
                                 </div>
                             </motion.div>
@@ -147,84 +181,64 @@ export default function LinearRegressionMath() {
                         <div>
                             <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-white/40 mb-3">
                                 <span>Slope (m): {slope.toFixed(2)}</span>
-                                <span className="text-purple-400">Angle of Line</span>
                             </div>
-                            <input 
-                                type="range" min="-3" max="3" step="0.05" value={slope}
-                                onChange={(e) => setSlope(parseFloat(e.target.value))}
-                                className="w-full accent-purple-500 h-2"
-                            />
+                            <input type="range" min="-3" max="3" step="0.05" value={slope} onChange={(e) => setSlope(parseFloat(e.target.value))} className="w-full accent-purple-500 h-2" />
                         </div>
                         <div>
                             <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-white/40 mb-3">
                                 <span>Intercept (b): {intercept.toFixed(0)}</span>
-                                <span className="text-pink-400">Y-Axis Start</span>
                             </div>
-                            <input 
-                                type="range" min="0" max="100" step="1" value={intercept}
-                                onChange={(e) => setIntercept(parseFloat(e.target.value))}
-                                className="w-full accent-pink-500 h-2"
-                            />
+                            <input type="range" min="0" max="100" step="1" value={intercept} onChange={(e) => setIntercept(parseFloat(e.target.value))} className="w-full accent-pink-500 h-2" />
                         </div>
                     </div>
-                </div>
-
-                {/* Right: Detailed Math Calculations */}
-                <div className="flex flex-col gap-6">
-                    <div className="rounded-4xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl flex-1 overflow-hidden relative">
-                        <div className="absolute top-0 right-0 h-40 w-40 bg-cyan-500/5 blur-[100px]" />
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                            The Error Log
-                        </h3>
-                        
-                        <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                            <AnimatePresence>
-                                {residuals.points.map((p, i) => (
-                                    <motion.div 
-                                        key={p.id}
-                                        initial={{ x: 20, opacity: 0 }}
-                                        animate={{ x: 0, opacity: 1 }}
-                                        exit={{ x: -20, opacity: 0 }}
-                                        className="p-5 rounded-2xl bg-black/40 border border-white/5 flex items-center justify-between"
-                                    >
-                                        <div>
-                                            <div className="text-[9px] font-black text-white/20 uppercase mb-2">Point {i+1} at ({p.x}, {p.y})</div>
-                                            <div className="font-mono text-sm">
-                                                <span className="text-white/40">Gap = </span> 
-                                                {p.y} - {p.predictedY.toFixed(1)} = 
-                                                <span className={p.error > 0 ? "text-green-400 font-bold" : "text-red-400 font-bold"}> {p.error.toFixed(1)}</span>
-                                            </div>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-[9px] font-black text-white/20 uppercase mb-2">Squared</div>
-                                            <div className="text-lg font-black text-white">
-                                                {(p.error * p.error).toFixed(1)}
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </AnimatePresence>
-                        </div>
-
-                        {points.length === 0 && (
-                            <div className="flex h-64 flex-col items-center justify-center text-white/20 italic">
-                                <Plus size={32} className="mb-4 opacity-20" />
-                                Click the graph to add points
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl border-l-4 border-l-cyan-400 shadow-2xl">
-                         <div className="flex items-center gap-3 mb-4">
-                            <Ruler size={16} className="text-cyan-400" />
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>ELI5 Rule</h3>
-                        </div>
-                        <p className="text-sm leading-relaxed text-white/60 font-medium italic">
-                            "The total error is like the volume of all the red gaps combined. To win, you must twist and move the blue line until all those red gaps are as tiny as possible!"
-                        </p>
-                    </div>
-                </div>
+                </section>
             </div>
+
+            {/* 3. BOTTOM: Final Result */}
+            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
+                <div className="grid gap-8 lg:grid-cols-3 items-center">
+                    
+                    <div className="lg:col-span-1 space-y-6 text-center">
+                        <div className="flex items-center justify-center gap-3">
+                            <Target size={20} className="text-white/40" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                                Error Score
+                            </h3>
+                        </div>
+                        <div className="p-8 rounded-[40px] bg-red-500/10 border-2 border-red-500/20">
+                            <div className="text-[8px] font-black uppercase text-red-400 mb-2 tracking-widest">MSE Value</div>
+                            <div className="text-6xl font-black text-white">{residuals.mse}</div>
+                        </div>
+                    </div>
+
+                    <div className="lg:col-span-1 flex flex-col items-center justify-center p-8 rounded-[40px] border-8 border-white/5 bg-black/40 min-h-[240px] relative group overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                        <div className="text-[10px] font-black uppercase text-white/20 mb-6 tracking-widest">Model Status</div>
+                        <motion.div 
+                            key={residuals.mse}
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className={`text-4xl font-black uppercase tracking-widest text-center drop-shadow-2xl ${parseFloat(residuals.mse) < 50 ? 'text-green-400' : 'text-red-500'}`}
+                            style={{ fontFamily: "'Press Start 2P', system-ui" }}
+                        >
+                            {parseFloat(residuals.mse) < 50 ? 'OPTIMIZED' : 'UNFITTED'}
+                        </motion.div>
+                    </div>
+
+                    <div className="lg:col-span-1 space-y-6">
+                        <div className="flex items-center gap-3">
+                            <Info size={18} className="text-cyan-400" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                                The Logic
+                            </h3>
+                        </div>
+                        <div className="p-8 rounded-3xl bg-white/5 border border-white/10 italic text-sm text-white/60 leading-relaxed shadow-xl">
+                            "The total error is the sum of all the red gaps. To find the perfect line, you must twist and move it until the total error score is as small as possible!"
+                        </div>
+                    </div>
+
+                </div>
+            </section>
         </div>
     );
 }

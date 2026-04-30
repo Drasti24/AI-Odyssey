@@ -1,5 +1,5 @@
-import { Suspense } from "react";
-import { motion } from "framer-motion";
+import { Suspense, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import MountainScene from "./MountainScene";
 import { useCurtain } from "./CurtainTransition";
@@ -10,126 +10,166 @@ const fadeUp = (delay = 0) => ({
     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay },
 });
 
+function ThunderEffect() {
+    const [flash, setFlash] = useState(false);
+
+    useEffect(() => {
+        const triggerFlash = () => {
+            setFlash(true);
+            // Flicker effect for realistic "thunder/lightning" atmosphere
+            setTimeout(() => setFlash(false), 50);
+            setTimeout(() => setFlash(true), 100);
+            setTimeout(() => setFlash(false), 250);
+
+            const nextFlash = 5000 + Math.random() * 10000;
+            setTimeout(triggerFlash, nextFlash);
+        };
+
+        const timer = setTimeout(triggerFlash, 4000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <AnimatePresence>
+            {flash && (
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 0.4, 0.1, 0.4, 0] }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="pointer-events-none absolute inset-0 z-[5] bg-white mix-blend-overlay"
+                />
+            )}
+        </AnimatePresence>
+    );
+}
+
 export default function Hero() {
     const { trigger } = useCurtain();
+    
     return (
-        <section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden px-8">
+        <section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden px-8 bg-[#07070c]">
             {/* ── Three.js background ── */}
             <Suspense fallback={null}>
                 <MountainScene />
             </Suspense>
 
-            {/* ── Colour tints on top of the 3D scene ── */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_40%_40%,rgba(168,85,247,0.30),transparent_55%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(139,92,246,0.15),transparent_50%)]" />
-            {/* Dark vignette at bottom so text is readable */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#07070c] via-[#07070c]/40 to-transparent" />
+            {/* ── Visual Effects ── */}
+            {/* Restored Thunder (flashes) but keeping strokes removed */}
+            <ThunderEffect />
+            
+            {/* ── Colour tints ── */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_40%_40%,rgba(168,85,247,0.15),transparent_55%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(139,92,246,0.08),transparent_50%)]" />
+            
+            {/* Dark vignette at bottom */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#07070c] via-[#07070c]/70 to-transparent" />
 
-            {/* ── Content (above the canvas) ── */}
-            <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-center text-center">
+            {/* ── Content ── */}
+            <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-center text-center pt-20">
                 <div className="flex flex-col items-center">
                     {/* Main heading */}
                     <motion.h1
-                        className="text-4xl font-black leading-tight md:text-6xl text-white uppercase"
-                        style={{ fontFamily: "'Press Start 2P', system-ui" }}
+                        className="text-4xl font-black leading-tight md:text-7xl text-white uppercase tracking-tighter"
+                        style={{ fontFamily: "'Press Start 2P', system-ui", textShadow: '0 0-30px rgba(255,255,255,0.1)' }}
                         {...fadeUp(0.1)}
                     >
-                        AI is not magic
+                        AI is not <span className="text-cyan-400">magic</span>
                     </motion.h1>
 
                     {/* Sub tagline */}
                     <motion.p
-                        className="mt-6 max-w-lg text-lg leading-8 text-white/60"
+                        className="mt-10 max-w-2xl text-xl leading-relaxed text-white/70"
                         {...fadeUp(0.2)}
                     >
-                        Understand how AI works through interactive demos instead of boring theory.
+                        Deconstruct the black box. Experience the logic through interactive experiments and visual storytelling.
                     </motion.p>
 
                     {/* Accent line */}
-                    <motion.p
-                        className="mt-4 text-xl font-bold text-cyan-400 uppercase tracking-[0.2em]"
+                    <motion.div
+                        className="mt-14 flex flex-col items-center gap-4"
                         {...fadeUp(0.3)}
                     >
-                        Let's Make It Visible
-                    </motion.p>
+                        <div className="h-px w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                        <p className="text-2xl font-black text-cyan-400 uppercase tracking-[0.4em] drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+                            Let's Make It Visible
+                        </p>
+                        <div className="h-px w-32 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                    </motion.div>
 
-                    {/* CTA Path - Liquid Glass Design */}
+                    {/* CTA Path */}
                     <motion.div 
-                        className="mt-16 grid w-full max-w-6xl grid-cols-1 gap-8 md:grid-cols-3" 
+                        className="mt-24 grid w-full max-w-6xl grid-cols-1 gap-10 md:grid-cols-3 px-4" 
                         {...fadeUp(0.4)}
                     >
                         {[
                             {
                                 id: "timeline",
                                 to: "/story",
-                                title: "AI BIRTH",
-                                desc: "Follow the 70-year journey of breakthroughs.",
-                                color: "from-cyan-400/20 to-purple-500/20",
-                                blob: "bg-cyan-400/30",
+                                title: "THE ORIGIN",
+                                desc: "Follow the 70-year journey of digital breakthroughs.",
+                                blob: "bg-cyan-400/20",
                                 titleClass: "text-cyan-300 transition-colors group-hover:text-cyan-200"
                             },
                             {
                                 id: "algorithms",
                                 to: "/algorithms",
-                                title: "ALGORITHMS",
-                                desc: "Master KNN, Trees & Neural Networks.",
-                                color: "from-purple-500/20 to-pink-500/20",
-                                blob: "bg-purple-500/30",
-                                titleClass: "text-white/90 transition-colors group-hover:text-cyan-300"
+                                title: "THE ENGINE",
+                                desc: "Master KNN, Decision Trees & Neural Networks.",
+                                blob: "bg-purple-500/20",
+                                titleClass: "text-white transition-colors group-hover:text-cyan-300"
                             },
                             {
                                 id: "playground",
                                 to: "/playground",
-                                title: "PLAYGROUND",
-                                desc: "Test your skills in the interactive arena.",
-                                color: "from-red-500/20 to-orange-500/20",
-                                blob: "bg-red-500/30",
-                                // Red-White-Blue gradient matching the playground page
+                                title: "THE ARENA",
+                                desc: "Stress test your skills in the interactive playground.",
+                                blob: "bg-red-500/20",
                                 titleClass: "bg-gradient-to-r from-red-400 via-white to-cyan-400 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-cyan-300"
                             }
                         ].map((item, i) => (
                             <Link 
                                 key={item.id} 
                                 to={item.to} 
-                                className="group relative flex flex-col items-center justify-center rounded-[2.5rem] border border-white/20 bg-white/[0.03] backdrop-blur-3xl transition-all duration-500 hover:scale-[1.03] hover:border-white/40 hover:bg-white/[0.08] hover:shadow-[0_20px_80px_rgba(0,0,0,0.4)] overflow-hidden"
+                                className="group relative flex flex-col items-center justify-center rounded-[3.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl transition-all duration-700 hover:scale-[1.05] hover:border-white/30 hover:bg-white/[0.05] hover:shadow-[0_40px_120px_rgba(0,0,0,0.7)] overflow-hidden min-h-[240px]"
                             >
                                 {/* Animated Liquid Blobs */}
-                                <div className="absolute inset-0 overflow-hidden rounded-[2.5rem]">
+                                <div className="absolute inset-0 overflow-hidden rounded-[3.5rem]">
                                     <motion.div
                                         animate={{
-                                            x: [0, 30, 0],
-                                            y: [0, -20, 0],
-                                            scale: [1, 1.2, 1],
+                                            x: [0, 40, 0],
+                                            y: [0, -30, 0],
+                                            scale: [1, 1.4, 1],
                                         }}
-                                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                                        className={`absolute -left-4 -top-4 h-32 w-32 rounded-full blur-3xl ${item.blob}`}
+                                        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                                        className={`absolute -left-8 -top-8 h-40 w-40 rounded-full blur-[60px] opacity-30 ${item.blob}`}
                                     />
                                     <motion.div
                                         animate={{
-                                            x: [0, -30, 0],
-                                            y: [0, 20, 0],
-                                            scale: [1, 1.3, 1],
+                                            x: [0, -40, 0],
+                                            y: [0, 30, 0],
+                                            scale: [1, 1.5, 1],
                                         }}
-                                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                        className="absolute -right-4 -bottom-4 h-32 w-32 rounded-full bg-indigo-500/20 blur-3xl"
+                                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                                        className="absolute -right-8 -bottom-8 h-40 w-40 rounded-full bg-indigo-500/10 blur-[60px] opacity-20"
                                     />
                                 </div>
 
                                 {/* Glass Surface */}
-                                <div className="relative z-10 flex flex-col items-center justify-center p-10">
+                                <div className="relative z-10 flex flex-col items-center justify-center p-12">
                                     <span 
-                                        className={`mb-4 text-xl font-black drop-shadow-md md:text-2xl ${item.titleClass}`}
+                                        className={`mb-6 text-2xl font-black drop-shadow-2xl tracking-tighter ${item.titleClass}`}
                                         style={{ fontFamily: "'Press Start 2P', system-ui", lineHeight: '1.4' }}
                                     >
                                         {item.title}
                                     </span>
-                                    <span className="max-w-[200px] text-center text-[10px] font-bold uppercase tracking-widest text-white/50 leading-relaxed">
+                                    <span className="max-w-[240px] text-center text-[10px] font-black uppercase tracking-[0.2em] text-white/30 leading-relaxed group-hover:text-white/60 transition-colors">
                                         {item.desc}
                                     </span>
                                 </div>
 
                                 {/* Glossy Overlay */}
-                                <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent opacity-50" />
+                                <div className="absolute inset-0 rounded-[3.5rem] bg-gradient-to-br from-white/10 via-transparent to-black/20 opacity-40" />
                             </Link>
                         ))}
                     </motion.div>

@@ -1,147 +1,239 @@
 import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
-
-const POINTS = [
-    { x: 20, y: 30, type: "red" }, { x: 25, y: 40, type: "red" }, { x: 30, y: 20, type: "red" },
-    { x: 70, y: 70, type: "blue" }, { x: 75, y: 80, type: "blue" }, { x: 80, y: 60, type: "blue" },
-    { x: 40, y: 50, type: "red" }, { x: 60, y: 50, type: "blue" }
-];
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Trash2, GitBranch, Info, Calculator, Target, Zap } from "lucide-react";
 
 export default function DecisionTreeMath() {
-    const [splitValue, setSplitValue] = useState(50);
-    const [splitType, setSplitType] = useState("x"); // 'x' for vertical, 'y' for horizontal
+    const [points, setPoints] = useState([
+        { id: 1, val: 10, type: "Cyan" },
+        { id: 2, val: 20, type: "Cyan" },
+        { id: 3, val: 35, type: "Cyan" },
+        { id: 4, val: 65, type: "Pink" },
+        { id: 5, val: 80, type: "Pink" },
+        { id: 6, val: 95, type: "Pink" },
+    ]);
+    const [threshold, setThreshold] = useState(50);
+    const [interactionMode, setInteractionMode] = useState("add");
+    const [activeClass, setActiveClass] = useState("Cyan");
 
-    const metrics = useMemo(() => {
-        const left = POINTS.filter(p => splitType === "x" ? p.x < splitValue : p.y < splitValue);
-        const right = POINTS.filter(p => splitType === "x" ? p.x >= splitValue : p.y >= splitValue);
+    const stats = useMemo(() => {
+        const left = points.filter(p => p.val <= threshold);
+        const right = points.filter(p => p.val > threshold);
 
-        const calcGini = (group) => {
-            if (group.length === 0) return 0;
-            const redCount = group.filter(p => p.type === "red").length;
-            const blueCount = group.filter(p => p.type === "blue").length;
-            const p1 = redCount / group.length;
-            const p2 = blueCount / group.length;
-            return (1 - (p1 * p1 + p2 * p2)).toFixed(3);
+        const calcGini = (subset) => {
+            if (subset.length === 0) return 0;
+            const cyanCount = subset.filter(p => p.type === "Cyan").length;
+            const pinkCount = subset.filter(p => p.type === "Pink").length;
+            const p1 = cyanCount / subset.length;
+            const p2 = pinkCount / subset.length;
+            return (1 - (Math.pow(p1, 2) + Math.pow(p2, 2))).toFixed(3);
         };
 
-        return {
-            leftGini: calcGini(left),
-            rightGini: calcGini(right),
-            leftCount: left.length,
-            rightCount: right.length
-        };
-    }, [splitValue, splitType]);
+        const leftGini = calcGini(left);
+        const rightGini = calcGini(right);
+        
+        const totalPoints = points.length;
+        const weightedGini = totalPoints > 0 ? 
+            ((left.length / totalPoints) * leftGini + (right.length / totalPoints) * rightGini).toFixed(3) : 0;
+
+        return { left, right, leftGini, rightGini, weightedGini };
+    }, [points, threshold]);
+
+    const handleGridClick = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const val = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+        if (interactionMode === "add") {
+            setPoints([...points, { id: Date.now(), val, type: activeClass }]);
+        }
+    };
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* Header: The Concept */}
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-                <div className="mb-6 flex items-center justify-between">
-                    <div>
-                        <h2 className="text-sm font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                            The Splitting Logic
-                        </h2>
-                        <p className="mt-2 text-white/50">Gini Impurity — Measuring Messiness</p>
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-7xl mx-auto">
+            
+            {/* 1. TOP: The Equation Section */}
+            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-purple-500/10 to-transparent pointer-events-none" />
+                <div className="relative z-10 text-center">
+                    <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-400 mb-8" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                        The Gini Impurity
+                    </h2>
+                    <div className="inline-flex flex-col md:flex-row items-center justify-center gap-8 bg-black/40 p-10 rounded-4xl border border-white/10 shadow-[0_0_50px_rgba(168,85,247,0.1)]">
+                        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter flex items-center gap-6">
+                            G = 1 - <span className="text-6xl md:text-8xl">Σ</span>
+                            <span className="text-purple-400">pᵢ²</span>
+                        </div>
                     </div>
-                    <div className="rounded-full bg-cyan-400/10 px-4 py-2 text-[10px] font-black uppercase text-cyan-300" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                        Logic Level: 2
-                    </div>
-                </div>
-
-                <div className="flex flex-col items-center justify-center rounded-2xl bg-black/40 p-10">
-                    <div className="text-4xl font-light text-white text-center">
-                        Gini = 1 - Σ (pᵢ)²
-                    </div>
-                    <p className="mt-6 text-sm text-white/40 max-w-lg text-center">
-                        A group is "Pure" (Gini = 0) if all items are the same color. It is "Impure" if it's a messy mix. The tree wants to find the cleanest splits.
+                    <p className="mt-8 text-sm text-white/30 tracking-[0.2em] font-medium uppercase">
+                        The Mathematical Measure of "Chaos" in Data
                     </p>
                 </div>
+            </section>
+
+            {/* 2. MIDDLE: Side-by-Side */}
+            <div className="grid gap-6 lg:grid-cols-2">
+                
+                {/* LEFT: Calculations Tab */}
+                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl flex flex-col h-[600px]">
+                    <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center gap-3">
+                            <Calculator size={20} className="text-purple-400" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                                Impurity Log
+                            </h3>
+                        </div>
+                        <div className="text-[8px] font-black uppercase text-white/30 tracking-widest">Tracking Splits</div>
+                    </div>
+
+                    <div className="flex-1 space-y-4 overflow-y-auto pr-4 custom-scrollbar">
+                        <div className="p-6 rounded-2xl bg-cyan-400/5 border-2 border-cyan-400/20">
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-[10px] font-black text-cyan-400 uppercase">Left Branch</span>
+                                <span className="text-3xl font-black text-white">{stats.leftGini}</span>
+                            </div>
+                            <div className="font-mono text-xs text-white/30 bg-black/20 p-3 rounded-lg">
+                                G = 1 - ((c/n)² + (p/n)²)
+                            </div>
+                        </div>
+
+                        <div className="p-6 rounded-2xl bg-pink-400/5 border-2 border-pink-400/20">
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-[10px] font-black text-pink-400 uppercase">Right Branch</span>
+                                <span className="text-3xl font-black text-white">{stats.rightGini}</span>
+                            </div>
+                            <div className="font-mono text-xs text-white/30 bg-black/20 p-3 rounded-lg">
+                                G = 1 - ((c/n)² + (p/n)²)
+                            </div>
+                        </div>
+
+                        <div className="mt-auto p-10 rounded-[40px] bg-black/40 border-2 border-dashed border-white/10 flex flex-col items-center justify-center">
+                            <div className="text-[8px] font-black uppercase text-white/20 mb-2">Total Weighted Impurity</div>
+                            <div className="text-6xl font-black text-white">{stats.weightedGini}</div>
+                            <div className="text-[10px] font-bold text-purple-400 mt-4 uppercase tracking-[0.2em]">Goal: Get to 0.000</div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* RIGHT: Visual Splitter */}
+                <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-2xl h-[600px] flex flex-col relative group">
+                    <div className="flex items-center justify-between mb-8 relative z-20">
+                        <div className="flex items-center gap-3">
+                            <GitBranch size={20} className="text-cyan-400" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                                The Splitter
+                            </h3>
+                        </div>
+                        <div className="flex gap-2">
+                             <button onClick={() => setInteractionMode("add")} className={`p-3 rounded-xl border transition-all ${interactionMode === 'add' ? 'bg-cyan-400 border-cyan-400 text-black shadow-lg' : 'bg-black/40 border-white/10 text-white/40 hover:text-white'}`}>
+                                <Plus size={18} strokeWidth={3} />
+                            </button>
+                            <button onClick={() => setInteractionMode("delete")} className={`p-3 rounded-xl border transition-all ${interactionMode === 'delete' ? 'bg-red-500 border-red-500 text-white shadow-lg' : 'bg-black/40 border-white/10 text-white/40 hover:text-white'}`}>
+                                <Trash2 size={18} strokeWidth={3} />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div 
+                        className="flex-1 relative bg-[#050508] rounded-3xl border border-white/10 overflow-hidden p-12 flex items-center justify-center shadow-inner"
+                        onClick={handleGridClick}
+                    >
+                         {/* X-Axis */}
+                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+                         <div className="absolute bottom-12 left-10 right-10 h-px bg-white/20" />
+                         
+                         {/* Threshold Line */}
+                         <motion.div 
+                            className="absolute top-10 bottom-12 w-1 bg-purple-500 shadow-[0_0_30px_rgba(168,85,247,0.6)] z-20"
+                            style={{ left: `${threshold}%` }}
+                         >
+                            <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-purple-500 px-4 py-2 rounded-full text-xs font-black text-white border-2 border-white/20 whitespace-nowrap">
+                                SPLIT AT {threshold}
+                            </div>
+                         </motion.div>
+
+                         <div className="w-full h-32 relative flex items-center">
+                            {points.map(p => (
+                                <motion.div 
+                                    key={p.id}
+                                    layoutId={p.id}
+                                    onClick={(e) => { e.stopPropagation(); interactionMode === 'delete' && setPoints(points.filter(pt => pt.id !== p.id)); }}
+                                    className={`absolute -translate-x-1/2 h-10 w-10 rounded-2xl flex items-center justify-center text-[10px] font-black shadow-2xl cursor-pointer ${p.type === 'Cyan' ? 'bg-cyan-400 text-black shadow-cyan-400/30' : 'bg-pink-400 text-black shadow-pink-400/30'}`}
+                                    style={{ left: `${p.val}%` }}
+                                    whileHover={{ y: -10, scale: 1.2 }}
+                                >
+                                    {p.val}
+                                </motion.div>
+                            ))}
+                         </div>
+                    </div>
+
+                    <div className="mt-8 space-y-6">
+                        <div className="flex justify-between text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">
+                            <span>Adjust Split</span>
+                            <span className="text-purple-400">Position: {threshold}</span>
+                        </div>
+                        <input type="range" min="0" max="100" value={threshold} onChange={e => setThreshold(parseInt(e.target.value))} className="w-full accent-purple-500 h-2" />
+                        
+                        <div className="grid grid-cols-2 gap-4">
+                            <button onClick={() => setActiveClass("Cyan")} className={`py-4 rounded-xl text-[8px] font-black uppercase border transition-all ${activeClass === 'Cyan' ? 'bg-cyan-400 border-cyan-400 text-black shadow-lg' : 'border-white/10 text-cyan-400 hover:bg-white/5'}`} style={{ fontFamily: "'Press Start 2P', system-ui" }}>Cyan Mode</button>
+                            <button onClick={() => setActiveClass("Pink")} className={`py-4 rounded-xl text-[8px] font-black uppercase border transition-all ${activeClass === 'Pink' ? 'bg-pink-400 border-pink-400 text-black shadow-lg' : 'border-white/10 text-pink-400 hover:bg-white/5'}`} style={{ fontFamily: "'Press Start 2P', system-ui" }}>Pink Mode</button>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-2">
-                {/* Interaction */}
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-                    <div className="mb-6 flex items-center justify-between">
-                        <h3 className="text-sm font-black uppercase tracking-[0.2em] text-purple-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                            Split Simulator
-                        </h3>
-                        <button 
-                            onClick={() => setSplitType(splitType === "x" ? "y" : "x")}
-                            className="text-[8px] font-black uppercase text-white/40 border border-white/10 px-3 py-2 rounded-lg hover:bg-white/5"
+            {/* 3. BOTTOM: The Verdict */}
+            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-2xl">
+                <div className="grid gap-8 lg:grid-cols-3 items-center">
+                    
+                    <div className="lg:col-span-1 space-y-6">
+                        <div className="flex items-center gap-3">
+                            <Zap size={20} className="text-yellow-400" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Logic Path</h3>
+                        </div>
+                        <div className="space-y-4">
+                            <div className="p-6 rounded-3xl bg-black/40 border border-white/5 flex items-center justify-between group overflow-hidden relative">
+                                <div className="absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="text-xs font-black text-white">Value ≤ {threshold}</div>
+                                <div className="text-[10px] font-black text-cyan-400 tracking-widest uppercase">CLASS CYAN</div>
+                            </div>
+                            <div className="p-6 rounded-3xl bg-black/40 border border-white/5 flex items-center justify-between group overflow-hidden relative">
+                                <div className="absolute inset-0 bg-pink-400/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="text-xs font-black text-white">Value &gt; {threshold}</div>
+                                <div className="text-[10px] font-black text-pink-400 tracking-widest uppercase">CLASS PINK</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="lg:col-span-1 flex flex-col items-center justify-center p-8 rounded-[40px] border-8 border-white/5 bg-black/40 min-h-[240px] relative group overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                        <div className="text-[10px] font-black uppercase text-purple-400 mb-6 tracking-widest">Model Purity</div>
+                        <motion.div 
+                            key={stats.weightedGini}
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="text-6xl font-black text-white drop-shadow-2xl"
                             style={{ fontFamily: "'Press Start 2P', system-ui" }}
                         >
-                            Rotate Split ({splitType === "x" ? "Vertical" : "Horizontal"})
-                        </button>
-                    </div>
-                    
-                    <div className="relative aspect-square w-full rounded-2xl border border-white/10 bg-black/40 overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
-                        
-                        {/* The Split Line */}
-                        <motion.div 
-                            className={`absolute bg-cyan-400/50 shadow-[0_0_20px_rgba(34,211,238,0.3)] z-10 ${splitType === "x" ? 'h-full w-1 top-0' : 'w-full h-1 left-0'}`}
-                            style={splitType === "x" ? { left: `${splitValue}%` } : { top: `${splitValue}%` }}
-                        />
-
-                        {/* Points */}
-                        {POINTS.map((p, i) => (
-                            <div 
-                                key={i}
-                                className={`absolute -translate-x-1/2 -translate-y-1/2 h-4 w-4 rounded-full ${p.type === "red" ? 'bg-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.4)]' : 'bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.4)]'}`}
-                                style={{ left: `${p.x}%`, top: `${p.y}%` }}
-                            />
-                        ))}
-                    </div>
-
-                    <div className="mt-8">
-                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-white/60">
-                            <span>Split Value: {splitValue}</span>
-                            <span className="text-cyan-400">Decision Threshold</span>
+                            {((1 - stats.weightedGini) * 100).toFixed(0)}%
+                        </motion.div>
+                        <div className="mt-6 px-6 py-2 rounded-full bg-purple-500/10 text-[10px] font-black text-purple-400 uppercase tracking-widest">
+                            Information Gain
                         </div>
-                        <input 
-                            type="range" min="0" max="100" step="1" value={splitValue}
-                            onChange={(e) => setSplitValue(parseInt(e.target.value))}
-                            className="mt-4 w-full accent-cyan-400"
-                        />
                     </div>
+
+                    <div className="lg:col-span-1 space-y-6">
+                        <div className="flex items-center gap-3">
+                            <Info size={18} className="text-cyan-400" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                                The Logic
+                            </h3>
+                        </div>
+                        <div className="p-8 rounded-3xl bg-white/5 border border-white/10 italic text-sm text-white/60 leading-relaxed shadow-xl">
+                            "Decision trees try to find the 'Purest' split. A Gini of 0.000 means all points in a group are the same color. The better the split, the higher the Purity score!"
+                        </div>
+                    </div>
+
                 </div>
-
-                <div className="flex flex-col gap-6">
-                    {/* Metrics */}
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl flex-1">
-                        <h3 className="mb-6 text-sm font-black uppercase tracking-[0.2em] text-pink-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                            Impurity Stats
-                        </h3>
-                        
-                        <div className="grid gap-4">
-                            <div className="rounded-2xl bg-black/40 p-6 border border-white/5">
-                                <p className="text-[10px] font-black uppercase text-white/40 mb-2 tracking-widest">Left / Top Group</p>
-                                <div className="text-2xl font-black text-white">{metrics.leftGini} <span className="text-xs font-normal text-white/30">Gini</span></div>
-                                <div className="mt-2 text-xs text-white/50">{metrics.leftCount} items found here</div>
-                            </div>
-                            <div className="rounded-2xl bg-black/40 p-6 border border-white/5">
-                                <p className="text-[10px] font-black uppercase text-white/40 mb-2 tracking-widest">Right / Bottom Group</p>
-                                <div className="text-2xl font-black text-white">{metrics.rightGini} <span className="text-xs font-normal text-white/30">Gini</span></div>
-                                <div className="mt-2 text-xs text-white/50">{metrics.rightCount} items found here</div>
-                            </div>
-                        </div>
-
-                        <div className="mt-6 p-4 rounded-xl bg-cyan-400/5 border border-cyan-400/20 text-[10px] leading-relaxed text-cyan-300/80">
-                            PRO TIP: The tree tries thousands of splits and picks the one where the TOTAL Gini is the lowest.
-                        </div>
-                    </div>
-
-                    {/* ELI5 */}
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-                        <h3 className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-white/60" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
-                            ELI5
-                        </h3>
-                        <p className="text-sm leading-7 text-white/60 italic">
-                            &ldquo;A decision tree is just like a game of 20 Questions. 'Is the animal big?' 'Does it have stripes?' Every time you ask a question, you are splitting the world into two smaller groups until you are left with just one answer!&rdquo;
-                        </p>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
     );
 }

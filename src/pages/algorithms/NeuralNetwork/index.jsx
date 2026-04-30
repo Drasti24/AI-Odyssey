@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Play, GraduationCap, Calculator, ListChecks, HelpCircle, Activity, Cpu } from "lucide-react";
 import Navbar from "../../../components/Navbar";
 import NNPlayMode from "./NNPlayMode";
 import NNTeachMode from "./NNTeachMode";
 import NNBreakMode from "./NNBreakMode";
+
+// Neural Network math placeholder
+// const NNMath = lazy(() => import("../../../components/math-engine/NNMath"));
 
 export default function NeuralNetwork() {
   const [activeTab, setActiveTab] = useState("play");
@@ -13,64 +16,69 @@ export default function NeuralNetwork() {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
 
+  const tabs = [
+    { id: "play", label: "Play Lab", icon: <Play size={16} /> },
+    { id: "teach", label: "Teach Me", icon: <GraduationCap size={16} /> },
+    { id: "break", label: "Step-by-Step", icon: <Activity size={16} /> },
+    { id: "proscons", label: "Pros & Cons", icon: <ListChecks size={16} /> },
+    { id: "realworld", label: "Real World", icon: <HelpCircle size={16} /> },
+  ];
+
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
-          <Link
-            to="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
-
-          <div className="mb-12">
-            <h1 className="mb-4 text-5xl font-black">
-              Neural{" "}
-              <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Networks
-              </span>
-            </h1>
-            <div className="max-w-2xl space-y-4">
-              <p className="text-lg text-white/80 leading-relaxed">
-                <span className="font-bold text-cyan-300">Easy definition:</span> Neural Networks are like a "digital brain." They pass information through layers of math to find patterns that are too complex for simple formulas—like recognizing a face or a kitten in a photo!
-              </p>
-              <p className="text-md text-white/50 border-l-2 border-pink-400/30 pl-4">
-                <span className="font-bold text-white/70">Real-life example:</span> FaceID on your iPhone. The phone doesn't just look for "two eyes"; a neural network looks at the relationship between thousands of points to verify that it's really you!
-              </p>
+          <header className="mb-12">
+            <Link
+              to="/algorithms"
+              className="group mb-8 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/40 transition-colors hover:text-cyan-400"
+              style={{ fontFamily: "'Press Start 2P', system-ui" }}
+            >
+              <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+              Back
+            </Link>
+            
+            <div className="mt-8">
+              <h1 className="mb-6 text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                Neural <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">Networks</span>
+              </h1>
+              <div className="max-w-3xl rounded-3xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl">
+                <p className="text-lg text-white/70 leading-relaxed italic">
+                  &ldquo;Neural Networks are like a 'digital brain.' They pass information through layers of math to find patterns that are too complex for simple formulas—like recognizing a face!&rdquo;
+                </p>
+              </div>
             </div>
-          </div>
+          </header>
 
           {/* Tabs */}
-          <div className="mb-8 flex flex-wrap gap-2 rounded-xl bg-white/5 p-2 w-fit border border-white/5">
-            {[
-              { id: "play", label: "Play" },
-              { id: "teach", label: "Teach" },
-              { id: "break", label: "Break" },
-              { id: "proscons", label: "Pros & Cons" },
-              { id: "realworld", label: "Real World" },
-            ].map((t) => (
+          <div className="mb-12 flex flex-wrap gap-3 rounded-2xl bg-white/[0.03] p-2 w-fit border border-white/5">
+            {tabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`rounded-lg px-6 py-2 font-bold transition-all ${activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
-                  }`}
+                className={`flex items-center gap-3 rounded-xl px-6 py-3 text-[10px] font-black uppercase tracking-widest transition-all ${
+                  activeTab === t.id 
+                    ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]" 
+                    : "text-white/40 hover:text-white hover:bg-white/5"
+                }`}
+                style={{ fontFamily: "'Press Start 2P', system-ui" }}
               >
-                {t.label}
+                {t.icon} {t.label}
               </button>
             ))}
           </div>
 
           {/* Active Mode */}
-          <div className="min-h-[500px]">
-            {activeTab === "play" && <NNPlayMode />}
-            {activeTab === "teach" && <NNTeachMode />}
-            {activeTab === "break" && <NNBreakMode />}
-            {activeTab === "proscons" && <NNProsCons />}
-            {activeTab === "realworld" && <NNRealWorld />}
+          <div className="min-h-[600px] animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <Suspense fallback={<div className="flex h-64 items-center justify-center text-cyan-400 animate-pulse font-black text-[10px] uppercase tracking-[0.4em]" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Initializing Engine...</div>}>
+              {activeTab === "play" && <NNPlayMode />}
+              {activeTab === "teach" && <NNTeachMode />}
+              {activeTab === "break" && <NNBreakMode />}
+              {activeTab === "proscons" && <NNProsCons />}
+              {activeTab === "realworld" && <NNRealWorld />}
+            </Suspense>
           </div>
         </div>
       </section>
@@ -93,24 +101,24 @@ function NNProsCons() {
 
   return (
     <div className="grid gap-8 md:grid-cols-2">
-      <div className="rounded-2xl border border-green-500/10 bg-green-500/5 p-6">
-        <h3 className="mb-6 text-2xl font-bold text-green-400">Pros</h3>
+      <div className="rounded-3xl border border-green-500/20 bg-green-500/5 p-8 backdrop-blur-xl">
+        <h3 className="mb-6 text-[10px] font-black uppercase text-green-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Pros</h3>
         <div className="space-y-4">
           {pros.map((p, i) => (
-            <div key={i} className="rounded-xl bg-black/20 p-4 border border-white/5">
-              <h4 className="font-bold text-white mb-1">{p.title}</h4>
+            <div key={i} className="rounded-2xl bg-black/40 p-6 border border-white/5">
+              <h4 className="font-bold text-white mb-2">{p.title}</h4>
               <p className="text-sm text-white/50">{p.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="rounded-2xl border border-red-500/10 bg-red-500/5 p-6">
-        <h3 className="mb-6 text-2xl font-bold text-red-400">Cons</h3>
+      <div className="rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
+        <h3 className="mb-6 text-[10px] font-black uppercase text-red-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Cons</h3>
         <div className="space-y-4">
           {cons.map((c, i) => (
-            <div key={i} className="rounded-xl bg-black/20 p-4 border border-white/5">
-              <h4 className="font-bold text-white mb-1">{c.title}</h4>
+            <div key={i} className="rounded-2xl bg-black/40 p-6 border border-white/5">
+              <h4 className="font-bold text-white mb-2">{c.title}</h4>
               <p className="text-sm text-white/50">{c.desc}</p>
             </div>
           ))}
@@ -123,16 +131,16 @@ function NNProsCons() {
 function NNRealWorld() {
   return (
     <div className="flex flex-col gap-8 md:flex-row">
-      <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-4 opacity-10 text-white">
-          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20M2 12h20"></path></svg>
+      <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-10 relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute top-0 right-0 p-8 opacity-10">
+          <Cpu size={120} className="text-pink-400" />
         </div>
-        <h3 className="mb-4 text-2xl font-bold text-pink-400">Google & Tesla</h3>
+        <h3 className="mb-6 text-[10px] font-black text-pink-400 uppercase" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Google & Tesla</h3>
         <p className="mb-6 text-lg text-white/70 leading-relaxed italic">
           "Autonomous Intelligence"
         </p>
         <p className="text-white/50 leading-relaxed">
-          Google uses Neural Networks to power everything from Google Search to Translate. Tesla's self-driving cars use neural networks to identify pedestrians, stop signs, and lane lines in real-time. It's the core of the "AI Revolution"!
+          Google uses Neural Networks for search and translate. Tesla uses them to identify pedestrians and lane lines in real-time. It's the core of the 'AI Revolution'!
         </p>
         <div className="mt-8 flex gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pink-400/10 text-pink-400 border border-pink-400/20 font-black">G</div>
@@ -140,24 +148,19 @@ function NNRealWorld() {
         </div>
       </div>
 
-      <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8">
-        <h3 className="mb-4 text-2xl font-bold text-cyan-300">Other Uses</h3>
-        <ul className="space-y-4">
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-pink-400 shadow-[0_0_8px_rgba(244,114,182,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Generative AI:</span> Creating art, music, or writing like ChatGPT and Midjourney.</p>
+      <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-xl">
+        <h3 className="mb-8 text-[10px] font-black text-cyan-400 uppercase" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Other Uses</h3>
+        <ul className="space-y-6">
+          <li className="flex items-start gap-4">
+            <div className="mt-1 h-2 w-2 rounded-full bg-pink-400 shadow-[0_0_10px_rgba(244,114,182,0.8)]" />
+            <p className="text-white/60 leading-relaxed"><span className="font-bold text-white block mb-1">Generative AI</span> Creating art, music, or writing like ChatGPT and Midjourney.</p>
           </li>
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-pink-400 shadow-[0_0_8px_rgba(244,114,182,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Voice Assistants:</span> Understanding "Hey Alexa" or "Hey Siri" by processing sound frequencies.</p>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-pink-400 shadow-[0_0_8px_rgba(244,114,182,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Fraud Detection:</span> Banks use them to spot unusual spending patterns in milliseconds.</p>
+          <li className="flex items-start gap-4">
+            <div className="mt-1 h-2 w-2 rounded-full bg-pink-400 shadow-[0_0_10px_rgba(244,114,182,0.8)]" />
+            <p className="text-white/60 leading-relaxed"><span className="font-bold text-white block mb-1">Voice Assistants</span> Understanding 'Hey Alexa' or 'Hey Siri' by processing sound.</p>
           </li>
         </ul>
       </div>
     </div>
   );
 }
-

@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Play, GraduationCap, Calculator, ListChecks, HelpCircle, Activity, GitBranch } from "lucide-react";
 import Navbar from "../../../components/Navbar";
 import DecisionTreePlayMode from "./DecisionTreePlayMode";
 import DecisionTreeTeachMode from "./DecisionTreeTeachMode";
 import DecisionTreeBreakMode from "./DecisionTreeBreakMode";
+
+const DecisionTreeMath = lazy(() => import("../../../components/math-engine/DecisionTreeMath"));
 
 export default function DecisionTree() {
   const [activeTab, setActiveTab] = useState("play");
@@ -13,64 +15,71 @@ export default function DecisionTree() {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
 
+  const tabs = [
+    { id: "play", label: "Play Lab", icon: <Play size={16} /> },
+    { id: "teach", label: "Teach Me", icon: <GraduationCap size={16} /> },
+    { id: "math", label: "Mathematics", icon: <Calculator size={16} /> },
+    { id: "break", label: "Step-by-Step", icon: <Activity size={16} /> },
+    { id: "proscons", label: "Pros & Cons", icon: <ListChecks size={16} /> },
+    { id: "realworld", label: "Real World", icon: <HelpCircle size={16} /> },
+  ];
+
   return (
     <main className="min-h-screen bg-[#07070c] text-white">
       <Navbar />
 
       <section className="px-8 pt-32 pb-20">
         <div className="mx-auto max-w-7xl">
-          <Link
-            to="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-colors hover:text-cyan-400"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
-
-          <div className="mb-12">
-            <h1 className="mb-4 text-5xl font-black">
-              Decision{" "}
-              <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Trees
-              </span>
-            </h1>
-            <div className="max-w-2xl space-y-4">
-              <p className="text-lg text-white/80 leading-relaxed">
-                <span className="font-bold text-cyan-300">Easy definition:</span> A Decision Tree is like a flowchart or a game of "20 Questions." It asks simple Yes/No questions about your data until it narrows everything down to a final answer!
-              </p>
-              <p className="text-md text-white/50 border-l-2 border-pink-400/30 pl-4">
-                <span className="font-bold text-white/70">Real-life example:</span> A doctor's diagnosis. 1. Do you have a fever? (Yes) &rarr; 2. Is your throat sore? (Yes) &rarr; 3. Result: You likely have Strep Throat. It's logic in branches!
-              </p>
+          <header className="mb-12">
+            <Link
+              to="/algorithms"
+              className="group mb-8 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/40 transition-colors hover:text-cyan-400"
+              style={{ fontFamily: "'Press Start 2P', system-ui" }}
+            >
+              <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+              Back
+            </Link>
+            
+            <div className="mt-8">
+              <h1 className="mb-6 text-4xl font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                Decision <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">Trees</span>
+              </h1>
+              <div className="max-w-3xl rounded-3xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl">
+                <p className="text-lg text-white/70 leading-relaxed italic">
+                  &ldquo;A Decision Tree is like a flowchart or a game of '20 Questions.' It asks simple Yes/No questions about your data until it narrows everything down to a final answer!&rdquo;
+                </p>
+              </div>
             </div>
-          </div>
+          </header>
 
           {/* Tabs */}
-          <div className="mb-8 flex flex-wrap gap-2 rounded-xl bg-white/5 p-2 w-fit border border-white/5">
-            {[
-              { id: "play", label: "Play" },
-              { id: "teach", label: "Teach" },
-              { id: "break", label: "Break" },
-              { id: "proscons", label: "Pros & Cons" },
-              { id: "realworld", label: "Real World" },
-            ].map((t) => (
+          <div className="mb-12 flex flex-wrap gap-3 rounded-2xl bg-white/[0.03] p-2 w-fit border border-white/5">
+            {tabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`rounded-lg px-6 py-2 font-bold transition-all ${activeTab === t.id ? "bg-cyan-400 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]" : "text-white/60 hover:text-white hover:bg-white/5"
-                  }`}
+                className={`flex items-center gap-3 rounded-xl px-6 py-3 text-[10px] font-black uppercase tracking-widest transition-all ${
+                  activeTab === t.id 
+                    ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]" 
+                    : "text-white/40 hover:text-white hover:bg-white/5"
+                }`}
+                style={{ fontFamily: "'Press Start 2P', system-ui" }}
               >
-                {t.label}
+                {t.icon} {t.label}
               </button>
             ))}
           </div>
 
           {/* Active Mode */}
-          <div className="min-h-[500px]">
-            {activeTab === "play" && <DecisionTreePlayMode />}
-            {activeTab === "teach" && <DecisionTreeTeachMode />}
-            {activeTab === "break" && <DecisionTreeBreakMode />}
-            {activeTab === "proscons" && <TreeProsCons />}
-            {activeTab === "realworld" && <TreeRealWorld />}
+          <div className="min-h-[600px] animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <Suspense fallback={<div className="flex h-64 items-center justify-center text-cyan-400 animate-pulse uppercase tracking-[0.4em] font-black text-[10px]" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Initializing Engine...</div>}>
+              {activeTab === "play" && <DecisionTreePlayMode />}
+              {activeTab === "teach" && <DecisionTreeTeachMode />}
+              {activeTab === "math" && <DecisionTreeMath />}
+              {activeTab === "break" && <DecisionTreeBreakMode />}
+              {activeTab === "proscons" && <TreeProsCons />}
+              {activeTab === "realworld" && <TreeRealWorld />}
+            </Suspense>
           </div>
         </div>
       </section>
@@ -93,24 +102,24 @@ function TreeProsCons() {
 
   return (
     <div className="grid gap-8 md:grid-cols-2">
-      <div className="rounded-2xl border border-green-500/10 bg-green-500/5 p-6">
-        <h3 className="mb-6 text-2xl font-bold text-green-400">Pros</h3>
+      <div className="rounded-3xl border border-green-500/20 bg-green-500/5 p-8 backdrop-blur-xl">
+        <h3 className="mb-6 text-[10px] font-black uppercase text-green-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Pros</h3>
         <div className="space-y-4">
           {pros.map((p, i) => (
-            <div key={i} className="rounded-xl bg-black/20 p-4 border border-white/5">
-              <h4 className="font-bold text-white mb-1">{p.title}</h4>
+            <div key={i} className="rounded-2xl bg-black/40 p-6 border border-white/5">
+              <h4 className="font-bold text-white mb-2">{p.title}</h4>
               <p className="text-sm text-white/50">{p.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="rounded-2xl border border-red-500/10 bg-red-500/5 p-6">
-        <h3 className="mb-6 text-2xl font-bold text-red-400">Cons</h3>
+      <div className="rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
+        <h3 className="mb-6 text-[10px] font-black uppercase text-red-400" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Cons</h3>
         <div className="space-y-4">
           {cons.map((c, i) => (
-            <div key={i} className="rounded-xl bg-black/20 p-4 border border-white/5">
-              <h4 className="font-bold text-white mb-1">{c.title}</h4>
+            <div key={i} className="rounded-2xl bg-black/40 p-6 border border-white/5">
+              <h4 className="font-bold text-white mb-2">{c.title}</h4>
               <p className="text-sm text-white/50">{c.desc}</p>
             </div>
           ))}
@@ -123,33 +132,29 @@ function TreeProsCons() {
 function TreeRealWorld() {
   return (
     <div className="flex flex-col gap-8 md:flex-row">
-      <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-4 opacity-10 text-white">
-          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+      <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-10 relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute top-0 right-0 p-8 opacity-10 text-white">
+          <GitBranch size={100} />
         </div>
-        <h3 className="mb-4 text-2xl font-bold text-orange-400">Banks & Hospitals</h3>
+        <h3 className="mb-6 text-[10px] font-black text-orange-400 uppercase" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Banks & Hospitals</h3>
         <p className="mb-6 text-lg text-white/70 leading-relaxed italic">
           "The Safety Path"
         </p>
         <p className="text-white/50 leading-relaxed">
-          Banks use Decision Trees to approve loans: "Is Income &gt; $50k?" &rarr; "Is Credit Score &gt; 700?" &rarr; APPROVED. They are used wherever a human needs to understand *why* the AI made a choice, especially in legal and medical fields.
+          Banks use Decision Trees to approve loans: "Is Income &gt; $50k?" &rarr; "Is Credit Score &gt; 700?" &rarr; APPROVED. They are used wherever a human needs to understand *why* the AI made a choice.
         </p>
       </div>
 
-      <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-8">
-        <h3 className="mb-4 text-2xl font-bold text-cyan-300">Other Uses</h3>
-        <ul className="space-y-4">
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">HR Departments:</span> Filtering candidates based on skills, experience, and certificates.</p>
+      <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-xl">
+        <h3 className="mb-8 text-[10px] font-black text-cyan-400 uppercase" style={{ fontFamily: "'Press Start 2P', system-ui" }}>Other Uses</h3>
+        <ul className="space-y-6">
+          <li className="flex items-start gap-4">
+            <div className="mt-1 h-2 w-2 rounded-full bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.8)]" />
+            <p className="text-white/60 leading-relaxed"><span className="font-bold text-white block mb-1">HR Departments</span> Filtering candidates based on skills, experience, and certificates.</p>
           </li>
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Marketing:</span> Segmenting customers based on geographic and demographic data.</p>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.6)]" />
-            <p className="text-white/60"><span className="font-bold text-white">Manufacturing:</span> Finding the root cause of failures in a production line.</p>
+          <li className="flex items-start gap-4">
+            <div className="mt-1 h-2 w-2 rounded-full bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.8)]" />
+            <p className="text-white/60 leading-relaxed"><span className="font-bold text-white block mb-1">Marketing</span> Segmenting customers based on geographic and demographic data.</p>
           </li>
         </ul>
       </div>
