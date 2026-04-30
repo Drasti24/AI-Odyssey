@@ -56,6 +56,17 @@ function EraSlide({ era, direction }) {
             exit="exit"
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
+            {/* Background Year Watermark */}
+            <div className="pointer-events-none absolute -right-10 top-1/2 z-0 -translate-y-1/2 select-none opacity-20">
+                <motion.h1 
+                    initial={{ opacity: 0, x: 50, filter: "blur(15px)" }}
+                    animate={{ opacity: 1, x: 0, filter: "blur(8px)" }}
+                    className="text-[25rem] font-black tracking-tighter text-white/50"
+                    style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    {era.year}
+                </motion.h1>
+            </div>
+
             <div className="relative z-10 max-w-3xl">
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                     className="mb-4 flex items-center gap-3">
@@ -142,7 +153,7 @@ export default function AIStoryPage() {
             <div className="pointer-events-none absolute inset-0 z-1 bg-gradient-to-t from-[#07070c] via-transparent to-transparent" />
 
             {/* Navbar */}
-            <nav className="absolute top-0 left-0 right-0 z-50 flex h-20 items-center justify-between px-8 backdrop-blur-md bg-black/20 border-bottom border-white/5">
+            <nav className="absolute top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-8 backdrop-blur-md bg-black/40 border-b border-white/5">
                 <button onClick={() => trigger("/")}
                     className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors"
                     style={{ fontFamily: "'Press Start 2P', system-ui" }}>
@@ -150,8 +161,8 @@ export default function AIStoryPage() {
                 </button>
 
                 <div className="flex items-center gap-4">
-                    <BrainCircuit size={24} style={{ color: era.accent }} />
-                    <span className="text-sm font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
+                    <BrainCircuit size={20} style={{ color: era.accent }} />
+                    <span className="text-xs font-black uppercase tracking-tighter" style={{ fontFamily: "'Press Start 2P', system-ui" }}>
                         AI <span style={{ color: era.accent }}>ODYSSEY</span>
                     </span>
                 </div>
@@ -161,23 +172,40 @@ export default function AIStoryPage() {
                 </div>
             </nav>
 
-            {/* Side Dots */}
-            <div className="absolute right-8 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-4">
-                {ERAS.map((_, i) => (
-                    <button key={i} onClick={() => { setDir(i > active ? 1 : -1); setActive(i); }} className="group relative p-2">
-                        <motion.div
-                            animate={i === active ? { scale: 1.5, backgroundColor: era.accent } : { scale: 1, backgroundColor: "rgba(255,255,255,0.2)" }}
-                            className="h-2 w-2 rounded-full transition-all group-hover:bg-white/60"
-                        />
-                        {i === active && (
-                            <motion.div layoutId="activeDot" className="absolute inset-0 rounded-full border border-white/40" animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }} transition={{ duration: 2, repeat: Infinity }} />
-                        )}
-                    </button>
-                ))}
+            {/* Timeline Strip */}
+            <div className="absolute top-16 left-0 right-0 z-50 h-12 flex items-center px-10 backdrop-blur-sm bg-white/5 border-b border-white/5">
+                <div className="relative flex w-full items-center justify-between">
+                    <div className="absolute h-[1px] w-full bg-white/10" />
+                    {ERAS.map((e, i) => (
+                        <button 
+                            key={i} 
+                            onClick={() => { setDir(i > active ? 1 : -1); setActive(i); }}
+                            className="relative flex flex-col items-center group"
+                        >
+                            <motion.div 
+                                className="z-10 h-2 w-2 rounded-full border border-white/20 transition-all"
+                                animate={{ 
+                                    scale: i === active ? 1.5 : 1,
+                                    backgroundColor: i === active ? era.accent : i < active ? era.accent : "rgba(255,255,255,0.2)",
+                                    borderColor: i === active ? "white" : "transparent"
+                                }}
+                            />
+                            {i === active && (
+                                <motion.span 
+                                    layoutId="timelineYear"
+                                    className="absolute -top-6 text-[8px] font-black text-white"
+                                    style={{ fontFamily: "'Press Start 2P', system-ui" }}
+                                >
+                                    {e.year}
+                                </motion.span>
+                            )}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             {/* Main Content */}
-            <div className="relative z-10 h-full w-full">
+            <div className="relative z-10 h-full w-full pt-28 pb-24">
                 <AnimatePresence custom={direction} mode="wait">
                     <EraSlide key={active} era={era} direction={direction} />
                 </AnimatePresence>
